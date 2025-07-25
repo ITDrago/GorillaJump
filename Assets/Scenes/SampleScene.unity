@@ -517,8 +517,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blockPrefabs:
   - {fileID: 1637676028612621407, guid: c14a0b81091c2ad4bada51b6f71f7203, type: 3}
+  _specialBlockPrefabs:
+  - {fileID: 1637676028612621407, guid: 72835cf315dc07a4899f5e837461b41d, type: 3}
   _difficultyConfig: {fileID: 11400000, guid: a314d49ef0609a049bd4b00df6248c6c, type: 2}
   _playerController: {fileID: 2060476825}
+  _specialBlockProbability: 0.2
+  _minBlocksBetweenSpecial: 5
 --- !u!1001 &8607534097621790918
 PrefabInstance:
   m_ObjectHideFlags: 0

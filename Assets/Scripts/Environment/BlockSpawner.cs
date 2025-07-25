@@ -8,12 +8,18 @@ namespace Environment
     public class BlockSpawner : MonoBehaviour
     {
         [SerializeField] private Block[] _blockPrefabs;
+        [SerializeField] private Block[] _specialBlockPrefabs;
         [SerializeField] private DifficultyConfig _difficultyConfig;
         [SerializeField] private PlayerController _playerController;
+        
+        [Header("Special Blocks Settings")]
+        [SerializeField] [Range(0f, 1f)] private float _specialBlockProbability = 0.2f;
+        [SerializeField] private int _minBlocksBetweenSpecial = 3;
 
         private List<Block> _spawnedBlocks = new();
         private int _blocksSpawned;
         private float _nextSpawnX;
+        private int _blocksSinceLastSpecial;
 
         private void Start()
         {
@@ -22,7 +28,9 @@ namespace Environment
                 _spawnedBlocks.Add(_playerController.StartBlock);
                 _nextSpawnX = _playerController.StartBlock.transform.position.x;
             }
-
+            
+            _blocksSinceLastSpecial = _minBlocksBetweenSpecial;
+            
             SpawnNextBlocks(4);
         }
 
@@ -76,6 +84,15 @@ namespace Environment
 
         private Block SelectBlockPrefab(DifficultyLevel difficulty)
         {
+            if (_specialBlockPrefabs != null && 
+                _blocksSinceLastSpecial >= _minBlocksBetweenSpecial && 
+                Random.value < _specialBlockProbability)
+            {
+                _blocksSinceLastSpecial = 0;
+                return _specialBlockPrefabs[Random.Range(0, _specialBlockPrefabs.Length)];
+            }
+            
+            _blocksSinceLastSpecial++;
             return _blockPrefabs[Random.Range(0, _blockPrefabs.Length)];
         }
 
