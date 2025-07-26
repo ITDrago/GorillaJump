@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 2673897108734724645}
   - component: {fileID: 7640744534933097770}
   - component: {fileID: 1132076117434158480}
-  - component: {fileID: -6063399180682870976}
+  - component: {fileID: 5617863235019167064}
   m_Layer: 0
   m_Name: Gorilla
   m_TagString: Player
@@ -298,7 +298,7 @@ MonoBehaviour:
   _hand: {fileID: 7633351137612067559}
   _startBlock: {fileID: 0}
   _startAngle: 180
---- !u!114 &-6063399180682870976
+--- !u!114 &5617863235019167064
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4137370692833075967}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21a0a6234b6455b9632c1259db47c74, type: 3}
+  m_Script: {fileID: 11500000, guid: 95abd74ef19d4cad98dc450a2bd217a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6209948497711103281
