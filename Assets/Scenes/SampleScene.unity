@@ -525,6 +525,7 @@ MonoBehaviour:
   _playerController: {fileID: 2060476825}
   _specialBlockProbability: 0.2
   _minBlocksBetweenSpecial: 4
+  _maxBlocksCount: 6
 --- !u!1001 &8607534097621790918
 PrefabInstance:
   m_ObjectHideFlags: 0

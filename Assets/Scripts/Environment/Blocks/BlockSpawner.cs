@@ -15,7 +15,10 @@ namespace Environment.Blocks
         
         [Header("Special Blocks Settings")]
         [SerializeField] [Range(0f, 1f)] private float _specialBlockProbability = 0.2f;
-        [SerializeField] private int _minBlocksBetweenSpecial = 3;
+        [SerializeField] private int _minBlocksBetweenSpecial = 4;
+
+        [Header("Spawn Blocks Settings")]
+        [SerializeField] private int _maxBlocksCount = 7;
 
         private List<Block> _spawnedBlocks = new();
         private int _blocksSpawned;
@@ -40,10 +43,7 @@ namespace Environment.Blocks
             if (ShouldSpawnNewBlock()) SpawnBlock();
         }
 
-        private bool ShouldSpawnNewBlock()
-        {
-            return _playerController.transform.position.x > _nextSpawnX - 15f;
-        }
+        private bool ShouldSpawnNewBlock() => _playerController.transform.position.x > _nextSpawnX - 15f;
 
         private void SpawnNextBlocks(int count)
         {
@@ -62,7 +62,7 @@ namespace Environment.Blocks
             _nextSpawnX = spawnPosition.x;
             _blocksSpawned++;
 
-            if (_spawnedBlocks.Count > 10) RemoveOldBlocks();
+            if (_spawnedBlocks.Count > _maxBlocksCount) RemoveOldBlocks();
         }
 
         private Vector2 CalculateSpawnPosition(DifficultyLevel difficulty)
@@ -107,7 +107,7 @@ namespace Environment.Blocks
 
         private void RemoveOldBlocks()
         {
-            if (_spawnedBlocks.Count > 10)
+            if (_spawnedBlocks.Count > _maxBlocksCount)
             {
                 for (var i = 0; i < _spawnedBlocks.Count; i++)
                 {
