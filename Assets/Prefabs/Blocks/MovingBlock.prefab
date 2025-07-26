@@ -42,8 +42,10 @@ GameObject:
   - component: {fileID: 1817581038164459968}
   - component: {fileID: 2669225471552944399}
   - component: {fileID: 4578800474750178389}
+  - component: {fileID: 3793064759674354984}
+  - component: {fileID: 2949170339445362807}
   m_Layer: 6
-  m_Name: IceBlock
+  m_Name: MovingBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +112,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.2021627, g: 0.7264151, b: 0.6829919, a: 1}
+  m_Color: {r: 0.29156286, g: 0.5283019, b: 0.34657708, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -130,7 +132,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: d98a48b69fa44404bbd0c9dddf661383, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -166,3 +168,51 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3793064759674354984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4432488924769512353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3edb11123a6e499f8b569fab02860c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stickAnchor: {fileID: 138116729585756189}
+  _movementType: 0
+  _movementSpeed: 2
+  _movementDistance: 3
+  _startDelay: 0.5
+  _randomizeDirection: 1
+  _randomizeSpeed: 1
+  _speedRange: {x: 1, y: 3}
+  _distanceRange: {x: 2, y: 4}
+--- !u!50 &2949170339445362807
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4432488924769512353}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

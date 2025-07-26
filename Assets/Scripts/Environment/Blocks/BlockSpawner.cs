@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Difficulty;
+using Environment.Blocks.BlockTypes;
 using Player;
 using UnityEngine;
 
-namespace Environment
+namespace Environment.Blocks
 {
     public class BlockSpawner : MonoBehaviour
     {
@@ -107,13 +108,24 @@ namespace Environment
         private void RemoveOldBlocks()
         {
             if (_spawnedBlocks.Count > 10)
+            {
                 for (var i = 0; i < _spawnedBlocks.Count; i++)
-                    if (_spawnedBlocks[i] != _playerController.StartBlock)
+                {
+                    var block = _spawnedBlocks[i];
+            
+                    if (block && block != _playerController.StartBlock)
                     {
-                        Destroy(_spawnedBlocks[i].gameObject);
+                        Destroy(block.gameObject);
                         _spawnedBlocks.RemoveAt(i);
                         break;
                     }
+                    else if (!block)
+                    {
+                        _spawnedBlocks.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

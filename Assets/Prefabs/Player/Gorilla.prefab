@@ -47,10 +47,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stickRadius: 0.17
+  _maxStickDistance: 1.25
+  _stickLength: 1.5
   _blockLayer:
     serializedVersion: 2
     m_Bits: 64
-  _maxStickDistance: 1.25
 --- !u!61 &4961555917142729754
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -226,6 +227,7 @@ GameObject:
   - component: {fileID: 2673897108734724645}
   - component: {fileID: 7640744534933097770}
   - component: {fileID: 1132076117434158480}
+  - component: {fileID: -6063399180682870976}
   m_Layer: 0
   m_Name: Gorilla
   m_TagString: Player
@@ -292,11 +294,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _swingSpeed: 180
   _jumpForce: 10
-  _stickLength: 1.5
   _stick: {fileID: 589126571678244272}
   _hand: {fileID: 7633351137612067559}
   _startBlock: {fileID: 0}
   _startAngle: 180
+--- !u!114 &-6063399180682870976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4137370692833075967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a0a6234b6455b9632c1259db47c74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6209948497711103281
 GameObject:
   m_ObjectHideFlags: 0
