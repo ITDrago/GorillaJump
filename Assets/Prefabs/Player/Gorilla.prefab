@@ -294,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _swingSpeed: 180
   _jumpForce: 10
+  _slideSpeed: 0.5
   _stick: {fileID: 589126571678244272}
   _hand: {fileID: 7633351137612067559}
   _startBlock: {fileID: 0}

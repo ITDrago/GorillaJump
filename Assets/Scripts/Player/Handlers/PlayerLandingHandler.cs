@@ -18,12 +18,21 @@ namespace Player.Handlers
             if (_playerController) _playerController.OnLanded -= HandleLanding;
         }
 
-        private void HandleLanding(Block landedBlock)
+        private void HandleLanding(Block landedBlock, Vector2 stickPoint)
         {
             switch (landedBlock)
             {
+                case IceBlock iceBlock:
+                    _playerController.InitiateSlide(iceBlock, stickPoint);
+                    break;
+                
                 case BreakableBlock breakableBlock:
                     breakableBlock.StartBreaking(_playerController);
+                    _playerController.InitiateSwing(stickPoint);
+                    break;
+
+                default:
+                    _playerController.InitiateSwing(stickPoint);
                     break;
             }
         }
