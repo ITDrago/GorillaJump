@@ -5,8 +5,8 @@ namespace Camera
 {
     public class CameraController : MonoBehaviour
     {
-        [Header("Target Settings")] [SerializeField]
-        private PlayerController _playerController;
+        [Header("Target Settings")]
+        [SerializeField] private PlayerController _playerController;
 
         [SerializeField] private float _followSpeed = 5f;
         [SerializeField] private float _horizontalOffset = 3f;

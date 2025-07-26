@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Difficulty;
 using Environment.Blocks.BlockTypes;
 using Player;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Environment.Blocks
 {
@@ -14,7 +16,7 @@ namespace Environment.Blocks
         [SerializeField] private PlayerController _playerController;
         
         [Header("Special Blocks Settings")]
-        [SerializeField] [Range(0f, 1f)] private float _specialBlockProbability = 0.2f;
+        [SerializeField] [Range(0, 1)] private float _specialBlockProbability = 0.2f;
         [SerializeField] private int _minBlocksBetweenSpecial = 4;
 
         [Header("Spawn Blocks Settings")]
@@ -24,6 +26,10 @@ namespace Environment.Blocks
         private int _blocksSpawned;
         private float _nextSpawnX;
         private int _blocksSinceLastSpecial;
+        
+        public IReadOnlyList<Block> SpawnedBlocks => _spawnedBlocks;
+        
+        public event Action<Block> OnBlockSpawned;
 
         private void Start()
         {
@@ -63,6 +69,8 @@ namespace Environment.Blocks
             _blocksSpawned++;
 
             if (_spawnedBlocks.Count > _maxBlocksCount) RemoveOldBlocks();
+            
+            OnBlockSpawned?.Invoke(newBlock);
         }
 
         private Vector2 CalculateSpawnPosition(DifficultyLevel difficulty)

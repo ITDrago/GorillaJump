@@ -33,10 +33,11 @@ namespace Player
         private Vector2 _anchorPoint;
         private Vector3 _localAttachmentPoint;
 
-        public event Action<Block, Vector2> OnLanded;
         public Block AttachedBlock { get; private set; }
         public bool IsFlying => _currentState == State.Flying;
         public Block StartBlock => _startBlock;
+        
+        public event Action<Block, Vector2> OnLanded;
 
         private void Awake() => _rigidbody = GetComponent<Rigidbody2D>();
 

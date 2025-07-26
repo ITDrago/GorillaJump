@@ -6,15 +6,14 @@ namespace Environment.Blocks.BlockTypes
     public class BreakableBlock : Block
     {
         [Header("Breakable Settings")]
-        [SerializeField] private int _maxSecondsBeforeBreak;
-        [SerializeField] private int _minSecondsBeforeBreak;
+        [SerializeField] private Vector2Int _secondsBeforeBreak = new(3, 5);
         
         private PlayerController _playerController;
 
         public async void StartBreaking(PlayerController playerController)
         {
             _playerController = playerController;
-            await Awaitable.WaitForSecondsAsync(Random.Range(_minSecondsBeforeBreak, _maxSecondsBeforeBreak + 1), destroyCancellationToken);
+            await Awaitable.WaitForSecondsAsync(Random.Range(_secondsBeforeBreak.x, _secondsBeforeBreak.y + 1), destroyCancellationToken);
     
             if (_playerController&& _playerController.AttachedBlock == this)
             {
