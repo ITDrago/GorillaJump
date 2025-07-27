@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 932267458}
   - component: {fileID: 932267459}
   m_Layer: 0
-  m_Name: BranchSpawner
+  m_Name: ObstacleSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -402,10 +402,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blockSpawner: {fileID: 2139552450}
   _playerController: {fileID: 2060476825}
-  _branchPrefab: {fileID: 3011480449618759604, guid: 9e33616f055b79f4381fe08aba6abbee, type: 3}
-  _branchSpawnChance: 0.5
+  _spawnableObjects:
+  - _prefab: {fileID: 6180774221791360384, guid: f515dc944cc4f2841a717baa0f4e4829, type: 3}
+    _spawnChance: 0.2
+  - _prefab: {fileID: 3011480449618759604, guid: 9e33616f055b79f4381fe08aba6abbee, type: 3}
+    _spawnChance: 0.4
   _blocksBetweenSpawnsRange: {x: 0, y: 1}
-  _spawnDelay: {x: 2, y: 5}
+  _spawnDelay: {x: 2, y: 4}
   _spawnHeightOffset: 10
 --- !u!1001 &1215136871
 PrefabInstance:

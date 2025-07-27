@@ -13,11 +13,6 @@ namespace Environment.Blocks.BlockTypes
 
         private void Awake() => _iceCollider = GetComponent<Collider2D>();
 
-        public bool IsStickOnSurface(Vector2 stickPoint)
-        {
-            if (!_iceCollider) return false;
-            
-            return _iceCollider.OverlapPoint(stickPoint);
-        }
+        public bool IsStickOnSurface(Vector2 stickPoint) => _iceCollider && _iceCollider.OverlapPoint(stickPoint);
     }
 }

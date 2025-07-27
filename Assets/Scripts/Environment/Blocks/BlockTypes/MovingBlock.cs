@@ -5,7 +5,7 @@ namespace Environment.Blocks.BlockTypes
 {
     public class MovingBlock : Block
     {
-        public enum MovementType
+        private enum MovementType
         {
             Horizontal,
             Vertical
@@ -14,15 +14,15 @@ namespace Environment.Blocks.BlockTypes
         [Header("Movement Settings")] 
         [SerializeField] private MovementType _movementType = MovementType.Horizontal;
 
-        [SerializeField] private float _movementSpeed = 2f;
-        [SerializeField] private float _movementDistance = 3f;
+        [SerializeField] private float _movementSpeed = 2;
+        [SerializeField] private float _movementDistance = 3;
         [SerializeField] private float _startDelay = 0.5f;
 
         [Header("Randomization")] 
         [SerializeField] private bool _randomizeDirection = true;
         [SerializeField] private bool _randomizeSpeed = true;
-        [SerializeField] private Vector2 _speedRange = new(1f, 3f);
-        [SerializeField] private Vector2 _distanceRange = new(2f, 4f);
+        [SerializeField] private Vector2 _speedRange = new(1, 3);
+        [SerializeField] private Vector2 _distanceRange = new(2, 4);
 
         private Rigidbody2D _rigidbody;
         private Vector2 _startPosition;

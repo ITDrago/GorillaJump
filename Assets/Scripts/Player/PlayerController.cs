@@ -7,7 +7,7 @@ namespace Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour
     {
-        public enum State
+        private enum State
         {
             Swinging,
             Flying,
@@ -15,9 +15,9 @@ namespace Player
         }
 
         [Header("Movement")]
-        [SerializeField] private float _swingSpeed = 180f;
-        [SerializeField] private float _jumpForce = 10f;
-        [SerializeField] private float _slideSpeed = 3f;
+        [SerializeField] private float _swingSpeed = 180;
+        [SerializeField] private float _jumpForce = 10;
+        [SerializeField] private float _slideSpeed = 0.5f;
 
         [Header("References")]
         [SerializeField] private Stick _stick;
@@ -25,7 +25,7 @@ namespace Player
 
         [Header("Start Properties")]
         [SerializeField] private Block _startBlock;
-        [SerializeField] private float _startAngle = 180f;
+        [SerializeField] private float _startAngle = 180;
 
         private State _currentState = State.Swinging;
         private Rigidbody2D _rigidbody;

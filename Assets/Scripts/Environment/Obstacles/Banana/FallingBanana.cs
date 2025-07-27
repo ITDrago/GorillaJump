@@ -1,13 +1,13 @@
 using Player;
 using UnityEngine;
 
-namespace Environment.Obstacles.Branch
+namespace Environment.Obstacles.Banana
 {
-    public class FallingBranch : FallingObject
+    public class FallingBanana : FallingObject
     {
         protected override void OnPlayerEnter(PlayerController player)
         {
-            Debug.Log("Player was hit by a falling branch!");
+            Debug.Log("Player collected a banana!");
             Destroy(gameObject);
         }
     }

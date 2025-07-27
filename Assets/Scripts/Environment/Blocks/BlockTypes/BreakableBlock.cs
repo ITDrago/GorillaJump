@@ -13,7 +13,15 @@ namespace Environment.Blocks.BlockTypes
         public async void StartBreaking(PlayerController playerController)
         {
             _playerController = playerController;
-            await Awaitable.WaitForSecondsAsync(Random.Range(_secondsBeforeBreak.x, _secondsBeforeBreak.y + 1), destroyCancellationToken);
+            try
+            {
+                await Awaitable.WaitForSecondsAsync(Random.Range(_secondsBeforeBreak.x, _secondsBeforeBreak.y + 1),
+                    destroyCancellationToken);
+            }
+            catch
+            {
+                return;
+            }
     
             if (_playerController&& _playerController.AttachedBlock == this)
             {
