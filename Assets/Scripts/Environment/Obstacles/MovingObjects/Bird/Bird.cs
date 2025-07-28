@@ -21,7 +21,7 @@ namespace Environment.Obstacles.MovingObjects.Bird
             if (player.TryGetComponent<Rigidbody2D>(out var playerRigidbody))
             {
                 playerRigidbody.linearVelocity = Vector2.zero;
-                playerRigidbody.AddForce(transform.up * _pushForce, ForceMode2D.Impulse);
+                playerRigidbody.AddForce((transform.up + transform.right) * _pushForce, ForceMode2D.Impulse);
                 Destroy(gameObject);
             }
         }
