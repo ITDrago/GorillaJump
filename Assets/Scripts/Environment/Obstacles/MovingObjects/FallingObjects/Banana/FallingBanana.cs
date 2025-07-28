@@ -1,9 +1,9 @@
 using Player;
 using UnityEngine;
 
-namespace Environment.Obstacles.MovingObjects.Banana
+namespace Environment.Obstacles.MovingObjects.FallingObjects.Banana
 {
-    public class MovingBanana : MovingObject
+    public class FallingBanana : MovingObject
     {
         protected override void OnPlayerEnter(PlayerController player)
         {

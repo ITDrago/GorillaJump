@@ -1,9 +1,9 @@
 using Player;
 using UnityEngine;
 
-namespace Environment.Obstacles.MovingObjects.Branch
+namespace Environment.Obstacles.MovingObjects.FallingObjects.Branch
 {
-    public class MovingBranch : MovingObject
+    public class FallingBranch : MovingObject
     {
         protected override void OnPlayerEnter(PlayerController player)
         {
