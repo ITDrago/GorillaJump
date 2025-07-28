@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 4578800474750178389}
   - component: {fileID: 3793064759674354984}
   - component: {fileID: 2949170339445362807}
+  - component: {fileID: 572462854430139793}
   m_Layer: 6
   m_Name: MovingBlock
   m_TagString: Untagged
@@ -216,3 +217,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &572462854430139793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4432488924769512353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afe6976be15740cbb93c1cbd97ca7a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _safeZoneOffset: 0.2

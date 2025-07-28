@@ -1,7 +1,7 @@
 using Player;
 using UnityEngine;
 
-namespace Environment.Obstacles
+namespace Environment.Obstacles.FallingObjects
 {
     [RequireComponent(typeof(Collider2D))]
     public abstract class FallingObject : MonoBehaviour

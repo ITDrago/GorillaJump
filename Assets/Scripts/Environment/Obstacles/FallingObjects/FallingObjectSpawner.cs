@@ -3,11 +3,11 @@ using System.Linq;
 using Environment.Blocks;
 using Environment.Blocks.BlockTypes;
 using Player;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
-namespace Environment.Obstacles
+namespace Environment.Obstacles.FallingObjects
 {
-    using UnityEngine;
-
     [Serializable]
     public class SpawnableObject
     {
@@ -18,7 +18,7 @@ namespace Environment.Obstacles
         public float SpawnChance => _spawnChance;
     }
 
-    public class ObstacleSpawner : MonoBehaviour
+    public class FallingObjectSpawner : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private BlockSpawner _blockSpawner;
@@ -32,7 +32,7 @@ namespace Environment.Obstacles
 
         private int _blocksUntilNextSpawn;
         private int _blockCounter;
-        private Camera _mainCamera;
+        private UnityEngine.Camera _mainCamera;
 
         private void Awake()
         {
@@ -46,7 +46,7 @@ namespace Environment.Obstacles
 
         private void Start()
         {
-            _mainCamera = Camera.main;
+            _mainCamera = UnityEngine.Camera.main;
             SetNextSpawnInterval();
         }
 

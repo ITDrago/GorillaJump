@@ -408,7 +408,7 @@ MonoBehaviour:
   - _prefab: {fileID: 3011480449618759604, guid: 9e33616f055b79f4381fe08aba6abbee, type: 3}
     _spawnChance: 0.4
   _blocksBetweenSpawnsRange: {x: 0, y: 1}
-  _spawnDelay: {x: 2, y: 4}
+  _spawnDelay: {x: 1, y: 3}
   _spawnHeightOffset: 10
 --- !u!1001 &1215136871
 PrefabInstance:
@@ -581,6 +581,13 @@ MonoBehaviour:
   _specialBlockProbability: 0.2
   _minBlocksBetweenSpecial: 4
   _maxBlocksCount: 7
+  _spikePrefab: {fileID: 7905980789203470748, guid: eb9caeeddcaf00343a2f43e4e402b9dc, type: 3}
+  _chanceToAddSpikes: 0.3
+  _spikeConfigs:
+  - _spikeCount: 1
+    _spawnChance: 0.6
+  - _spikeCount: 2
+    _spawnChance: 0.3
 --- !u!1001 &8607534097621790918
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -592,10 +599,6 @@ PrefabInstance:
     - target: {fileID: 256003195389130993, guid: 181918608d815ec4dba6a6caefc29162, type: 3}
       propertyPath: m_Layer
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 589126571678244272, guid: 181918608d815ec4dba6a6caefc29162, type: 3}
-      propertyPath: _stickLength
-      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1071589818138989560, guid: 181918608d815ec4dba6a6caefc29162, type: 3}
       propertyPath: m_Layer
@@ -615,7 +618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2673897108734724645, guid: 181918608d815ec4dba6a6caefc29162, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.122
+      value: 1.316
       objectReference: {fileID: 0}
     - target: {fileID: 2673897108734724645, guid: 181918608d815ec4dba6a6caefc29162, type: 3}
       propertyPath: m_LocalPosition.z

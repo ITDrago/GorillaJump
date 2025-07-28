@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2669225471552944399}
   - component: {fileID: 1637676028612621407}
   - component: {fileID: 4578800474750178389}
+  - component: {fileID: 3340730792454423322}
   m_Layer: 6
   m_Name: GrassBlock
   m_TagString: Untagged
@@ -133,7 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80e5a9c76c540319c0e8927edfb11cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _durability: 3
   _stickAnchor: {fileID: 138116729585756189}
 --- !u!61 &4578800474750178389
 BoxCollider2D:
@@ -181,3 +181,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3340730792454423322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4432488924769512353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afe6976be15740cbb93c1cbd97ca7a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _safeZoneOffset: 0.2

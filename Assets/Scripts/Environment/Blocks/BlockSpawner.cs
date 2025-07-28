@@ -1,13 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Difficulty;
 using Environment.Blocks.BlockTypes;
+using Environment.Obstacles.Spikes;
 using Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Environment.Blocks
 {
+    [Serializable]
+    public class SpikeSpawnConfig
+    {
+        [SerializeField] private int _spikeCount;
+        [SerializeField] [Range(0, 1)] private float _spawnChance;
+        
+        public int SpikeCount => _spikeCount;
+        public float SpawnChance => _spawnChance;
+    }
+    
     public class BlockSpawner : MonoBehaviour
     {
         [SerializeField] private Block[] _blockPrefabs;
@@ -21,6 +33,11 @@ namespace Environment.Blocks
 
         [Header("Spawn Blocks Settings")]
         [SerializeField] private int _maxBlocksCount = 7;
+        
+        [Header("Spike Settings")]
+        [SerializeField] private GameObject _spikePrefab;
+        [SerializeField] [Range(0, 1)] private float _chanceToAddSpikes = 0.5f;
+        [SerializeField] private SpikeSpawnConfig[] _spikeConfigs;
 
         private List<Block> _spawnedBlocks = new();
         private int _blocksSpawned;
@@ -42,6 +59,8 @@ namespace Environment.Blocks
             _blocksSinceLastSpecial = _minBlocksBetweenSpecial;
             
             SpawnNextBlocks(4);
+            
+            _spikeConfigs = _spikeConfigs.OrderByDescending(config => config.SpikeCount).ToArray();
         }
 
         private void Update()
@@ -64,6 +83,8 @@ namespace Environment.Blocks
 
             var newBlock = Instantiate(blockPrefab, spawnPosition, Quaternion.identity, transform);
             _spawnedBlocks.Add(newBlock);
+            
+            TryPlaceSpikes(newBlock);
 
             _nextSpawnX = spawnPosition.x;
             _blocksSpawned++;
@@ -132,6 +153,24 @@ namespace Environment.Blocks
                         _spawnedBlocks.RemoveAt(i);
                         break;
                     }
+                }
+            }
+        }
+        
+        private void TryPlaceSpikes(Block block)
+        {
+            if (!block.TryGetComponent<SpikePlacer>(out var spikePlacer))
+                return;
+
+            if (Random.value > _chanceToAddSpikes)
+                return;
+
+            foreach (var config in _spikeConfigs)
+            {
+                if (Random.value <= config.SpawnChance)
+                {
+                    spikePlacer.PlaceSpikes(_spikePrefab, config.SpikeCount);
+                    return;
                 }
             }
         }

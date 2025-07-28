@@ -1,7 +1,7 @@
 using Player;
 using UnityEngine;
 
-namespace Environment.Obstacles.Banana
+namespace Environment.Obstacles.FallingObjects.Banana
 {
     public class FallingBanana : FallingObject
     {

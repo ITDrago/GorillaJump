@@ -1,7 +1,7 @@
 using Player;
 using UnityEngine;
 
-namespace Environment.Obstacles.Branch
+namespace Environment.Obstacles.FallingObjects.Branch
 {
     public class FallingBranch : FallingObject
     {
