@@ -366,6 +366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 932267458}
   - component: {fileID: 932267459}
+  - component: {fileID: 932267460}
   m_Layer: 0
   m_Name: ObstacleSpawner
   m_TagString: Untagged
@@ -408,7 +409,25 @@ MonoBehaviour:
   - _prefab: {fileID: 3011480449618759604, guid: 9e33616f055b79f4381fe08aba6abbee, type: 3}
     _spawnChance: 0.4
   _blocksBetweenSpawnsRange: {x: 0, y: 1}
-  _spawnDelay: {x: 1, y: 3}
+  _spawnDelay: {x: 2, y: 3}
+  _spawnHeightOffset: 10
+--- !u!114 &932267460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932267457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 985b18d22f864830aa66f4ebb665b021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerController: {fileID: 2060476825}
+  _blockSpawner: {fileID: 2139552450}
+  _birdPrefab: {fileID: -1606489920341845641, guid: 8de7c4806516dce40b22dfee86953833, type: 3}
+  _spawnChanceInGap: 0.6
+  _minGapSizeForSpawn: 8
   _spawnHeightOffset: 10
 --- !u!1001 &1215136871
 PrefabInstance:

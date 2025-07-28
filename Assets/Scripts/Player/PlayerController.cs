@@ -38,6 +38,7 @@ namespace Player
         public Block StartBlock => _startBlock;
         
         public event Action<Block, Vector2> OnLanded;
+        public event Action<Block> OnJumped;
 
         private void Awake() => _rigidbody = GetComponent<Rigidbody2D>();
 
@@ -83,10 +84,7 @@ namespace Player
 
         private void TryLand()
         {
-            if (_stick.TryStickToBlock(out var stickPoint))
-            {
-                OnLanded?.Invoke(_stick.LastAttachedBlock, stickPoint);
-            }
+            if (_stick.TryStickToBlock(out var stickPoint)) OnLanded?.Invoke(_stick.LastAttachedBlock, stickPoint);
         }
 
         public void InitiateSwing(Vector2 stickPoint)
@@ -176,6 +174,8 @@ namespace Player
 
         private void Jump()
         {
+            OnJumped?.Invoke(AttachedBlock);
+            
             _currentState = State.Flying;
             _rigidbody.bodyType = RigidbodyType2D.Dynamic;
             _rigidbody.interpolation = RigidbodyInterpolation2D.Interpolate;

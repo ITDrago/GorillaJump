@@ -6,19 +6,19 @@ using Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Environment.Obstacles.FallingObjects
+namespace Environment.Obstacles.MovingObjects
 {
     [Serializable]
     public class SpawnableObject
     {
-        [SerializeField] private FallingObject _prefab;
+        [SerializeField] private MovingObject _prefab;
         [SerializeField] [Range(0, 1)] private float _spawnChance = 0.5f;
 
-        public FallingObject Prefab => _prefab;
+        public MovingObject Prefab => _prefab;
         public float SpawnChance => _spawnChance;
     }
 
-    public class FallingObjectSpawner : MonoBehaviour
+    public class MovingObjectSpawner : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private BlockSpawner _blockSpawner;
@@ -78,7 +78,7 @@ namespace Environment.Obstacles.FallingObjects
             }
         }
         
-        private async void SpawnObject(FallingObject prefab, Block currentBlock)
+        private async void SpawnObject(MovingObject prefab, Block currentBlock)
         {
             if (!prefab || !_mainCamera || !currentBlock) return;
 
