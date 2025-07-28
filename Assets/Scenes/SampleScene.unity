@@ -426,7 +426,7 @@ MonoBehaviour:
   _playerController: {fileID: 2060476825}
   _blockSpawner: {fileID: 2139552450}
   _birdPrefab: {fileID: -1606489920341845641, guid: 8de7c4806516dce40b22dfee86953833, type: 3}
-  _spawnChanceInGap: 0.6
+  _spawnChanceInGap: 0.15
   _minGapSizeForSpawn: 4
   _spawnHeightOffset: 8
 --- !u!1001 &1215136871

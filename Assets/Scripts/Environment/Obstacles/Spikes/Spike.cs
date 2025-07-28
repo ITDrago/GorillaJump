@@ -12,6 +12,8 @@ namespace Environment.Obstacles.Spikes
         {
             if (other.TryGetComponent(out PlayerController player))
             {
+                if (player.IsFlying) return;
+                
                 Debug.Log("Player was hit by a spike!");
                 player.DetachFromBlock();
             }
