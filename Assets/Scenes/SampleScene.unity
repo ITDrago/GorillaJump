@@ -606,10 +606,10 @@ MonoBehaviour:
   _specialSpawnableObjects:
   - _prefab: {fileID: 6180774221791360384, guid: f515dc944cc4f2841a717baa0f4e4829, type: 3}
     _spawnChance: 0.1
-  - _prefab: {fileID: 6180774221791360384, guid: 76d781e17cba17342adff15c29303d6e, type: 3}
-    _spawnChance: 0.05
+  - _prefab: {fileID: -1507091507431194089, guid: 76d781e17cba17342adff15c29303d6e, type: 3}
+    _spawnChance: 0.08
   _stickPrefab:
-    _prefab: {fileID: 3011480449618759604, guid: 9e33616f055b79f4381fe08aba6abbee, type: 3}
+    _prefab: {fileID: -1507091507431194089, guid: 76d781e17cba17342adff15c29303d6e, type: 3}
     _spawnChance: 1
   _blocksBetweenSpawnsRange: {x: 3, y: 5}
   _spawnDelay: {x: 0, y: 1}
