@@ -41,7 +41,6 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects.Apple
         {
             Time.timeScale = 1;
             Time.fixedDeltaTime = 0.02f;
-            Debug.Log(Time.timeScale);
         }
     }
 }

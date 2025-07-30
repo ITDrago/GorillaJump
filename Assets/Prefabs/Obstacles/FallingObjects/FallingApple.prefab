@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3605461148962718769}
   - component: {fileID: 2105973631357156932}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 539859624425622533}
   - component: {fileID: 2212846407539526306}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Leaf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 3216164111031118437}
   - component: {fileID: -8445446445658602208}
   - component: {fileID: -1507091507431194089}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FallingApple
   m_TagString: Untagged
   m_Icon: {fileID: 0}

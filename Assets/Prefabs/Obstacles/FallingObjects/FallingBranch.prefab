@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3216164111031118437}
   - component: {fileID: -8445446445658602208}
   - component: {fileID: 3011480449618759604}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FallingBranch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,4 +147,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190575a37a4d47df9b357236aaaa17bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fallSpeed: 20
+  _movementSpeed: 15

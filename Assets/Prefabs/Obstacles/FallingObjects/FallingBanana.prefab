@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3216164111031118437}
   - component: {fileID: -8445446445658602208}
   - component: {fileID: 6180774221791360384}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FallingBanana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,5 +147,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5055590ddfcb43d497fb5c0bd358b297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementDirection: {x: 0, y: -1, z: 0}
-  _fallSpeed: 15
+  _movementSpeed: 15

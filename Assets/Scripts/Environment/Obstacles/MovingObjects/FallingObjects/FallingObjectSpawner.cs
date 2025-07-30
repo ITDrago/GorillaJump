@@ -96,17 +96,13 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects
         private MovingObject GetRandomObject()
         {
             var spawnableObject = _specialSpawnableObjects[Random.Range(0, _specialSpawnableObjects.Length)];
-            if (Random.value <= spawnableObject.SpawnChance)
-            {
-                return spawnableObject.Prefab;
-            }
-            return _stickPrefab.Prefab;
+            return Random.value <= spawnableObject.SpawnChance ? spawnableObject.Prefab : _stickPrefab.Prefab;
         }
 
         private void SpawnBetweenBlocks(MovingObject prefab, Block currentBlock)
         {
-            var allBlocks = BlockSpawner.SpawnedBlocks;
-            var nextBlock = GetNextBlock(currentBlock, allBlocks.ToList());
+            var allBlocks = BlockSpawner.SpawnedBlocks.ToList();
+            var nextBlock = GetNextBlock(currentBlock, allBlocks);
             if (!nextBlock) return;
 
             var startX = currentBlock.transform.position.x;
@@ -118,8 +114,12 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects
             spawnX += randomOffset;
             
             var spawnY = MainCamera.transform.position.y + _spawnHeightOffset;
+            var spawnPosition = new Vector2(spawnX, spawnY);
 
-            SpawnObject(prefab, new Vector2(spawnX, spawnY));
+            if (IsPositionClear(spawnPosition))
+            {
+                SpawnObject(prefab, spawnPosition);
+            }
         }
 
         private void StopSpawning()

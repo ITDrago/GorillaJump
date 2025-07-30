@@ -8,9 +8,9 @@ namespace Environment.Obstacles.MovingObjects.Bird
     public class BirdSpawner : BaseMovingObjectsSpawner<Bird>
     {
         [Header("Spawn Settings")]
-        [SerializeField] [Range(0, 1)] private float _spawnChanceInGap = 0.75f;
-        [SerializeField] private float _minGapSizeForSpawn = 8f;
-        [SerializeField] private float _spawnHeightOffset = 12f;
+        [SerializeField] [Range(0, 1)] private float _spawnChanceInGap = 0.02f;
+        [SerializeField] private float _minGapSizeForSpawn = 5;
+        [SerializeField] private float _spawnHeightOffset = 8;
         [SerializeField] private Bird _birdPrefab;
 
         protected override void Awake()
@@ -41,7 +41,10 @@ namespace Environment.Obstacles.MovingObjects.Bird
 
             var gapDistance = Vector3.Distance(jumpedFromBlock.transform.position, nextBlock.transform.position);
 
-            if (gapDistance >= _minGapSizeForSpawn) SpawnBird(jumpedFromBlock, nextBlock);
+            if (gapDistance >= _minGapSizeForSpawn)
+            {
+                SpawnBird(jumpedFromBlock, nextBlock);
+            }
         }
 
         private void SpawnBird(Block fromBlock, Block toBlock)
@@ -49,10 +52,14 @@ namespace Environment.Obstacles.MovingObjects.Bird
             var spawnX = (fromBlock.transform.position.x + toBlock.transform.position.x) / 2f;
             var spawnY = MainCamera.transform.position.y - _spawnHeightOffset;
             var spawnPosition = new Vector2(spawnX, spawnY);
-
-            SpawnObject(_birdPrefab, spawnPosition);
+            
+            if (IsPositionClear(spawnPosition))
+            {
+                SpawnObject(_birdPrefab, spawnPosition);
+            }
         }
 
-        protected override Bird CreateMovingObjectInstance(Bird prefab, Vector2 spawnPosition) => Instantiate(prefab, spawnPosition, Quaternion.identity, transform);
+        protected override Bird CreateMovingObjectInstance(Bird prefab, Vector2 spawnPosition) => 
+            Instantiate(prefab, spawnPosition, Quaternion.identity, transform);
     }
 }

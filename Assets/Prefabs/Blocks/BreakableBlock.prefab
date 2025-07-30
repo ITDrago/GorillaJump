@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stickAnchor: {fileID: 138116729585756189}
-  _secondsBeforeBreak: {x: 3, y: 4}
+  _secondsBeforeBreak: {x: 2, y: 3}
 --- !u!114 &-4431909699603504316
 MonoBehaviour:
   m_ObjectHideFlags: 0

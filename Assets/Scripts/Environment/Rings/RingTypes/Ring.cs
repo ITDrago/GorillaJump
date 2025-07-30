@@ -1,0 +1,49 @@
+using Player;
+using UnityEngine;
+
+namespace Environment.Rings.RingTypes
+{
+    public class Ring : MonoBehaviour
+    {
+        [Header("Base Settings")]
+        [SerializeField] private int _defaultReward = 1;
+        [SerializeField] private float _scaleMultiplier = 0.2f;
+        
+        private Vector3 _originalScale;
+
+        private int _rewardAmount;
+        protected UnityEngine.Camera MainCamera { get; private set; }
+
+        protected virtual void Awake()
+        {
+            _originalScale = transform.localScale;
+            MainCamera = UnityEngine.Camera.main;
+            _rewardAmount = _defaultReward;
+        }
+
+        public virtual void Initialize(int reward)
+        {
+            _rewardAmount = reward;
+            UpdateScale();
+        }
+
+        private void UpdateScale()
+        {
+            var scaleFactor = 1 + _rewardAmount * _scaleMultiplier;
+            transform.localScale = _originalScale * scaleFactor;
+        }
+        
+        protected virtual void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.TryGetComponent(out PlayerController playerController))
+            {
+                Collect();
+            }
+        }
+        
+        private void Collect()
+        {
+            Debug.Log($"Collected ring! Reward: {_rewardAmount}");
+        }
+    }
+}

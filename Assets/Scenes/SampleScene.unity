@@ -585,6 +585,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 2060476825}
   BlockSpawner: {fileID: 2139552450}
+  SpawnBlockingLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  _clearanceRadius: 1.5
   _spawnChanceInGap: 0.02
   _minGapSizeForSpawn: 5
   _spawnHeightOffset: 8
@@ -603,13 +607,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 2060476825}
   BlockSpawner: {fileID: 2139552450}
+  SpawnBlockingLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  _clearanceRadius: 1.5
   _specialSpawnableObjects:
   - _prefab: {fileID: 6180774221791360384, guid: f515dc944cc4f2841a717baa0f4e4829, type: 3}
     _spawnChance: 0.1
   - _prefab: {fileID: -1507091507431194089, guid: 76d781e17cba17342adff15c29303d6e, type: 3}
     _spawnChance: 0.08
   _stickPrefab:
-    _prefab: {fileID: -1507091507431194089, guid: 76d781e17cba17342adff15c29303d6e, type: 3}
+    _prefab: {fileID: 3011480449618759604, guid: 9e33616f055b79f4381fe08aba6abbee, type: 3}
     _spawnChance: 1
   _blocksBetweenSpawnsRange: {x: 3, y: 5}
   _spawnDelay: {x: 0, y: 1}
@@ -915,14 +923,73 @@ Transform:
   m_GameObject: {fileID: 1569070744}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.20712501, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2139552449}
   - {fileID: 932267458}
+  - {fileID: 2053134560}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2053134559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2053134560}
+  - component: {fileID: 2053134561}
+  m_Layer: 0
+  m_Name: RingSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2053134560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053134559}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1569070745}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2053134561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053134559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 439049b9ca734c478d7c9507bb5cdc2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blockSpawner: {fileID: 2139552450}
+  _ringTypes:
+  - Prefab: {fileID: -4654951315905276338, guid: f7d25b83dcfb97c42b5fc39c92ada6ad, type: 3}
+    SpawnChance: 0.5
+  - Prefab: {fileID: 7945217059057231713, guid: 1f22eeeff37d16041bb18cc4bf516750, type: 3}
+    SpawnChance: 0.3
+  _blocksBetweenSpawnsRange: {x: 7, y: 10}
+  _minDistanceFromBlock: 3
+  _minXOffsetBeyondCameraRight: 5
+  _spawnYViewportRange: {x: 0.2, y: 0.8}
+  _clearCheckRadius: 3
+  _obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &2060476825 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1132076117434158480, guid: 181918608d815ec4dba6a6caefc29162, type: 3}
