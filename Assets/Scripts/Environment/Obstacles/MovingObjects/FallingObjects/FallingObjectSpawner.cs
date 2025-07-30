@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using Environment.Blocks.BlockTypes;
 using UnityEngine;
@@ -12,42 +12,36 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects
     {
         [SerializeField] private MovingObject _prefab;
         [SerializeField] [Range(0, 1)] private float _spawnChance = 0.5f;
-        [SerializeField] private SpawnType _spawnType;
-
-        public enum SpawnType { Single, Continuous }
 
         public MovingObject Prefab => _prefab;
         public float SpawnChance => _spawnChance;
-        public SpawnType ObjectType => _spawnType;
     }
 
     public class FallingObjectSpawner : BaseMovingObjectsSpawner<MovingObject>
     {
         [Header("Spawn Settings")]
-        [SerializeField] private SpawnableObject[] _spawnableObjects;
+        [SerializeField] private SpawnableObject[] _specialSpawnableObjects;
+        [SerializeField] private SpawnableObject _stickPrefab;
         [SerializeField] private Vector2Int _blocksBetweenSpawnsRange = new(3, 5);
-        [SerializeField] private Vector2Int _spawnDelay = new(2, 5);
-        [SerializeField] private Vector2 _continuousSpawnInterval = new(0.5f, 1.5f);
+        [SerializeField] private Vector2 _spawnDelay = new(2, 5);
+        [SerializeField] private Vector2 _spawnInterval = new(0.8f, 1.5f);
         [SerializeField] private float _spawnHeightOffset = 10;
 
         private int _blocksUntilNextSpawn;
         private int _blockCounter;
-        private Coroutine _continuousSpawningRoutine;
+        private Coroutine _spawningRoutine;
         private Block _currentSpawnBlock;
-        
-        private List<SpawnableObject> _singleObjects = new();
-        private List<SpawnableObject> _continuousObjects = new();
+        private bool _isSpawning;
 
         protected override void Awake()
         {
             base.Awake();
-            if (_spawnableObjects is not { Length: not 0 })
+            if (_specialSpawnableObjects is null || _specialSpawnableObjects.Length == 0 || _stickPrefab is null)
             {
                 enabled = false;
                 return;
             }
-
-            CategorizeSpawnableObjects();
+            
             PlayerController.OnLanded += HandlePlayerLanded;
         }
 
@@ -61,18 +55,7 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects
         {
             base.OnDestroy();
             if (PlayerController) PlayerController.OnLanded -= HandlePlayerLanded;
-            StopContinuousSpawning();
-        }
-
-        private void CategorizeSpawnableObjects()
-        {
-            foreach (var spawnable in _spawnableObjects)
-            {
-                if (spawnable.ObjectType == SpawnableObject.SpawnType.Single)
-                    _singleObjects.Add(spawnable);
-                else
-                    _continuousObjects.Add(spawnable);
-            }
+            StopSpawning();
         }
 
         private void HandlePlayerLanded(Block landedBlock, Vector2 stickPoint)
@@ -80,79 +63,44 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects
             _blockCounter++;
             if (_blockCounter < _blocksUntilNextSpawn) return;
 
-            StopContinuousSpawning();
-            
-            if (TrySpawnContinuousObjects(landedBlock)) {}
-            if (TrySpawnSingleObject(landedBlock)) {}
+            StopSpawning();
+            StartSpawning(landedBlock);
             
             _blockCounter = 0;
             SetNextSpawnInterval();
         }
 
-        private bool TrySpawnContinuousObjects(Block landedBlock)
+        private void StartSpawning(Block landedBlock)
         {
-            if (_continuousObjects.Count == 0) return false;
-
-            var selected = SelectRandomObject(_continuousObjects);
-            if (selected == null) return false;
-
             _currentSpawnBlock = landedBlock;
-            _continuousSpawningRoutine = StartCoroutine(ContinuousSpawning(selected.Prefab));
-            return true;
+            _spawningRoutine = StartCoroutine(SpawnRoutine());
         }
 
-        private bool TrySpawnSingleObject(Block landedBlock)
+        private IEnumerator SpawnRoutine()
         {
-            if (_singleObjects.Count == 0) return false;
-
-            var selected = SelectRandomObject(_singleObjects);
-            if (selected == null) return false;
-
-            SpawnSingleObject(selected.Prefab, landedBlock);
-            return true;
-        }
-
-        private SpawnableObject SelectRandomObject(List<SpawnableObject> spawnables)
-        {
-            var totalChance = spawnables.Sum(s => s.SpawnChance);
-            if (totalChance <= 0) return null;
-
-            var randomValue = Random.Range(0, totalChance);
-            float currentSum = 0;
-
-            foreach (var spawnable in spawnables)
-            {
-                currentSum += spawnable.SpawnChance;
-                if (currentSum >= randomValue)
-                    return spawnable;
-            }
-
-            return null;
-        }
-
-        private System.Collections.IEnumerator ContinuousSpawning(MovingObject prefab)
-        {
+            _isSpawning = true;
+            
+            yield return new WaitForSeconds(Random.Range(_spawnDelay.x, _spawnDelay.y));
+            
             while (_currentSpawnBlock && BlockSpawner.SpawnedBlocks.Contains(_currentSpawnBlock))
             {
-                yield return new WaitForSeconds(Random.Range(_continuousSpawnInterval.x, _continuousSpawnInterval.y));
-                SpawnBetweenBlocks(prefab, _currentSpawnBlock);
-            }
-        }
-
-        private async void SpawnSingleObject(MovingObject prefab, Block currentBlock)
-        {
-            if (!prefab || !currentBlock) return;
-
-            try
-            {
-                await Awaitable.WaitForSecondsAsync(Random.Range(_spawnDelay.x, _spawnDelay.y), destroyCancellationToken);
-            }
-            catch (OperationCanceledException) 
-            {
-                return;
+                var prefabToSpawn = GetRandomObject();
+                SpawnBetweenBlocks(prefabToSpawn, _currentSpawnBlock);
+                
+                yield return new WaitForSeconds(Random.Range(_spawnInterval.x, _spawnInterval.y));
             }
             
-            SpawnBetweenBlocks(prefab, currentBlock);
+            _isSpawning = false;
+        }
+
+        private MovingObject GetRandomObject()
+        {
+            var spawnableObject = _specialSpawnableObjects[Random.Range(0, _specialSpawnableObjects.Length)];
+            if (Random.value <= spawnableObject.SpawnChance)
+            {
+                return spawnableObject.Prefab;
+            }
+            return _stickPrefab.Prefab;
         }
 
         private void SpawnBetweenBlocks(MovingObject prefab, Block currentBlock)
@@ -163,19 +111,25 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects
 
             var startX = currentBlock.transform.position.x;
             var endX = nextBlock.transform.position.x;
-            var spawnX = (startX + endX) / 2f;
+            var spawnX = (startX + endX) / 2;
+            
+            var distance = Mathf.Abs(endX - startX);
+            var randomOffset = Random.Range(-distance/20, distance/20);
+            spawnX += randomOffset;
+            
             var spawnY = MainCamera.transform.position.y + _spawnHeightOffset;
 
             SpawnObject(prefab, new Vector2(spawnX, spawnY));
         }
 
-        private void StopContinuousSpawning()
+        private void StopSpawning()
         {
-            if (_continuousSpawningRoutine != null)
+            if (_spawningRoutine != null)
             {
-                StopCoroutine(_continuousSpawningRoutine);
-                _continuousSpawningRoutine = null;
+                StopCoroutine(_spawningRoutine);
+                _spawningRoutine = null;
             }
+            _isSpawning = false;
             _currentSpawnBlock = null;
         }
 
