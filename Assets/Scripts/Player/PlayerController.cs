@@ -1,7 +1,9 @@
 using System;
 using Environment.Blocks.BlockTypes;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Core; // Добавляем using для доступа к ProgressManager
 
 namespace Player
 {
@@ -12,21 +14,27 @@ namespace Player
         {
             Swinging,
             Flying,
-            Sliding
+            Sliding,
+            ChargingJump
         }
 
         [Header("Movement")]
-        [SerializeField] private float _swingSpeed = 180;
-        [SerializeField] private float _jumpForce = 10;
+        [SerializeField] private float _swingSpeed = 180f;
+        [SerializeField] private float _jumpForce = 10f;
         [SerializeField] private float _slideSpeed = 0.5f;
+
+        [Header("Charged Jump")]
+        [SerializeField] private Vector2 _chargedJumpForceRange = new(12f, 25f);
 
         [Header("References")]
         [SerializeField] private Stick _stick;
         [SerializeField] private Transform _hand;
+        [SerializeField] private ChargedJumpUI _chargedJumpUI;
+        [SerializeField] private ProgressManager _progressManager;
 
         [Header("Start Properties")]
         [SerializeField] private Block _startBlock;
-        [SerializeField] private float _startAngle = 180;
+        [SerializeField] private float _startAngle = 180f;
 
         private State _currentState = State.Swinging;
         private Rigidbody2D _rigidbody;
@@ -42,27 +50,34 @@ namespace Player
         public event Action<Block, Vector2> OnLanded;
         public event Action<Block> OnJumped;
 
-        private void Awake() => _rigidbody = GetComponent<Rigidbody2D>();
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _inputSystem = new InputSystem();
+        }
+
+        private void OnEnable()
+        {
+            _inputSystem.Enable();
+            _inputSystem.Player.Tap.performed += HandleTapPerformed;
+            _inputSystem.Player.Tap.canceled += HandleTapCanceled;
+        }
 
         private void Start()
         {
             if (_startBlock)
             {
-                _inputSystem = new InputSystem();
-                _inputSystem.Enable();
-
-                _inputSystem.Player.Tap.performed += HandleTap;
-                
                 StartSwinging(_startBlock.StickAnchor.position, _startAngle);
                 AttachedBlock = _startBlock;
             }
+            if (_chargedJumpUI) _chargedJumpUI.Hide();
         }
 
         private void OnDisable()
         {
+            _inputSystem.Player.Tap.performed -= HandleTapPerformed;
+            _inputSystem.Player.Tap.canceled -= HandleTapCanceled;
             _inputSystem.Disable();
-            
-            _inputSystem.Player.Tap.performed -= HandleTap;
         }
 
         private void FixedUpdate()
@@ -75,15 +90,41 @@ namespace Player
                 case State.Sliding:
                     ExecuteSlide();
                     break;
+                case State.ChargingJump:
+                    UpdateSwingPosition();
+                    break;
+            }
+        }
+        
+        private void Update()
+        {
+            if (_currentState == State.ChargingJump && _chargedJumpUI)
+            {
+                _chargedJumpUI.UpdateBar();
             }
         }
 
-        private void HandleTap(InputAction.CallbackContext obj)
+        private void HandleTapPerformed(InputAction.CallbackContext context)
         {
+            if (!_progressManager || !_progressManager.IsChargedJumpUnlocked) return;
+            
             switch (_currentState)
             {
                 case State.Swinging or State.Sliding:
-                    Jump();
+                    StartChargeJump();
+                    break;
+            }
+        }
+
+        private void HandleTapCanceled(InputAction.CallbackContext context)
+        {
+            switch (_currentState)
+            {
+                case State.ChargingJump:
+                    ExecuteChargedJump();
+                    break;
+                case State.Swinging or State.Sliding:
+                    Jump(_jumpForce);
                     break;
                 case State.Flying:
                     TryLand();
@@ -93,7 +134,11 @@ namespace Player
 
         private void TryLand()
         {
-            if (_stick.TryStickToBlock(out var stickPoint)) OnLanded?.Invoke(_stick.LastAttachedBlock, stickPoint);
+            if (_stick.TryStickToBlock(out var stickPoint))
+            {
+                var landedBlock = _stick.LastAttachedBlock;
+                OnLanded?.Invoke(landedBlock, stickPoint);
+            }
         }
 
         public void InitiateSwing(Vector2 stickPoint)
@@ -181,7 +226,7 @@ namespace Player
             }
         }
 
-        private void Jump()
+        private void Jump(float force)
         {
             OnJumped?.Invoke(AttachedBlock);
             
@@ -189,8 +234,31 @@ namespace Player
             _rigidbody.bodyType = RigidbodyType2D.Dynamic;
             _rigidbody.interpolation = RigidbodyInterpolation2D.Interpolate;
             _rigidbody.gravityScale = 1;
-            _rigidbody.linearVelocity = -transform.right * _jumpForce;
+            _rigidbody.linearVelocity = -transform.right * force;
             AttachedBlock = null;
+        }
+
+        private void StartChargeJump()
+        {
+            _currentState = State.ChargingJump;
+            if (_chargedJumpUI)
+            {
+                _chargedJumpUI.Show();
+                _chargedJumpUI.StartCharge();
+            }
+        }
+
+        private void ExecuteChargedJump()
+        {
+            var finalForce = _jumpForce;
+            if (_chargedJumpUI)
+            {
+                _chargedJumpUI.StopCharge();
+                var chargeValue = _chargedJumpUI.GetCurrentChargeValue();
+                finalForce = Mathf.Lerp(_chargedJumpForceRange.x, _chargedJumpForceRange.y, chargeValue);
+                _chargedJumpUI.Hide();
+            }
+            Jump(finalForce);
         }
 
         public void DetachFromBlock()

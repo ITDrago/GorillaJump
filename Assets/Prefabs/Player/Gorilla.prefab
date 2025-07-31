@@ -297,8 +297,11 @@ MonoBehaviour:
   _swingSpeed: 180
   _jumpForce: 10
   _slideSpeed: 0.5
+  _chargedJumpForceRange: {x: 10, y: 15}
   _stick: {fileID: 589126571678244272}
   _hand: {fileID: 7633351137612067559}
+  _chargedJumpUI: {fileID: 0}
+  _progressManager: {fileID: 0}
   _startBlock: {fileID: 0}
   _startAngle: 180
 --- !u!114 &5617863235019167064
