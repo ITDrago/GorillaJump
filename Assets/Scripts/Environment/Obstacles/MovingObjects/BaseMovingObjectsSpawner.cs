@@ -13,9 +13,11 @@ namespace Environment.Obstacles.MovingObjects
 
         [Header("Safety Checks")]
         [SerializeField] protected LayerMask SpawnBlockingLayers;
-        [SerializeField] private float _clearanceRadius = 6;
+        [SerializeField] private Vector2 _clearanceBoxSize = new(2, 30);
 
         protected UnityEngine.Camera MainCamera;
+        
+        private Vector2 _lastPosition;
 
         protected virtual void Awake()
         {
@@ -41,7 +43,8 @@ namespace Environment.Obstacles.MovingObjects
         
         protected bool IsPositionClear(Vector2 position)
         {
-            return Physics2D.OverlapCircle(position, _clearanceRadius, SpawnBlockingLayers) == null;
+            _lastPosition = position;
+            return !Physics2D.BoxCast(position, _clearanceBoxSize, 0, Vector2.down, 0.1f, SpawnBlockingLayers);
         }
 
         protected Block GetNextBlock(Block currentBlock, List<Block> allBlocks)
@@ -52,6 +55,12 @@ namespace Environment.Obstacles.MovingObjects
                 return null;
             }
             return allBlocks[currentIndex + 1];
+        }
+        
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(_lastPosition, new Vector3(_clearanceBoxSize.x, _clearanceBoxSize.y));
         }
     }
 }

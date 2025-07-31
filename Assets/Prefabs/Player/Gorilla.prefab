@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 7640744534933097770}
   - component: {fileID: 1132076117434158480}
   - component: {fileID: 5617863235019167064}
+  - component: {fileID: 1663984930949945777}
   - component: {fileID: 6991150255203140844}
   m_Layer: 0
   m_Name: Gorilla
@@ -310,6 +311,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95abd74ef19d4cad98dc450a2bd217a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1663984930949945777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4137370692833075967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 568c9251de0a411b8a914d3caec4ea28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!58 &6991150255203140844

@@ -7,8 +7,11 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects.Branch
     {
         protected override void OnPlayerEnter(PlayerController player)
         {
-            Debug.Log("Player was hit by a falling branch!");
-            Destroy(gameObject);
+            if (player.TryGetComponent(out PlayerHealth playerHealth))
+            {
+                Debug.Log("Player was hit by falling branch!");
+                playerHealth.Die();
+            }
         }
     }
 }

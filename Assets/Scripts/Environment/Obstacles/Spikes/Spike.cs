@@ -10,12 +10,12 @@ namespace Environment.Obstacles.Spikes
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out PlayerController player))
+            if (other.TryGetComponent(out PlayerController playerController))
             {
-                if (player.IsFlying) return;
+                if (playerController.IsFlying) return;
                 
                 Debug.Log("Player was hit by a spike!");
-                player.DetachFromBlock();
+                playerController.GetComponent<PlayerHealth>().Die();
             }
         }
     }
