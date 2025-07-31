@@ -1,6 +1,7 @@
 using System;
 using Environment.Blocks.BlockTypes;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Player
 {
@@ -32,6 +33,7 @@ namespace Player
         private float _currentAngle;
         private Vector2 _anchorPoint;
         private Vector3 _localAttachmentPoint;
+        private InputSystem _inputSystem;
 
         public Block AttachedBlock { get; private set; }
         public bool IsFlying => _currentState == State.Flying;
@@ -46,14 +48,21 @@ namespace Player
         {
             if (_startBlock)
             {
+                _inputSystem = new InputSystem();
+                _inputSystem.Enable();
+
+                _inputSystem.Player.Tap.performed += HandleTap;
+                
                 StartSwinging(_startBlock.StickAnchor.position, _startAngle);
                 AttachedBlock = _startBlock;
             }
         }
 
-        private void Update()
+        private void OnDisable()
         {
-            if (Input.GetMouseButtonDown(0)) HandleTap();
+            _inputSystem.Disable();
+            
+            _inputSystem.Player.Tap.performed -= HandleTap;
         }
 
         private void FixedUpdate()
@@ -69,7 +78,7 @@ namespace Player
             }
         }
 
-        private void HandleTap()
+        private void HandleTap(InputAction.CallbackContext obj)
         {
             switch (_currentState)
             {

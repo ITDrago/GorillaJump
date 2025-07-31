@@ -1,6 +1,46 @@
 {
     "name": "InputSystem",
-    "maps": [],
+    "maps": [
+        {
+            "name": "Player",
+            "id": "4396086b-31d2-46f4-a59d-3d93c6811102",
+            "actions": [
+                {
+                    "name": "Tap",
+                    "type": "Button",
+                    "id": "2bc5c315-638d-434d-ae60-a4bd6b0fa32f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e2d88e64-f08f-44d8-9d28-bbefdf7d5fed",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61ee5b14-0a3e-4323-b1ab-9c4540a4d591",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Touch",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
     "controlSchemes": [
         {
             "name": "Keyboard&Mouse",
