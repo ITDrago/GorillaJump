@@ -3,7 +3,7 @@ using Environment.Blocks.BlockTypes;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Core; // Добавляем using для доступа к ProgressManager
+using Core;
 
 namespace Player
 {
@@ -19,12 +19,12 @@ namespace Player
         }
 
         [Header("Movement")]
-        [SerializeField] private float _swingSpeed = 180f;
-        [SerializeField] private float _jumpForce = 10f;
+        [SerializeField] private float _swingSpeed = 180;
+        [SerializeField] private float _jumpForce = 10;
         [SerializeField] private float _slideSpeed = 0.5f;
 
         [Header("Charged Jump")]
-        [SerializeField] private Vector2 _chargedJumpForceRange = new(12f, 25f);
+        [SerializeField] private Vector2 _chargedJumpForceRange = new(12, 25);
 
         [Header("References")]
         [SerializeField] private Stick _stick;
@@ -34,7 +34,7 @@ namespace Player
 
         [Header("Start Properties")]
         [SerializeField] private Block _startBlock;
-        [SerializeField] private float _startAngle = 180f;
+        [SerializeField] private float _startAngle = 180;
 
         private State _currentState = State.Swinging;
         private Rigidbody2D _rigidbody;
@@ -243,7 +243,7 @@ namespace Player
             _currentState = State.ChargingJump;
             if (_chargedJumpUI)
             {
-                _chargedJumpUI.Show();
+                _chargedJumpUI.Show(transform);
                 _chargedJumpUI.StartCharge();
             }
         }
