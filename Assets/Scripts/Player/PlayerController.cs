@@ -28,7 +28,7 @@ namespace Player
 
         [Header("References")]
         [SerializeField] private Stick _stick;
-        [SerializeField] private Transform _hand;
+        [SerializeField] private Transform _gorillaBody;
         [SerializeField] private ChargedJumpUI _chargedJumpUI;
         [SerializeField] private ProgressManager _progressManager;
 
@@ -82,6 +82,11 @@ namespace Player
 
         private void FixedUpdate()
         {
+            HandleAttachedState();
+        }
+
+        private void HandleAttachedState()
+        {
             switch (_currentState)
             {
                 case State.Swinging:
@@ -94,6 +99,25 @@ namespace Player
                     UpdateSwingPosition();
                     break;
             }
+        }
+        
+        private void ExecuteSwing()
+        {
+            _gorillaBody.Rotate(0, 0, _swingSpeed * Time.fixedDeltaTime);
+            UpdateSwingPosition();
+        }
+
+        private void ExecuteSlide()
+        {
+            var iceBlock = AttachedBlock as IceBlock;
+            if (!iceBlock || !iceBlock.IsStickOnSurface(_anchorPoint))
+            {
+                DetachFromBlock();
+                return;
+            }
+
+            _anchorPoint += iceBlock.SlideDirection * (_slideSpeed * Time.fixedDeltaTime);
+            ExecuteSwing();
         }
         
         private void Update()
@@ -184,27 +208,7 @@ namespace Player
 
             UpdateSwingPosition();
         }
-
-        private void ExecuteSwing()
-        {
-            _currentAngle += -_swingSpeed * Time.fixedDeltaTime;
-            UpdateSwingPosition();
-        }
-
-        private void ExecuteSlide()
-        {
-            var iceBlock = AttachedBlock as IceBlock;
-            if (!iceBlock || !iceBlock.IsStickOnSurface(_anchorPoint))
-            {
-                DetachFromBlock();
-                return;
-            }
-
-            _currentAngle += -_swingSpeed * Time.fixedDeltaTime;
-            _anchorPoint += iceBlock.SlideDirection * (_slideSpeed * Time.fixedDeltaTime);
-            UpdateSwingPosition();
-        }
-
+        
         private void UpdateSwingPosition()
         {
             if (AttachedBlock && _currentState != State.Sliding)
@@ -216,14 +220,7 @@ namespace Player
             );
 
             transform.position = _anchorPoint + direction * _stick.StickLength;
-            transform.right = direction;
             _stick.UpdateStickPosition(_anchorPoint, direction);
-
-            if (_hand)
-            {
-                _hand.position = transform.position;
-                _hand.up = -direction;
-            }
         }
 
         private void Jump(float force)
@@ -234,7 +231,7 @@ namespace Player
             _rigidbody.bodyType = RigidbodyType2D.Dynamic;
             _rigidbody.interpolation = RigidbodyInterpolation2D.Interpolate;
             _rigidbody.gravityScale = 1;
-            _rigidbody.linearVelocity = -transform.right * force;
+            _rigidbody.linearVelocity = _gorillaBody.right * force;
             AttachedBlock = null;
         }
 

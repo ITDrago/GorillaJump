@@ -5,13 +5,10 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects.Branch
 {
     public class FallingBranch : MovingObject
     {
-        protected override void OnPlayerEnter(PlayerController player)
+        protected override void OnPlayerEnter(PlayerCore playerCore)
         {
-            if (player.TryGetComponent(out PlayerHealth playerHealth))
-            {
-                Debug.Log("Player was hit by falling branch!");
-                playerHealth.Die();
-            }
+            Debug.Log("Player was hit by falling branch!");
+            playerCore.PlayerHealth.Die();
         }
     }
 }

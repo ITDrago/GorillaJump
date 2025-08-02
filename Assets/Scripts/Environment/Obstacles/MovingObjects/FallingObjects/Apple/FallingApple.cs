@@ -11,7 +11,7 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects.Apple
         
         private static CancellationTokenSource _cancellationTokenSource;
 
-        protected override async void OnPlayerEnter(PlayerController player)
+        protected override async void OnPlayerEnter(PlayerCore playerCore)
         {
             _cancellationTokenSource?.Cancel();
             _cancellationTokenSource = new CancellationTokenSource();

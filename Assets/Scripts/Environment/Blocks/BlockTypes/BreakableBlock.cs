@@ -28,7 +28,7 @@ namespace Environment.Blocks.BlockTypes
                 _playerController.DetachFromBlock();
             }
     
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects.Banana
 {
     public class FallingBanana : MovingObject
     {
-        protected override void OnPlayerEnter(PlayerController player)
+        protected override void OnPlayerEnter(PlayerCore playerCore)
         {
             Debug.Log("Player collected a banana!");
             Destroy(gameObject);

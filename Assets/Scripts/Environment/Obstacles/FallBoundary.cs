@@ -8,7 +8,7 @@ namespace Environment.Obstacles
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out PlayerHealth playerHealth)) playerHealth.Die();
+            if (other.TryGetComponent(out PlayerCore playerCore)) playerCore.PlayerHealth.Die();
         }
     }
 }

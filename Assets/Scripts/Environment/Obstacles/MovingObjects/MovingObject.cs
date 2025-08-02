@@ -23,13 +23,13 @@ namespace Environment.Obstacles.MovingObjects
 
         protected void SetMovementDirection(Vector3 direction) => _movementDirection = direction;
 
-        protected abstract void OnPlayerEnter(PlayerController player);
+        protected abstract void OnPlayerEnter(PlayerCore playerCore);
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out PlayerController player))
+            if (other.TryGetComponent(out PlayerCore playerCore))
             {
-                OnPlayerEnter(player);
+                OnPlayerEnter(playerCore);
             }
         }
 
