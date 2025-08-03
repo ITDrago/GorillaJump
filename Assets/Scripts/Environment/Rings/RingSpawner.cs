@@ -100,7 +100,7 @@ namespace Environment.Rings
             var ringPrefab = GetRandomRingPrefab();
             if (!ringPrefab) return;
 
-            var newRing = Instantiate(ringPrefab, spawnPosition, Quaternion.identity, transform);
+            var newRing = Instantiate(ringPrefab, spawnPosition,ringPrefab.transform.localRotation, transform);
             newRing.Initialize(Random.Range(1, 4));
         }
 
@@ -135,9 +135,6 @@ namespace Environment.Rings
             return _ringTypes.LastOrDefault()?.Prefab;
         }
 
-        private void SetNextSpawnInterval()
-        {
-            _blocksUntilNextSpawn = Random.Range(_blocksBetweenSpawnsRange.x, _blocksBetweenSpawnsRange.y + 1);
-        }
+        private void SetNextSpawnInterval() => _blocksUntilNextSpawn = Random.Range(_blocksBetweenSpawnsRange.x, _blocksBetweenSpawnsRange.y + 1);
     }
 }

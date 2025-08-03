@@ -7,7 +7,7 @@ namespace Environment.Rings.RingTypes
     {
         [Header("Base Settings")]
         [SerializeField] private int _defaultReward = 1;
-        [SerializeField] private float _scaleMultiplier = 0.2f;
+        [SerializeField] private float _scaleMultiplier = 0.1f;
         
         private Vector3 _originalScale;
 
@@ -35,10 +35,7 @@ namespace Environment.Rings.RingTypes
         
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out PlayerController playerController))
-            {
-                Collect();
-            }
+            if (other.TryGetComponent(out PlayerCore playerCore)) Collect();
         }
         
         private void Collect()

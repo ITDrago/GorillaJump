@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f34b82280d9280c4781adf2ed04be3f6
+timeCreated: 1506955417
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103170
+  packageName: 2D Cartoon Jungle Pack
+  packageVersion: 1.0
+  assetPath: Assets/2DCartoonJunglePack/Main Camera.controller
+  uploadId: 208793
