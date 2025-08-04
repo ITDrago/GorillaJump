@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6085b0a927448a19024ac963c771681, type: 3}
+  m_Name: Quest_BirdInteraction
+  m_EditorClassIdentifier: 
+  _id: bird_interaction
+  _descriptionFormat: "\u041F\u043E\u0434\u043B\u0435\u0442\u0438\u0442\u0435 {0}
+    \u0440\u0430\u0437 \u043D\u0430 \u043F\u0442\u0438\u0446\u0435"
+  _objectivePrefab: {fileID: 7851993216076744178, guid: 3f3eb7de1dd9cc84ba781935c9ec2ba5, type: 3}
+  _baseDailyTarget: 10
+  _baseWeeklyTarget: 50

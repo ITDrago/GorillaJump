@@ -225,6 +225,7 @@ namespace Player
 
         private void Jump(float force)
         {
+            GameEvents.PlayerJumped();
             OnJumped?.Invoke(AttachedBlock);
             
             _currentState = State.Flying;

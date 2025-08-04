@@ -1,3 +1,4 @@
+using Core;
 using Player;
 using UnityEngine;
 
@@ -5,12 +6,10 @@ namespace Environment.Rings.RingTypes
 {
     public class Ring : MonoBehaviour
     {
-        [Header("Base Settings")]
         [SerializeField] private int _defaultReward = 1;
         [SerializeField] private float _scaleMultiplier = 0.1f;
         
         private Vector3 _originalScale;
-
         private int _rewardAmount;
         protected UnityEngine.Camera MainCamera { get; private set; }
 
@@ -41,6 +40,7 @@ namespace Environment.Rings.RingTypes
         private void Collect()
         {
             Debug.Log($"Collected ring! Reward: {_rewardAmount}");
+            GameEvents.RingCollected(_rewardAmount);
         }
     }
 }

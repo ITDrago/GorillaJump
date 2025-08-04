@@ -1,3 +1,4 @@
+using Core;
 using Player;
 using UnityEngine;
 
@@ -5,7 +6,6 @@ namespace Environment.Obstacles.MovingObjects.Bird
 {
     public class Bird : MovingObject
     {
-        [Header("Bird Settings")]
         [SerializeField] private float _pushForce = 10;
         [SerializeField] private Vector3 _flyDirection = Vector3.up;
 
@@ -18,6 +18,8 @@ namespace Environment.Obstacles.MovingObjects.Bird
             var playerRigidbody = playerCore.PlayerController.GetComponent<Rigidbody2D>();
             playerRigidbody.linearVelocity = Vector2.zero;
             playerRigidbody.AddForce((transform.up + transform.right) * _pushForce, ForceMode2D.Impulse);
+            
+            GameEvents.BirdInteraction();
             Destroy(gameObject);
         }
     }

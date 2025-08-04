@@ -17,7 +17,7 @@ namespace Core
         [SerializeField] private BlockSpawner _blockSpawner;
 
         private Block _lastPassedBlock;
-        private bool _chargedJumpUnlocked = false;
+        private bool _chargedJumpUnlocked;
 
         public int BlocksPassedCount { get; private set; }
         public bool IsChargedJumpUnlocked => _chargedJumpUnlocked;
@@ -27,12 +27,12 @@ namespace Core
 
         private void OnEnable()
         {
-            if (_playerController != null) _playerController.OnLanded += HandlePlayerLanded;
+            if (_playerController) _playerController.OnLanded += HandlePlayerLanded;
         }
 
         private void OnDisable()
         {
-            if (_playerController != null) _playerController.OnLanded -= HandlePlayerLanded;
+            if (_playerController) _playerController.OnLanded -= HandlePlayerLanded;
         }
 
         private void Update()
@@ -62,11 +62,7 @@ namespace Core
                 var blockCollider = currentBlock.GetComponent<Collider2D>();
 
                 if (!blockCollider)
-                {
-                    Debug.LogWarning(
-                        $"Block {currentBlock.name} is missing a Collider2D component. Skipping for block counting.");
                     continue;
-                }
 
                 var blockPassThresholdX = currentBlock.transform.position.x;
 
@@ -74,6 +70,7 @@ namespace Core
                 {
                     BlocksPassedCount++;
                     _lastPassedBlock = currentBlock;
+                    GameEvents.BlockPassed();
                     OnBlockPassed?.Invoke();
                     CheckUnlockables();
                 }

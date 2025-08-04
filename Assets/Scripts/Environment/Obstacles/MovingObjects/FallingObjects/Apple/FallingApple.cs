@@ -1,4 +1,5 @@
 using System.Threading;
+using Core;
 using Player;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects.Apple
             _cancellationTokenSource?.Cancel();
             _cancellationTokenSource = new CancellationTokenSource();
             
+            GameEvents.AppleCollected();
             Destroy(gameObject);
             ApplyTimeEffect();
             

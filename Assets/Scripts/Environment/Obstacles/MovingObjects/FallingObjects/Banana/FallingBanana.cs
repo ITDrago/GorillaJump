@@ -1,5 +1,5 @@
+using Core;
 using Player;
-using UnityEngine;
 
 namespace Environment.Obstacles.MovingObjects.FallingObjects.Banana
 {
@@ -7,7 +7,7 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects.Banana
     {
         protected override void OnPlayerEnter(PlayerCore playerCore)
         {
-            Debug.Log("Player collected a banana!");
+            GameEvents.BananaCollected();
             Destroy(gameObject);
         }
     }
