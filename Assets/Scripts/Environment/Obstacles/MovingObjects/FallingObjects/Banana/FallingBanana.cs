@@ -1,4 +1,5 @@
 using Core;
+using Core.Game;
 using Player;
 
 namespace Environment.Obstacles.MovingObjects.FallingObjects.Banana

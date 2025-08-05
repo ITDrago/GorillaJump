@@ -1,10 +1,11 @@
 using Core.Data;
 using Player;
+using Player.Health;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Core
+namespace Core.Game
 {
     public class GameStateManager : MonoBehaviour
     {

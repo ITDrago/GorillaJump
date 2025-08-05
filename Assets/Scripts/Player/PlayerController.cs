@@ -4,6 +4,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Core;
+using Core.Game;
 
 namespace Player
 {

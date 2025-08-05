@@ -1,11 +1,11 @@
-using Player;
-using UnityEngine;
 using System;
 using System.Linq;
 using Environment.Blocks;
 using Environment.Blocks.BlockTypes;
+using Player;
+using UnityEngine;
 
-namespace Core
+namespace Core.Game
 {
     public class ProgressManager : MonoBehaviour
     {

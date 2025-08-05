@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Player
+namespace Player.Health
 {
     [RequireComponent(typeof(PlayerController))]
     public class PlayerHealth : MonoBehaviour

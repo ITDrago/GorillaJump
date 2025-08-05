@@ -1,6 +1,6 @@
 using System;
 
-namespace Core
+namespace Core.Game
 {
     public static class GameEvents
     {
