@@ -744,6 +744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa06a54519e742ecbae3b07bed0fc1db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _progressManager: {fileID: 482285021}
   _playerHealth: {fileID: 75963674}
   _gameOverScreen: {fileID: 2095197882}
 --- !u!1 &619394800

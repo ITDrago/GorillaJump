@@ -1,3 +1,4 @@
+using Core.Data;
 using Player;
 using UI;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace Core
 {
     public class GameStateManager : MonoBehaviour
     {
+        [Header("Component References")]
+        [SerializeField] private ProgressManager _progressManager;
         [SerializeField] private PlayerHealth _playerHealth;
         [SerializeField] private GameOverScreen _gameOverScreen;
 
@@ -16,6 +19,9 @@ namespace Core
 
         private void HandlePlayerDeath()
         {
+            var finalScore = _progressManager.BlocksPassedCount;
+            ScoreSaver.SaveScore(finalScore);
+            
             Time.timeScale = 0f;
             _gameOverScreen.Show();
         }
