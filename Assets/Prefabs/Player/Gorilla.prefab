@@ -143,6 +143,7 @@ MonoBehaviour:
   _soundManager: {fileID: 0}
   _jumpSound: {fileID: 8300000, guid: 4e349dc959014a845b9aa317d1c2b7f0, type: 3}
   _landSound: {fileID: 8300000, guid: 023ea3ddeaa8dd146b7633a0800e5a0e, type: 3}
+  _deathSound: {fileID: 8300000, guid: aaf8f3b26d4889f458bbb720e311460c, type: 3}
 --- !u!82 &3856374807715958568
 AudioSource:
   m_ObjectHideFlags: 0

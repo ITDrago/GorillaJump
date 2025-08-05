@@ -12,15 +12,9 @@ namespace Core.Audio
         {
             if (_sfxSource && audioClip) _sfxSource.PlayOneShot(audioClip, volume);
         }
-        
-        public void PlayMusic(AudioClip musicClip, bool loop = true)
-        {
-            if (_musicSource && musicClip)
-            {
-                _musicSource.clip = musicClip;
-                _musicSource.loop = loop;
-                _musicSource.Play();
-            }
-        }
+
+        public void PlayMusic() => _musicSource.Play();
+        public void StopMusic() => _musicSource.Stop();
+        public void AdjustMusicVolume(float volume) => _musicSource.volume = volume;
     }
 }

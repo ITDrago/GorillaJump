@@ -1,4 +1,5 @@
 using Core;
+using Core.Audio;
 using Core.Game;
 using Player;
 using UnityEngine;
@@ -10,14 +11,19 @@ namespace Environment.Rings.RingTypes
         [SerializeField] private int _defaultReward = 1;
         [SerializeField] private float _scaleMultiplier = 0.1f;
         
+        [Header("Audio")]
+        [SerializeField] private AudioClip _collectSound;
+        
         private Vector3 _originalScale;
         private int _rewardAmount;
+        private SoundManager _soundManager;
         protected UnityEngine.Camera MainCamera { get; private set; }
 
         protected virtual void Awake()
         {
-            _originalScale = transform.localScale;
             MainCamera = UnityEngine.Camera.main;
+            _soundManager = (SoundManager)FindFirstObjectByType(typeof(SoundManager));
+            _originalScale = transform.localScale;
             _rewardAmount = _defaultReward;
         }
 
@@ -42,6 +48,7 @@ namespace Environment.Rings.RingTypes
         {
             Debug.Log($"Collected ring! Reward: {_rewardAmount}");
             GameEvents.RingCollected(_rewardAmount);
+            _soundManager.PlaySfx(_collectSound);
         }
     }
 }
