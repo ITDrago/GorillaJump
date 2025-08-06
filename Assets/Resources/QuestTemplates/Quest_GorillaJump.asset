@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Quest_GorillaJump
   m_EditorClassIdentifier: 
   _id: gorilla_jump
-  _descriptionFormat: "\u041F\u0440\u044B\u0433\u043D\u0435\u0442\u0435 {0} \u0440\u0430\u0437"
+  _descriptionFormat: "\u041F\u0440\u044B\u0433\u043D\u0438\u0442\u0435 {0} \u0440\u0430\u0437"
   _objectivePrefab: {fileID: 1519564468838153606, guid: 191346a37bf2c654d8c2ca55b4140865, type: 3}
   _baseDailyTarget: 100
   _baseWeeklyTarget: 400

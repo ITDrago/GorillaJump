@@ -1,5 +1,6 @@
 using System.Threading;
 using Core;
+using Core.Audio;
 using Core.Game;
 using Player;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects.Apple
         [SerializeField] private float _effectDuration = 5;
         
         private static CancellationTokenSource _cancellationTokenSource;
-
+        
         protected override async void OnPlayerEnter(PlayerCore playerCore)
         {
             _cancellationTokenSource?.Cancel();

@@ -1,3 +1,4 @@
+using Core.Audio;
 using Player;
 using UnityEngine;
 
@@ -8,8 +9,15 @@ namespace Environment.Obstacles.MovingObjects
     {
         [SerializeField] private float _movementSpeed = 15f;
         
+        [Header("Audio")]
+        [SerializeField] private AudioClip _interactionSound;
+        
         private Vector3 _movementDirection = Vector3.down;
         private bool _isMoving;
+        
+        private SoundManager _soundManager;
+
+        public virtual void Start() => _soundManager = (SoundManager)FindFirstObjectByType(typeof(SoundManager));
 
         private void Update()
         {
@@ -30,6 +38,7 @@ namespace Environment.Obstacles.MovingObjects
             if (other.TryGetComponent(out PlayerCore playerCore))
             {
                 OnPlayerEnter(playerCore);
+                _soundManager.PlaySfx(_interactionSound);
             }
         }
 

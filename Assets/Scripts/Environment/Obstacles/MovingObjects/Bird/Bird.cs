@@ -10,7 +10,11 @@ namespace Environment.Obstacles.MovingObjects.Bird
         [SerializeField] private float _pushForce = 10;
         [SerializeField] private Vector3 _flyDirection = Vector3.up;
 
-        private void Start() => SetMovementDirection(_flyDirection);
+        public override void Start()
+        {
+            base.Start();
+            SetMovementDirection(_flyDirection);
+        }
 
         protected override void OnPlayerEnter(PlayerCore playerCore)
         {

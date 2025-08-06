@@ -53,7 +53,7 @@ namespace Player.Audio
         {
             if (_deathSound && _soundManager)
             {
-                _soundManager.AdjustMusicVolume(0.2f);s
+                _soundManager.AdjustMusicVolume(0.2f);
                 _soundManager.PlaySfx(_deathSound);
             }
         }

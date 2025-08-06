@@ -1,5 +1,5 @@
+using Core.Loading;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Core
 {
@@ -9,9 +9,9 @@ namespace Core
         [SerializeField] private int _buildIndex;
         private void Start()
         {
-            if (_loadOnStart) SceneManager.LoadScene(sceneBuildIndex: _buildIndex);
+            if (_loadOnStart) LoadingManager.Instance.LoadScene(_buildIndex);
         }
         
-        public void LoadScene(int buildIndex) => SceneManager.LoadScene(sceneBuildIndex: buildIndex);
+        public void LoadScene(int buildIndex) => LoadingManager.Instance.LoadScene(_buildIndex);
     }
 }

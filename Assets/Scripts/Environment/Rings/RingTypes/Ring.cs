@@ -16,13 +16,20 @@ namespace Environment.Rings.RingTypes
         
         private Vector3 _originalScale;
         private int _rewardAmount;
+        private bool _isCollected;
+        
         private SoundManager _soundManager;
+        private ParticleSystem _collectParticleSystem;
+        private Coin _coin;
+        
         protected UnityEngine.Camera MainCamera { get; private set; }
 
         protected virtual void Awake()
         {
             MainCamera = UnityEngine.Camera.main;
             _soundManager = (SoundManager)FindFirstObjectByType(typeof(SoundManager));
+            _collectParticleSystem = GetComponentInChildren<ParticleSystem>();
+            _coin = GetComponentInChildren<Coin>();
             _originalScale = transform.localScale;
             _rewardAmount = _defaultReward;
         }
@@ -46,9 +53,17 @@ namespace Environment.Rings.RingTypes
         
         private void Collect()
         {
+            if (_isCollected) return;
+            
             Debug.Log($"Collected ring! Reward: {_rewardAmount}");
+            
+            _isCollected = true;
             GameEvents.RingCollected(_rewardAmount);
+            
+            _coin.gameObject.SetActive(false);
+            
             _soundManager.PlaySfx(_collectSound);
+            _collectParticleSystem.Play();
         }
     }
 }

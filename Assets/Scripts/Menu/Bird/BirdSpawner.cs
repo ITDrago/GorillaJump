@@ -28,6 +28,9 @@ namespace Menu.Bird
             while (true)
             {
                 var bird = _birdFactory.CreateRandomBird(_spawnYMin, _spawnYMax);
+
+                if (!bird) return;
+                
                 var mover = bird.GetComponent<IBirdMover>();
                 mover.Initialize(_birdFactory.LastDirection, Random.Range(_birdSpeed.x, _birdSpeed.y), _verticalAmplitude, _verticalFrequency,
                     _camera);

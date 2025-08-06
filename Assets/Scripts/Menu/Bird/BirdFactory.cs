@@ -19,6 +19,8 @@ namespace Menu.Bird
 
         public GameObject CreateRandomBird(float minY, float maxY)
         {
+            if (!_camera) return null;
+            
             var prefab = _prefabs[Random.Range(0, _prefabs.Length)];
             _lastDirection = Random.value > 0.5f;
             var spawnY = Random.Range(minY, maxY);
