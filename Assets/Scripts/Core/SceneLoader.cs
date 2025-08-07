@@ -12,6 +12,6 @@ namespace Core
             if (_loadOnStart) LoadingManager.Instance.LoadScene(_buildIndex);
         }
         
-        public void LoadScene(int buildIndex) => LoadingManager.Instance.LoadScene(_buildIndex);
+        public void LoadScene(int buildIndex) => LoadingManager.Instance.LoadScene(buildIndex);
     }
 }

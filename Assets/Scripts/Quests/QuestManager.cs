@@ -47,11 +47,28 @@ namespace Quests
             LoadOrResetQuests();
         }
 
+        public void UpdateQuestProgress(Quest quest)
+        {
+            quest.CurrentProgress++;
+            SaveQuests();
+            OnQuestDataUpdated?.Invoke();
+        }
+
+        public void CompleteQuest(Quest quest)
+        {
+            quest.Status = QuestStatus.Completed;
+            SaveQuests();
+            OnQuestDataUpdated?.Invoke();
+        }
+
         private void LoadOrResetQuests()
         {
             var questsWereReset = CheckForResets();
 
-            if (!questsWereReset) LoadQuests();
+            if (!questsWereReset)
+            {
+                LoadQuests();
+            }
 
             UpdateResetTimers();
             OnQuestDataUpdated?.Invoke();
@@ -114,28 +131,14 @@ namespace Quests
             SaveQuests();
         }
 
-        private void OnQuestProgress(Quest quest)
-        {
-            quest.CurrentProgress++;
-            SaveQuests();
-            OnQuestDataUpdated?.Invoke();
-        }
-
-        private void OnQuestCompleted(Quest quest)
-        {
-            quest.Status = QuestStatus.Completed;
-            SaveQuests();
-            OnQuestDataUpdated?.Invoke();
-        }
-
         private void SaveQuests()
         {
             var saveData = new QuestSaveData
             {
                 DailyQuests = _dailyQuests.Select(q => new QuestProgressData
-                    { TemplateID = q.TemplateID, CurrentProgress = q.CurrentProgress, Status = q.Status }).ToList(),
+                    { TemplateID = q.TemplateID, CurrentProgress = q.CurrentProgress, Status = q.Status, Reward = q.Reward }).ToList(),
                 WeeklyQuests = _weeklyQuests.Select(q => new QuestProgressData
-                    { TemplateID = q.TemplateID, CurrentProgress = q.CurrentProgress, Status = q.Status }).ToList()
+                    { TemplateID = q.TemplateID, CurrentProgress = q.CurrentProgress, Status = q.Status, Reward = q.Reward }).ToList()
             };
 
             var json = JsonUtility.ToJson(saveData);

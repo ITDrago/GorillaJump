@@ -24,5 +24,11 @@ namespace Quests.Data
     
         [SerializeField] private int _baseWeeklyTarget = 100;
         public int BaseWeeklyTarget => _baseWeeklyTarget;
+
+        [Header("Reward Settings")]
+        [SerializeField] private Vector2Int _dailyRewardRange = new(50, 100);
+        public Vector2Int DailyRewardRange => _dailyRewardRange;
+        [SerializeField] private Vector2Int _weeklyRewardRange = new(250, 500);
+        public Vector2Int WeeklyRewardRange => _weeklyRewardRange;
     }
 }

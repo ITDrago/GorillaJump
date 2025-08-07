@@ -1,6 +1,7 @@
 using Core;
 using Core.Audio;
 using Core.Game;
+using Core.Money;
 using Player;
 using UnityEngine;
 
@@ -56,6 +57,7 @@ namespace Environment.Rings.RingTypes
             if (_isCollected) return;
             
             Debug.Log($"Collected ring! Reward: {_rewardAmount}");
+            MoneySystem.Instance.AddMoney(_rewardAmount);
             
             _isCollected = true;
             GameEvents.RingCollected(_rewardAmount);

@@ -23,3 +23,8 @@ MonoBehaviour:
     MinHeight: 0
     MaxHeight: 4
     GapProbability: 0
+  - StartBlockIndex: 40
+    BlockSpacing: 8
+    MinHeight: 0
+    MaxHeight: 4
+    GapProbability: 0.1

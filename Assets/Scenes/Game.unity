@@ -381,7 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d3da595fe444e49318a9b4cb6c082c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blocksToUnlockChargedJump: 10
+  _blocksToUnlockChargedJump: 40
   _playerController: {fileID: 75963672}
   _blockSpawner: {fileID: 2139552450}
 --- !u!1 &519420028

@@ -11,7 +11,7 @@ namespace Core.Loading
         [Header("Configuration")]
         [SerializeField] private string _loadingSceneName = "LoadingScene";
         [SerializeField] private float _fadeDuration = 0.5f;
-        [SerializeField] private float _minimumDisplayTime = 3.0f;
+        [SerializeField] private Vector2Int _loadingTimeRange = new(3, 5);
 
         private void Awake()
         {
@@ -36,45 +36,37 @@ namespace Core.Loading
             await SceneManager.LoadSceneAsync(_loadingSceneName);
             await Awaitable.EndOfFrameAsync(destroyCancellationToken);
 
-            var view = (LoadingScreenView)FindFirstObjectByType(typeof(LoadingScreenView));
+            var view = FindFirstObjectByType<LoadingScreenView>();
             if (view)
             {
-                try { await view.FadeIn(_fadeDuration); }
-                catch { return; }
+                await view.FadeIn(_fadeDuration);
             }
 
-            var loadStartTime = Time.unscaledTime;
+            var randomLoadDuration = Random.Range(_loadingTimeRange.x, _loadingTimeRange.y + 1);
             var loadingOperation = SceneManager.LoadSceneAsync(buildIndex);
             loadingOperation!.allowSceneActivation = false;
 
+            float timer = 0;
+            while (timer < randomLoadDuration)
+            {
+                var visualProgress = timer / randomLoadDuration;
+                if (view) view.UpdateProgress(visualProgress);
+
+                timer += Time.unscaledDeltaTime;
+                await Awaitable.NextFrameAsync(destroyCancellationToken);
+            }
+
+            if (view) 
+                view.UpdateProgress(1f);
+
             while (loadingOperation.progress < 0.9f)
             {
-                var progress = Mathf.Clamp01(loadingOperation.progress / 0.9f);
-                if (view)
-                {
-                    view.UpdateProgress(progress);
-                }
-
-                try { await Awaitable.NextFrameAsync(destroyCancellationToken); }
-                catch { return; }
+                await Awaitable.NextFrameAsync(destroyCancellationToken);
             }
 
             if (view)
             {
-                view.UpdateProgress(1f);
-            }
-
-            var elapsedTime = Time.unscaledTime - loadStartTime;
-            if (elapsedTime < _minimumDisplayTime)
-            {
-                try { await Awaitable.WaitForSecondsAsync(_minimumDisplayTime - elapsedTime, destroyCancellationToken); }
-                catch { return; }
-            }
-
-            if (view)
-            {
-                try { await view.FadeOut(_fadeDuration); }
-                catch { return; }
+                await view.FadeOut(_fadeDuration);
             }
 
             loadingOperation.allowSceneActivation = true;

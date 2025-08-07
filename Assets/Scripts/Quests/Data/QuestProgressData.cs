@@ -8,5 +8,6 @@ namespace Quests.Data
         public string TemplateID;
         public int CurrentProgress;
         public QuestStatus Status;
+        public int Reward;
     }
 }
