@@ -3,7 +3,6 @@ using Environment.Blocks.BlockTypes;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Core;
 using Core.Game;
 
 namespace Player
@@ -38,6 +37,7 @@ namespace Player
         [SerializeField] private float _startAngle = 180;
 
         private State _currentState = State.Swinging;
+        private State _previousState;
         private Rigidbody2D _rigidbody;
         private float _currentAngle;
         private Vector2 _anchorPoint;
@@ -68,8 +68,7 @@ namespace Player
         {
             if (_startBlock)
             {
-                StartSwinging(_startBlock.StickAnchor.position, _startAngle);
-                AttachedBlock = _startBlock;
+                RespawnAt(_startBlock);
             }
             if (_chargedJumpUI) _chargedJumpUI.Hide();
         }
@@ -97,7 +96,14 @@ namespace Player
                     ExecuteSlide();
                     break;
                 case State.ChargingJump:
-                    UpdateSwingPosition();
+                    if (_previousState == State.Sliding)
+                    {
+                        ExecuteSlide();
+                    }
+                    else
+                    {
+                        UpdateSwingPosition();
+                    }
                     break;
             }
         }
@@ -188,6 +194,12 @@ namespace Player
             UpdateSwingPosition();
         }
 
+        public void RespawnAt(Block respawnBlock)
+        {
+            StartSwinging(respawnBlock.StickAnchor.position, _startAngle);
+            AttachedBlock = respawnBlock;
+        }
+
         private void StartSwinging(Vector2 anchorPoint, float startAngle)
         {
             _currentState = State.Swinging;
@@ -239,6 +251,7 @@ namespace Player
 
         private void StartChargeJump()
         {
+            _previousState = _currentState;
             _currentState = State.ChargingJump;
             if (_chargedJumpUI)
             {

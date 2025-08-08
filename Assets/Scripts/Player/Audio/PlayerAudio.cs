@@ -8,7 +8,7 @@ namespace Player.Audio
     [RequireComponent(typeof(PlayerController))]
     public class PlayerAudio : MonoBehaviour
     {
-        [Header("Dependencies")]
+        [Header("References")]
         [SerializeField] private SoundManager _soundManager;
 
         [Header("Audio Clips")] 

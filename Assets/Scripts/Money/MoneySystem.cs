@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Core.Money
+namespace Money
 {
     public class MoneySystem : MonoBehaviour
     {

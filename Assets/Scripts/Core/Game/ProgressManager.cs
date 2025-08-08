@@ -3,87 +3,63 @@ using System.Linq;
 using Environment.Blocks;
 using Environment.Blocks.BlockTypes;
 using Player;
+using Skins;
 using UnityEngine;
 
 namespace Core.Game
 {
     public class ProgressManager : MonoBehaviour
     {
-        [Header("Charged Jump Settings")] 
-        [SerializeField] private int _blocksToUnlockChargedJump = 10;
+        [Header("Charged Jump Settings")]
+        [SerializeField] private int _blocksToUnlockChargedJump = 40;
 
         [Header("Player References")]
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private BlockSpawner _blockSpawner;
 
-        private Block _lastPassedBlock;
         private bool _chargedJumpUnlocked;
+        private int _finalBlocksToUnlock;
 
         public int BlocksPassedCount { get; private set; }
         public bool IsChargedJumpUnlocked => _chargedJumpUnlocked;
 
         public event Action OnChargedJumpUnlocked;
         public event Action OnBlockPassed;
+        
+        private void Start() => CalculateFinalUnlockRequirement();
 
-        private void OnEnable()
+        private void Update() => ProcessPassedBlocks();
+        
+        private void CalculateFinalUnlockRequirement()
         {
-            if (_playerController) _playerController.OnLanded += HandlePlayerLanded;
-        }
-
-        private void OnDisable()
-        {
-            if (_playerController) _playerController.OnLanded -= HandlePlayerLanded;
-        }
-
-        private void Update()
-        {
-            ProcessPassedBlocks();
-        }
-
-        private void HandlePlayerLanded(Block landedBlock, Vector2 stickPoint)
-        {
+            var multiplier = 1f;
+            if (ActiveSkinManager.Instance?.CurrentSkin)
+            {
+                multiplier = ActiveSkinManager.Instance.CurrentSkin.ChargedJumpRequirementMultiplier;
+            }
+            
+            _finalBlocksToUnlock = Mathf.CeilToInt(_blocksToUnlockChargedJump * multiplier);
         }
 
         private void ProcessPassedBlocks()
         {
-            if (!_blockSpawner || _blockSpawner.SpawnedBlocks == null ||
-                _blockSpawner.SpawnedBlocks.Count == 0 || !_playerController) return;
+            if (!_blockSpawner || !_blockSpawner.SpawnedBlocks.Any() || !_playerController) return;
 
-            var sortedBlocks = _blockSpawner.SpawnedBlocks.OrderBy(b => b.transform.position.x).ToList();
+            var passedBlocksCountNow = _blockSpawner.SpawnedBlocks
+                .Count(b => b && b.transform.position.x < _playerController.transform.position.x);
 
-            var startIndex = -1;
-            if (_lastPassedBlock) startIndex = sortedBlocks.IndexOf(_lastPassedBlock);
-            startIndex = Mathf.Max(0, startIndex + 1);
-
-
-            for (var i = startIndex; i < sortedBlocks.Count; i++)
+            if (passedBlocksCountNow > BlocksPassedCount)
             {
-                var currentBlock = sortedBlocks[i];
-                var blockCollider = currentBlock.GetComponent<Collider2D>();
-
-                if (!blockCollider)
-                    continue;
-
-                var blockPassThresholdX = currentBlock.transform.position.x;
-
-                if (_playerController.transform.position.x > blockPassThresholdX)
-                {
-                    BlocksPassedCount++;
-                    _lastPassedBlock = currentBlock;
-                    GameEvents.BlockPassed();
-                    OnBlockPassed?.Invoke();
-                    CheckUnlockables();
-                }
-                else
-                {
-                    break;
-                }
+                BlocksPassedCount = passedBlocksCountNow;
+                GameEvents.BlockPassed();
+                OnBlockPassed?.Invoke();
+                CheckUnlockables();
             }
         }
 
         private void CheckUnlockables()
         {
-            if (!_chargedJumpUnlocked && BlocksPassedCount >= _blocksToUnlockChargedJump)
+            if (!_chargedJumpUnlocked && BlocksPassedCount >= _finalBlocksToUnlock)
             {
                 _chargedJumpUnlocked = true;
                 OnChargedJumpUnlocked?.Invoke();

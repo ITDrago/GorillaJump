@@ -1,6 +1,7 @@
 using Core.Game;
-using Core.Money;
+using Money;
 using Player;
+using Skins;
 using UnityEngine;
 
 namespace Environment.Obstacles.MovingObjects.FallingObjects.Banana
@@ -12,7 +13,11 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects.Banana
         protected override void OnPlayerEnter(PlayerCore playerCore)
         {
             GameEvents.BananaCollected();
-            MoneySystem.Instance.AddMoney(_rewardAmount);
+            
+            var rewardMultiplier = ActiveSkinManager.Instance.CurrentSkin?.RewardMultiplier ?? 1;
+            var finalAmount = Mathf.RoundToInt(_rewardAmount * rewardMultiplier);
+            
+            MoneySystem.Instance.AddMoney(finalAmount);
             Destroy(gameObject);
         }
     }

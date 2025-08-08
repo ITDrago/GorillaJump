@@ -1,4 +1,5 @@
 using Environment.Blocks.BlockTypes;
+using Skins;
 using UnityEngine;
 
 namespace Player.Handlers
@@ -7,13 +8,14 @@ namespace Player.Handlers
     {
         private PlayerController _playerController;
 
-        private void Awake()
+        private void Awake() => _playerController = GetComponent<PlayerController>();
+
+        private void OnEnable()
         {
-            _playerController = GetComponent<PlayerController>();
             if (_playerController) _playerController.OnLanded += HandleLanding;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             if (_playerController) _playerController.OnLanded -= HandleLanding;
         }
@@ -23,11 +25,14 @@ namespace Player.Handlers
             switch (landedBlock)
             {
                 case IceBlock iceBlock:
-                    _playerController.InitiateSlide(iceBlock, stickPoint);
+                    var isImmune = ActiveSkinManager.Instance.CurrentSkin?.IsImmuneToIceSlide ?? false;
+                    if (isImmune) _playerController.InitiateSwing(stickPoint);
+                    else _playerController.InitiateSlide(iceBlock, stickPoint);
                     break;
                 
                 case BreakableBlock breakableBlock:
-                    breakableBlock.StartBreaking(_playerController);
+                    var preventsBreaking = ActiveSkinManager.Instance.CurrentSkin?.PreventsBlockBreaking ?? false;
+                    if (!preventsBreaking) breakableBlock.StartBreaking(_playerController);
                     _playerController.InitiateSwing(stickPoint);
                     break;
 

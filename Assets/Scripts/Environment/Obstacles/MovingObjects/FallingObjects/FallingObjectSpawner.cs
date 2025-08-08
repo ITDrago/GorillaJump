@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using Environment.Blocks.BlockTypes;
+using Skins;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -96,7 +97,13 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects
         private MovingObject GetRandomObject()
         {
             var spawnableObject = _specialSpawnableObjects[Random.Range(0, _specialSpawnableObjects.Length)];
-            return Random.value <= spawnableObject.SpawnChance ? spawnableObject.Prefab : _stickPrefab.Prefab;
+            
+            var stickMultiplier = ActiveSkinManager.Instance.CurrentSkin?.StickSpawnChanceMultiplier ?? 1;
+            var baseStickChance = 1 - spawnableObject.SpawnChance;
+            var modifiedStickChance = baseStickChance * stickMultiplier;
+            var finalSpecialChance = 1 - modifiedStickChance;
+            
+            return Random.value <= finalSpecialChance ? spawnableObject.Prefab : _stickPrefab.Prefab;
         }
 
         private void SpawnBetweenBlocks(MovingObject prefab, Block currentBlock)
@@ -116,10 +123,7 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects
             var spawnY = MainCamera.transform.position.y + _spawnHeightOffset;
             var spawnPosition = new Vector2(spawnX, spawnY);
 
-            if (IsPositionClear(spawnPosition))
-            {
-                SpawnObject(prefab, spawnPosition);
-            }
+            if (IsPositionClear(spawnPosition)) SpawnObject(prefab, spawnPosition);
         }
 
         private void StopSpawning()

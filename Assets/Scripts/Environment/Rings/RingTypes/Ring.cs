@@ -1,7 +1,7 @@
 using Core;
 using Core.Audio;
 using Core.Game;
-using Core.Money;
+using Money;
 using Player;
 using UnityEngine;
 

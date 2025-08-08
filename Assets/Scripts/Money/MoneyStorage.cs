@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.Money
+namespace Money
 {
     public class MoneyStorage
     {
@@ -19,6 +19,16 @@ namespace Core.Money
 
             CurrentMoney += amount;
             OnMoneyChanged?.Invoke(CurrentMoney);
+        }
+
+        public bool TrySpend(int amount)
+        {
+            if (amount <= 0) return false;
+            if (CurrentMoney < amount) return false;
+
+            CurrentMoney -= amount;
+            OnMoneyChanged?.Invoke(CurrentMoney);
+            return true;
         }
     }
 }

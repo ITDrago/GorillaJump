@@ -14,7 +14,6 @@ namespace Environment.Obstacles.Spikes
             {
                 if (playerCore.PlayerController.IsFlying) return;
                 
-                Debug.Log("Player was hit by a spike!");
                 playerCore.PlayerHealth.Die();
             }
         }

@@ -1,8 +1,7 @@
 using System.Threading;
-using Core;
-using Core.Audio;
 using Core.Game;
 using Player;
+using Skins;
 using UnityEngine;
 
 namespace Environment.Obstacles.MovingObjects.FallingObjects.Apple
@@ -23,9 +22,12 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects.Apple
             Destroy(gameObject);
             ApplyTimeEffect();
             
+            var durationMultiplier = ActiveSkinManager.Instance.CurrentSkin?.EffectDurationMultiplier ?? 1f;
+            var finalDuration = _effectDuration * durationMultiplier;
+
             try
             {
-                await Awaitable.WaitForSecondsAsync(_effectDuration, _cancellationTokenSource.Token);
+                await Awaitable.WaitForSecondsAsync(finalDuration, _cancellationTokenSource.Token);
             }
             catch
             {

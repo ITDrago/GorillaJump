@@ -18,7 +18,7 @@ namespace Camera
 
         private void Start()
         {
-            if (_playerController == null) return;
+            if (!_playerController) return;
 
             _initialY = transform.position.y;
 
