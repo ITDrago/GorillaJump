@@ -7,11 +7,9 @@ namespace Core.Audio
     {
         [SerializeField] private AudioClip _clickSound;
         
-        private SoundManager _soundManager;
         private Button _button;
         private void Start()
         {
-            _soundManager = (SoundManager)FindFirstObjectByType(typeof(SoundManager));
             _button = GetComponent<Button>();
             if(_button) _button.onClick.AddListener(PlayClickSfx);
         }
@@ -21,6 +19,6 @@ namespace Core.Audio
             if (_button) _button.onClick.RemoveListener(PlayClickSfx);
         }
 
-        private void PlayClickSfx() => _soundManager.PlaySfx(_clickSound, 0.8f);
+        private void PlayClickSfx() => SoundManager.Instance.PlaySfx(_clickSound, 0.8f);
     }
 }

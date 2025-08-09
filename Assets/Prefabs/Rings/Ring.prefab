@@ -152,7 +152,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultReward: 1
   _scaleMultiplier: 0.1
-  _collectParticleSystem: {fileID: 6860942494276241390}
   _collectSound: {fileID: 8300000, guid: c5cb2ac29e89dbf43a9b644caaad45e6, type: 3}
 --- !u!1 &2884851535797413467
 GameObject:

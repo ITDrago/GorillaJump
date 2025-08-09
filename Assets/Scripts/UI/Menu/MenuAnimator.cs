@@ -18,6 +18,7 @@ namespace UI.Menu
         [Header("Panels")]
         [SerializeField] private CanvasGroup _missionsPanelCanvasGroup;
         [SerializeField] private CanvasGroup _shopPanelCanvasGroup;
+        [SerializeField] private CanvasGroup _settingsPanelCanvasGroup;
         
         [Header("Dependencies")]
         [SerializeField] private QuestUI _questUI;
@@ -26,12 +27,14 @@ namespace UI.Menu
 
         private Vector2 _mainPanelOnscreenPosition;
         private bool _isPanelOpen;
+        private bool _isAnimating;
 
         private void Start()
         {
             _mainPanelOnscreenPosition = _mainPanel.anchoredPosition;
             InitializePanelState(_missionsPanelCanvasGroup);
             InitializePanelState(_shopPanelCanvasGroup);
+            InitializePanelState(_settingsPanelCanvasGroup);
         }
 
         public void OpenMissionsPanel()
@@ -40,11 +43,8 @@ namespace UI.Menu
             AnimatePanelOpen(_missionsPanelCanvasGroup);
         }
 
-        public void CloseMissionsPanel()
-        {
-            AnimatePanelClose(_missionsPanelCanvasGroup);
-        }
-        
+        public void CloseMissionsPanel() => AnimatePanelClose(_missionsPanelCanvasGroup);
+
         public void OpenShopPanel()
         {
             _shopManager?.Initialize();
@@ -56,7 +56,11 @@ namespace UI.Menu
             _shopManager?.Cleanup();
             AnimatePanelClose(_shopPanelCanvasGroup);
         }
-        
+
+        public void OpenSettingsPanel() => AnimatePanelOpen(_settingsPanelCanvasGroup);
+
+        public void CloseSettingsPanel() => AnimatePanelClose(_settingsPanelCanvasGroup);
+
         private void InitializePanelState(CanvasGroup panel)
         {
             if (!panel) return;
@@ -65,8 +69,10 @@ namespace UI.Menu
 
         private void AnimatePanelOpen(CanvasGroup panel)
         {
-            if (_isPanelOpen || !panel) return;
+            if (_isPanelOpen || _isAnimating || !panel) return;
+            
             _isPanelOpen = true;
+            _isAnimating = true;
 
             _menuCharacterDisplay?.SetCharacterVisible(false);
             
@@ -78,13 +84,19 @@ namespace UI.Menu
             var sequence = DOTween.Sequence();
             sequence.Append(_dimmingPanelCanvasGroup.DOFade(1, _animationDuration))
                 .Join(_mainPanel.DOAnchorPosX(-_mainPanel.rect.width, _animationDuration).SetEase(_animationEase))
-                .Join(panel.DOFade(1, _animationDuration));
+                .Join(panel.DOFade(1, _animationDuration))
+                .OnComplete(() => 
+                {
+                    _isAnimating = false;
+                });
         }
 
         private void AnimatePanelClose(CanvasGroup panel)
         {
-            if (!_isPanelOpen || !panel) return;
+            if (!_isPanelOpen || _isAnimating || !panel) return;
+            
             _isPanelOpen = false;
+            _isAnimating = true;
 
             _menuCharacterDisplay?.SetCharacterVisible(true);
             
@@ -98,6 +110,7 @@ namespace UI.Menu
                 .OnComplete(() => 
                 {
                     panel.gameObject.SetActive(false);
+                    _isAnimating = false;
                 });
         }
     }

@@ -22,7 +22,7 @@ namespace UI.Menu
 
         private void OnDestroy()
         {
-            _recordText.transform.DOKill();
+            if (_recordText) _recordText.transform.DOKill();
         }
 
         private void DisplayRecord()

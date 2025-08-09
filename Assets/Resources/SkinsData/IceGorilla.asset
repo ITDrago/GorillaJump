@@ -15,13 +15,14 @@ MonoBehaviour:
   _id: 2
   _name: Ice Gorilla
   _price: 2000
-  _isFree: 1
+  _isFree: 0
   _buffDescription: Doesn't slide on ice blocks
   _rewardMultiplier: 1
   _effectDurationMultiplier: 1
   _chargedJumpRequirementMultiplier: 1
-  _extraLives: 0
   _isImmuneToIceSlide: 1
+  _preventsBlockBreaking: 0
+  _stickSpawnChanceMultiplier: 1
   _trailGradient:
     serializedVersion: 2
     key0: {r: 0.5235849, g: 0.6256737, b: 1, a: 1}

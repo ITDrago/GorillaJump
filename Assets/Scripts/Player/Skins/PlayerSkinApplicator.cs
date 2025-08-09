@@ -30,7 +30,7 @@ namespace Player.Skins
             var skinData = _allSkins.FirstOrDefault(s => s.ID == skinID);
             if (!skinData) return;
             
-            ActiveSkinManager.Instance.SetActiveSkin(skinData);
+            if (ActiveSkinManager.Instance) ActiveSkinManager.Instance.SetActiveSkin(skinData);
 
             foreach (var mapping in _skinMappings)
             {

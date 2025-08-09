@@ -52,7 +52,7 @@ namespace Core.Loading
                 var visualProgress = timer / randomLoadDuration;
                 if (view) view.UpdateProgress(visualProgress);
 
-                timer += Time.unscaledDeltaTime;
+                timer += UnityEngine.Time.unscaledDeltaTime;
                 await Awaitable.NextFrameAsync(destroyCancellationToken);
             }
 

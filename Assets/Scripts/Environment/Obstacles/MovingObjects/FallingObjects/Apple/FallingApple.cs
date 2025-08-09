@@ -1,5 +1,4 @@
-using System.Threading;
-using Core.Game;
+using Core.Time;
 using Player;
 using Skins;
 using UnityEngine;
@@ -9,44 +8,19 @@ namespace Environment.Obstacles.MovingObjects.FallingObjects.Apple
     public class FallingApple : MovingObject
     {
         [SerializeField] private float _slowdownFactor = 0.5f;
-        [SerializeField] private float _effectDuration = 5;
-        
-        private static CancellationTokenSource _cancellationTokenSource;
-        
-        protected override async void OnPlayerEnter(PlayerCore playerCore)
+        [SerializeField] private float _effectDuration = 5f;
+
+        protected override void OnPlayerEnter(PlayerCore playerCore)
         {
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource = new CancellationTokenSource();
-            
-            GameEvents.AppleCollected();
-            Destroy(gameObject);
-            ApplyTimeEffect();
-            
-            var durationMultiplier = ActiveSkinManager.Instance.CurrentSkin?.EffectDurationMultiplier ?? 1f;
+            var durationMultiplier = ActiveSkinManager.Instance.CurrentSkin?.EffectDurationMultiplier ?? 1;
             var finalDuration = _effectDuration * durationMultiplier;
-
-            try
+            
+            if (TimeManager.Instance != null)
             {
-                await Awaitable.WaitForSecondsAsync(finalDuration, _cancellationTokenSource.Token);
-            }
-            catch
-            {
-                return;
+                TimeManager.Instance.ApplyEffect(_slowdownFactor, finalDuration);
             }
             
-            if (!_cancellationTokenSource.IsCancellationRequested) RestoreTime();
-        }
-
-        private void ApplyTimeEffect()
-        {
-            Time.timeScale = _slowdownFactor;
-            Time.fixedDeltaTime = Time.timeScale * 0.02f;
-        }
-
-        private static void RestoreTime()
-        {
-            Time.timeScale = 1;
-            Time.fixedDeltaTime = 0.02f;
+            Destroy(gameObject);
         }
     }
 }

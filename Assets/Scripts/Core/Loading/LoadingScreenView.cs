@@ -59,7 +59,7 @@ namespace Core.Loading
                 if (cancellationToken.IsCancellationRequested) return;
                 
                 targetGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, time / duration);
-                time += Time.unscaledDeltaTime;
+                time += UnityEngine.Time.unscaledDeltaTime;
                 await Awaitable.NextFrameAsync(cancellationToken);
             }
 

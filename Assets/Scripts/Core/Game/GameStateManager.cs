@@ -1,7 +1,9 @@
 using Core.Audio;
 using Core.Data;
+using Core.Time;
 using Player.Health;
 using UI;
+using UI.Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,14 +24,14 @@ namespace Core.Game
         {
             var finalScore = _progressManager.BlocksPassedCount;
             ScoreSaver.SaveScore(finalScore);
-            
-            Time.timeScale = 0f;
+
+            TimeManager.Instance.SetTimeScale(0);
             _gameOverScreen.Show();
         }
 
         public void RestartGame()
         {
-            Time.timeScale = 1f;
+            TimeManager.Instance.RestoreDefaultTimeScale();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }

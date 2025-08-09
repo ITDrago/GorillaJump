@@ -1,4 +1,3 @@
-using Core;
 using Core.Audio;
 using Core.Game;
 using Money;
@@ -19,7 +18,6 @@ namespace Environment.Rings.RingTypes
         private int _rewardAmount;
         private bool _isCollected;
         
-        private SoundManager _soundManager;
         private ParticleSystem _collectParticleSystem;
         private Coin _coin;
         
@@ -28,7 +26,6 @@ namespace Environment.Rings.RingTypes
         protected virtual void Awake()
         {
             MainCamera = UnityEngine.Camera.main;
-            _soundManager = (SoundManager)FindFirstObjectByType(typeof(SoundManager));
             _collectParticleSystem = GetComponentInChildren<ParticleSystem>();
             _coin = GetComponentInChildren<Coin>();
             _originalScale = transform.localScale;
@@ -49,7 +46,7 @@ namespace Environment.Rings.RingTypes
         
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out PlayerCore playerCore)) Collect();
+            if (other.TryGetComponent(out PlayerCore _)) Collect();
         }
         
         private void Collect()
@@ -64,7 +61,7 @@ namespace Environment.Rings.RingTypes
             
             _coin.gameObject.SetActive(false);
             
-            _soundManager.PlaySfx(_collectSound);
+            SoundManager.Instance.PlaySfx(_collectSound);
             _collectParticleSystem.Play();
         }
     }

@@ -15,7 +15,7 @@ MonoBehaviour:
   _id: 4
   _name: Jungle Gorilla
   _price: 10000
-  _isFree: 1
+  _isFree: 0
   _buffDescription: Fewer sticks, unbreakable blocks
   _rewardMultiplier: 1
   _effectDurationMultiplier: 1

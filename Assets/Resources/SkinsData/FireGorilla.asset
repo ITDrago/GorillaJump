@@ -15,14 +15,14 @@ MonoBehaviour:
   _id: 3
   _name: Fire Gorilla
   _price: 5000
-  _isFree: 1
+  _isFree: 0
   _buffDescription: Double jump unlocks twice as fast
   _rewardMultiplier: 1
   _effectDurationMultiplier: 1
   _chargedJumpRequirementMultiplier: 0.5
   _isImmuneToIceSlide: 0
-  _extraLives: 0
-  _respawnParticlesPrefab: {fileID: 0}
+  _preventsBlockBreaking: 0
+  _stickSpawnChanceMultiplier: 1
   _trailGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.25943398, b: 0.30081227, a: 1}

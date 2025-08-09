@@ -13,14 +13,21 @@ namespace Player
         private void Start()
         {
             _playerController = GetComponent<PlayerController>();
-            _playerController.OnJumped += SwitchIsFlyingTrue;
-            _playerController.OnLanded += SwitchIsFlyingFalse;
+
+            if (_playerController)
+            {
+                _playerController.OnJumped += SwitchIsFlyingTrue;
+                _playerController.OnLanded += SwitchIsFlyingFalse;
+            }
         }
 
         private void OnDisable()
         {
-            _playerController.OnJumped -= SwitchIsFlyingTrue;
-            _playerController.OnLanded -= SwitchIsFlyingFalse;
+            if (_playerController)
+            {
+                _playerController.OnJumped -= SwitchIsFlyingTrue;
+                _playerController.OnLanded -= SwitchIsFlyingFalse;
+            }
         }
         
         private void SwitchIsFlying(bool condition) => _playerAnimator.SetBool(_conditionBoolName, condition);

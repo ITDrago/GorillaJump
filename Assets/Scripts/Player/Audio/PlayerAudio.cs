@@ -8,9 +8,6 @@ namespace Player.Audio
     [RequireComponent(typeof(PlayerController))]
     public class PlayerAudio : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private SoundManager _soundManager;
-
         [Header("Audio Clips")] 
         [SerializeField] private AudioClip _jumpSound;
         [SerializeField] private AudioClip _landSound;
@@ -41,20 +38,19 @@ namespace Player.Audio
 
         private void HandlePlayerJumped(Block jumpedFromBlock)
         {
-            if (_jumpSound && _soundManager) _soundManager.PlaySfx(_jumpSound);
+            if (_jumpSound && SoundManager.Instance) SoundManager.Instance.PlaySfx(_jumpSound);
         }
 
         private void HandlePlayerLanded(Block landedOnBlock, Vector2 stickPoint)
         {
-            if (_landSound && _soundManager) _soundManager.PlaySfx(_landSound);
+            if (_landSound && SoundManager.Instance) SoundManager.Instance.PlaySfx(_landSound);
         }
 
         private void HandlePlayerDied()
         {
-            if (_deathSound && _soundManager)
+            if (_deathSound && SoundManager.Instance)
             {
-                _soundManager.AdjustMusicVolume(0.2f);
-                _soundManager.PlaySfx(_deathSound);
+                SoundManager.Instance.PlaySfx(_deathSound);
             }
         }
     }
