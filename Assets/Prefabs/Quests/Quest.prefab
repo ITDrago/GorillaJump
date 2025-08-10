@@ -59,27 +59,6 @@ MonoBehaviour:
   _progressBar: {fileID: 1242537514096746700}
   _rewardText: {fileID: 6046712808690534148}
   _rewardPanel: {fileID: 232209473446623415}
-  _completedStatusText:
-    m_TableReference:
-      m_TableCollectionName: 
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  _progressFormat:
-    m_TableReference:
-      m_TableCollectionName: 
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  references:
-    version: 2
-    RefIds: []
 --- !u!222 &2219983726456200632
 CanvasRenderer:
   m_ObjectHideFlags: 0
