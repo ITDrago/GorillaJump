@@ -1,7 +1,9 @@
 using Shop;
 using Skins.Data;
+using UI.Menu.Localization;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization;
 
 namespace UI.Menu.Shop
 {
@@ -17,6 +19,15 @@ namespace UI.Menu.Shop
         [SerializeField] private Button _selectButton;
         [SerializeField] private Text _selectButtonText;
 
+        [Header("Localization")]
+        [SerializeField] private ShopLocalizationSO _localizationSettings;
+
+        private void OnDisable()
+        {
+            _buyButton.onClick.RemoveAllListeners();
+            _selectButton.onClick.RemoveAllListeners();
+        }
+
         public void Configure(ShopManager shopManager)
         {
             _buyButton.onClick.AddListener(shopManager.BuySkin);
@@ -25,19 +36,26 @@ namespace UI.Menu.Shop
 
         public void UpdateSkinInfo(SkinData skin, bool isPurchased, bool isSelected)
         {
-            _skinNameText.text = skin.Name;
-            _buffDescriptionText.text = skin.BuffDescription;
+            UpdateLocalizedText(_skinNameText, skin.Name);
+            UpdateLocalizedText(_buffDescriptionText, skin.BuffDescription);
 
-            if (skin.IsFree) _priceText.text = "Free";
-            else _priceText.text = skin.Price.ToString();
+            if (skin.IsFree)
+            {
+                UpdateLocalizedText(_priceText, _localizationSettings.FreePriceText);
+            }
+            else
+            {
+                _priceText.text = skin.Price.ToString();
+            }
 
             if (isPurchased)
             {
                 _buyButton.gameObject.SetActive(false);
                 _selectButton.gameObject.SetActive(true);
-                
                 _selectButton.interactable = !isSelected;
-                _selectButtonText.text = isSelected ? "Selected" : "Select";
+                
+                var buttonTextString = isSelected ? _localizationSettings.SelectedButtonText : _localizationSettings.SelectButtonText;
+                UpdateLocalizedText(_selectButtonText, buttonTextString);
             }
             else
             {
@@ -46,6 +64,17 @@ namespace UI.Menu.Shop
                 var isAffordable = global::Money.MoneySystem.Instance.MoneyStorage.CurrentMoney >= skin.Price;
                 _buyButton.interactable = skin.IsFree || isAffordable;
             }
+        }
+        
+        private void UpdateLocalizedText(Text targetText, LocalizedString localizedString)
+        {
+            void Handler(string value)
+            {
+                if(targetText) targetText.text = value;
+                localizedString.StringChanged -= Handler;
+            }
+            localizedString.StringChanged += Handler;
+            localizedString.RefreshString();
         }
     }
 }

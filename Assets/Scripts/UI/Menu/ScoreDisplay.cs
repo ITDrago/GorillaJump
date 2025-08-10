@@ -2,17 +2,23 @@ using Core.Data;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization;
 
 namespace UI.Menu
 {
-    public class ScoreDisplay : MonoBehaviour
+    public sealed class ScoreDisplay : MonoBehaviour
     {
         [Header("UI Elements")]
         [SerializeField] private Text _recordText;
+        [SerializeField] private LocalizedString _recordFormat;
 
         [Header("Animation Settings")]
-        [SerializeField] private float _pulseScale = 1.05f;
-        [SerializeField] private float _pulseDuration = 1f;
+        [SerializeField] private float _pulseScale = 1;
+        [SerializeField] private float _pulseDuration = 0.5f;
+
+        private void OnEnable() => _recordFormat.StringChanged += OnLocalizedTextChanged;
+
+        private void OnDisable() => _recordFormat.StringChanged -= OnLocalizedTextChanged;
 
         private void Start()
         {
@@ -28,7 +34,13 @@ namespace UI.Menu
         private void DisplayRecord()
         {
             var highScore = ScoreSaver.LoadScore();
-            _recordText.text = $"Your record is {highScore}!";
+            _recordFormat.Arguments = new object[] { highScore };
+            _recordFormat.RefreshString();
+        }
+
+        private void OnLocalizedTextChanged(string value)
+        {
+            if (_recordText) _recordText.text = value;
         }
 
         private void AnimateRecordText()

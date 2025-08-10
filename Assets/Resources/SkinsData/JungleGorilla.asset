@@ -13,10 +13,26 @@ MonoBehaviour:
   m_Name: JungleGorilla
   m_EditorClassIdentifier: 
   _id: 4
-  _name: Jungle Gorilla
+  _name:
+    m_TableReference:
+      m_TableCollectionName: GUID:57638b47a42705e4e941e89e2e2d7138
+    m_TableEntryReference:
+      m_KeyId: 1824601092096
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _price: 10000
   _isFree: 0
-  _buffDescription: Fewer sticks, unbreakable blocks
+  _buffDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:57638b47a42705e4e941e89e2e2d7138
+    m_TableEntryReference:
+      m_KeyId: 1976736886784
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _rewardMultiplier: 1
   _effectDurationMultiplier: 1
   _chargedJumpRequirementMultiplier: 1
@@ -55,3 +71,6 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   _shopDisplayPrefab: {fileID: 5132810635966470691, guid: 9c4ecf0bf2a51ec42bb4611f81205ce4, type: 3}
   _inGamePlayerPrefab: {fileID: 4499372482301181072, guid: 02ba9d23057642fe84ca65ccf17744d0, type: 3}
+  references:
+    version: 2
+    RefIds: []

@@ -54,14 +54,9 @@ namespace Quests.Data
             InstantiateObjective();
         }
 
-        public string GetDescription()
-        {
-            return string.Format(Template.DescriptionFormat, TargetValue);
-        }
-
         private void InstantiateObjective()
         {
-            if (QuestManager.Instance == null || Template.ObjectivePrefab == null) return;
+            if (!QuestManager.Instance || !Template.ObjectivePrefab) return;
 
             var parent = QuestManager.Instance.transform.Find("Objectives");
             ObjectiveInstance = UnityEngine.Object.Instantiate(Template.ObjectivePrefab, parent);

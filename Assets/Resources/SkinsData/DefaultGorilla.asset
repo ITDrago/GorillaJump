@@ -13,15 +13,32 @@ MonoBehaviour:
   m_Name: DefaultGorilla
   m_EditorClassIdentifier: 
   _id: 0
-  _name: Gorilla
+  _name:
+    m_TableReference:
+      m_TableCollectionName: GUID:57638b47a42705e4e941e89e2e2d7138
+    m_TableEntryReference:
+      m_KeyId: 658374864896
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _price: 0
   _isFree: 1
-  _buffDescription: 
+  _buffDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:57638b47a42705e4e941e89e2e2d7138
+    m_TableEntryReference:
+      m_KeyId: 741866680320
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _rewardMultiplier: 1
   _effectDurationMultiplier: 1
   _chargedJumpRequirementMultiplier: 1
-  _extraLives: 0
   _isImmuneToIceSlide: 0
+  _preventsBlockBreaking: 0
+  _stickSpawnChanceMultiplier: 1
   _trailGradient:
     serializedVersion: 2
     key0: {r: 0.5921569, g: 0.6039216, b: 0.64705884, a: 1}
@@ -54,3 +71,6 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   _shopDisplayPrefab: {fileID: 2491365460208349202, guid: e01c0eef76ea9cb4982661be2af3def0, type: 3}
   _inGamePlayerPrefab: {fileID: 4499372482301181072, guid: 007f2e313e784ee0ae45ad4353358364, type: 3}
+  references:
+    version: 2
+    RefIds: []

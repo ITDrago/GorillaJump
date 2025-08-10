@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Skins.Data
 {
@@ -7,10 +8,10 @@ namespace Skins.Data
     {
         [Header("Common Info")]
         [SerializeField] private int _id;
-        [SerializeField] private string _name;
+        [SerializeField] private LocalizedString _name;
         [SerializeField] private int _price;
         [SerializeField] private bool _isFree;
-        [SerializeField] private string _buffDescription;
+        [SerializeField] private LocalizedString _buffDescription;
         
         [Header("Abilities")]
         [SerializeField] private float _rewardMultiplier = 1;
@@ -28,10 +29,10 @@ namespace Skins.Data
         [SerializeField] private GameObject _inGamePlayerPrefab;
 
         public int ID => _id;
-        public string Name => _name;
+        public LocalizedString Name => _name;
         public int Price => _price;
         public bool IsFree => _isFree;
-        public string BuffDescription => _buffDescription;
+        public LocalizedString BuffDescription => _buffDescription;
         public float RewardMultiplier => _rewardMultiplier;
         public float EffectDurationMultiplier => _effectDurationMultiplier;
         public float ChargedJumpRequirementMultiplier => _chargedJumpRequirementMultiplier;

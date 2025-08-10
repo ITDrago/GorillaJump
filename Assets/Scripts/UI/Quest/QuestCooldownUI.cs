@@ -24,10 +24,7 @@ namespace UI.Quest
             if (QuestManager.Instance) QuestManager.Instance.OnQuestDataUpdated -= UpdateCooldowns;
         }
 
-        private void Update()
-        {
-            UpdateCooldowns();
-        }
+        private void Update() => UpdateCooldowns();
 
         private void UpdateCooldowns()
         {
@@ -42,9 +39,9 @@ namespace UI.Quest
 
         private string FormatTimeSpan(TimeSpan ts)
         {
-            if (ts.Days > 0) return $"{ts.Days}d. {ts.Hours:D2}h. {ts.Minutes:D2}min.";
+            if (ts.Days > 0) return $"{ts.Days}:{ts.Hours:D2}:{ts.Minutes:D2}";
 
-            return $"{ts.Hours:D2}h. {ts.Minutes:D2}min.";
+            return $"{ts.Hours:D2}:{ts.Minutes:D2}";
         }
     }
 }

@@ -13,10 +13,26 @@ MonoBehaviour:
   m_Name: IceGorilla
   m_EditorClassIdentifier: 
   _id: 2
-  _name: Ice Gorilla
+  _name:
+    m_TableReference:
+      m_TableCollectionName: GUID:57638b47a42705e4e941e89e2e2d7138
+    m_TableEntryReference:
+      m_KeyId: 1083744399360
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _price: 2000
   _isFree: 0
-  _buffDescription: Doesn't slide on ice blocks
+  _buffDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:57638b47a42705e4e941e89e2e2d7138
+    m_TableEntryReference:
+      m_KeyId: 1297263833088
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _rewardMultiplier: 1
   _effectDurationMultiplier: 1
   _chargedJumpRequirementMultiplier: 1
@@ -55,3 +71,6 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   _shopDisplayPrefab: {fileID: 3252172048420644397, guid: 6b0089ac5e86e6c43bbb8590c3e86ee9, type: 3}
   _inGamePlayerPrefab: {fileID: 4499372482301181072, guid: cdf34526a3844f46b35d9cfd78bcd549, type: 3}
+  references:
+    version: 2
+    RefIds: []

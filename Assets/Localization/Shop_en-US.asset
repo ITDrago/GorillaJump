@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Shop_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 57638b47a42705e4e941e89e2e2d7138, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 38561591296
+    m_Localized: Free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 91044917248
+    m_Localized: Selected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 196175147008
+    m_Localized: Select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 658374864896
+    m_Localized: Gorilla
+    m_Metadata:
+      m_Items: []
+  - m_Id: 776612294656
+    m_Localized: Rose Gorilla
+    m_Metadata:
+      m_Items: []
+  - m_Id: 870816362496
+    m_Localized: x2 increased reward for bananas and apples
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1083744399360
+    m_Localized: Ice Gorilla
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1297263833088
+    m_Localized: Doesn't slide on ice blocks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1487156752384
+    m_Localized: Fire Gorilla
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1587476115456
+    m_Localized: Charged jump unlocks twice as fast
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1824601092096
+    m_Localized: Jungle Gorilla
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1976736886784
+    m_Localized: Fewer sticks, unbreakable blocks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 741866680320
+    m_Localized: ' '
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

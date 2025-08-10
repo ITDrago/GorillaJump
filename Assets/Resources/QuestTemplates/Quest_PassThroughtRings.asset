@@ -13,8 +13,38 @@ MonoBehaviour:
   m_Name: Quest_PassThroughtRings
   m_EditorClassIdentifier: 
   _id: pass_through_rings
-  _descriptionFormat: "\u041F\u0440\u043E\u043B\u0435\u0442\u0438\u0442\u0435 \u0447\u0435\u0440\u0435\u0437
-    {0} \u043B\u0435\u0442\u0430\u044E\u0449\u0438\u0445 \u043A\u043E\u043B\u0435\u0446!"
+  _descriptionFormat:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7da53b27fc00634d832999b0726e694
+    m_TableEntryReference:
+      m_KeyId: 1386157912064
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _completedStatusText:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7da53b27fc00634d832999b0726e694
+    m_TableEntryReference:
+      m_KeyId: 5384646656
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _progressFormat:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7da53b27fc00634d832999b0726e694
+    m_TableEntryReference:
+      m_KeyId: 98938597376
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _objectivePrefab: {fileID: 8449009137703841559, guid: 28197cc7c0a445c48bdd8127c658a0a6, type: 3}
   _baseDailyTarget: 50
   _baseWeeklyTarget: 200
+  _dailyRewardRange: {x: 50, y: 100}
+  _weeklyRewardRange: {x: 250, y: 500}
+  references:
+    version: 2
+    RefIds: []

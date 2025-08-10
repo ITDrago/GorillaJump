@@ -13,10 +13,26 @@ MonoBehaviour:
   m_Name: FireGorilla
   m_EditorClassIdentifier: 
   _id: 3
-  _name: Fire Gorilla
+  _name:
+    m_TableReference:
+      m_TableCollectionName: GUID:57638b47a42705e4e941e89e2e2d7138
+    m_TableEntryReference:
+      m_KeyId: 1487156752384
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _price: 5000
   _isFree: 0
-  _buffDescription: Double jump unlocks twice as fast
+  _buffDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:57638b47a42705e4e941e89e2e2d7138
+    m_TableEntryReference:
+      m_KeyId: 1587476115456
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _rewardMultiplier: 1
   _effectDurationMultiplier: 1
   _chargedJumpRequirementMultiplier: 0.5
@@ -55,3 +71,6 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   _shopDisplayPrefab: {fileID: 7957336974008357940, guid: f9119bf6754f0d847a0dbddbc9024ac8, type: 3}
   _inGamePlayerPrefab: {fileID: 4499372482301181072, guid: 68a3cd3d1b8547398f0721e0f0e57009, type: 3}
+  references:
+    version: 2
+    RefIds: []

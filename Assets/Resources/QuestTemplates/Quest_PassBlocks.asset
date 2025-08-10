@@ -13,8 +13,38 @@ MonoBehaviour:
   m_Name: Quest_PassBlocks
   m_EditorClassIdentifier: 
   _id: pass_blocks
-  _descriptionFormat: "\u041F\u0440\u0435\u043E\u0434\u043E\u043B\u0435\u0439\u0442\u0435
-    {0} \u0431\u043B\u043E\u043A\u043E\u0432"
+  _descriptionFormat:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7da53b27fc00634d832999b0726e694
+    m_TableEntryReference:
+      m_KeyId: 1203839905792
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _completedStatusText:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7da53b27fc00634d832999b0726e694
+    m_TableEntryReference:
+      m_KeyId: 5384646656
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _progressFormat:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7da53b27fc00634d832999b0726e694
+    m_TableEntryReference:
+      m_KeyId: 98938597376
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _objectivePrefab: {fileID: 1887290093490785057, guid: 0ad500a184743794690320b0ec104873, type: 3}
   _baseDailyTarget: 150
   _baseWeeklyTarget: 500
+  _dailyRewardRange: {x: 50, y: 100}
+  _weeklyRewardRange: {x: 250, y: 500}
+  references:
+    version: 2
+    RefIds: []

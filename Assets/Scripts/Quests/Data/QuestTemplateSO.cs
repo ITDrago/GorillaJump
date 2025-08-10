@@ -1,5 +1,6 @@
-using Quests.Objectives;
 using UnityEngine;
+using UnityEngine.Localization;
+using Quests.Objectives;
 
 namespace Quests.Data
 {
@@ -11,10 +12,18 @@ namespace Quests.Data
         [SerializeField] private string _id;
         public string ID => _id;
 
-        [SerializeField, TextArea] 
-        private string _descriptionFormat;
-        public string DescriptionFormat => _descriptionFormat;
+        [Header("Localization Keys")]
+        [SerializeField] private LocalizedString _descriptionFormat;
+        public LocalizedString DescriptionFormat => _descriptionFormat;
 
+        [SerializeField] private LocalizedString _completedStatusText;
+        public LocalizedString CompletedStatusText => _completedStatusText;
+
+        [SerializeField] private LocalizedString _progressFormat;
+        public LocalizedString ProgressFormat => _progressFormat;
+
+
+        [Header("Objective")]
         [SerializeField] private QuestObjective _objectivePrefab;
         public QuestObjective ObjectivePrefab => _objectivePrefab;
     
@@ -28,6 +37,7 @@ namespace Quests.Data
         [Header("Reward Settings")]
         [SerializeField] private Vector2Int _dailyRewardRange = new(50, 100);
         public Vector2Int DailyRewardRange => _dailyRewardRange;
+        
         [SerializeField] private Vector2Int _weeklyRewardRange = new(250, 500);
         public Vector2Int WeeklyRewardRange => _weeklyRewardRange;
     }
