@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Shop Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Shop
+  m_TableCollectionNameGuidString: 57638b47a42705e4e941e89e2e2d7138
+  m_Entries:
+  - m_Id: 38561591296
+    m_Key: shop.free_text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 91044917248
+    m_Key: shop_selected_text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 196175147008
+    m_Key: shop_select_text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 658374864896
+    m_Key: shop.default_gorilla_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 741866680320
+    m_Key: shop.default_gorilla_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 776612294656
+    m_Key: shop.rose_gorilla_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 870816362496
+    m_Key: shop.rose_gorilla_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1083744399360
+    m_Key: shop.ice_gorilla_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1297263833088
+    m_Key: shop.ice_gorilla_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1487156752384
+    m_Key: shop.fire_gorilla_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1587476115456
+    m_Key: shop.fire_gorilla_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1824601092096
+    m_Key: shop.jungle_gorilla_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1976736886784
+    m_Key: shop.jungle_gorilla_description
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 8089256821927444585
+  references:
+    version: 2
+    RefIds:
+    - rid: 8089256821927444585
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1754848423853

@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07cae9750acd42c6b38f88a459891f54, type: 3}
+  m_Name: IceGorilla
+  m_EditorClassIdentifier: 
+  _id: 2
+  _name:
+    m_TableReference:
+      m_TableCollectionName: GUID:57638b47a42705e4e941e89e2e2d7138
+    m_TableEntryReference:
+      m_KeyId: 1083744399360
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _price: 2000
+  _isFree: 0
+  _buffDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:57638b47a42705e4e941e89e2e2d7138
+    m_TableEntryReference:
+      m_KeyId: 1297263833088
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _rewardMultiplier: 1
+  _effectDurationMultiplier: 1
+  _chargedJumpRequirementMultiplier: 1
+  _isImmuneToIceSlide: 1
+  _preventsBlockBreaking: 0
+  _stickSpawnChanceMultiplier: 1
+  _trailGradient:
+    serializedVersion: 2
+    key0: {r: 0.5235849, g: 0.6256737, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 0}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  _shopDisplayPrefab: {fileID: 3252172048420644397, guid: 6b0089ac5e86e6c43bbb8590c3e86ee9, type: 3}
+  _inGamePlayerPrefab: {fileID: 4499372482301181072, guid: cdf34526a3844f46b35d9cfd78bcd549, type: 3}
+  references:
+    version: 2
+    RefIds: []

@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6085b0a927448a19024ac963c771681, type: 3}
+  m_Name: Quest_BirdInteraction
+  m_EditorClassIdentifier: 
+  _id: bird_interaction
+  _descriptionFormat:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7da53b27fc00634d832999b0726e694
+    m_TableEntryReference:
+      m_KeyId: 563487125504
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _completedStatusText:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7da53b27fc00634d832999b0726e694
+    m_TableEntryReference:
+      m_KeyId: 5384646656
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _progressFormat:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7da53b27fc00634d832999b0726e694
+    m_TableEntryReference:
+      m_KeyId: 98938597376
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _objectivePrefab: {fileID: 7851993216076744178, guid: 3f3eb7de1dd9cc84ba781935c9ec2ba5, type: 3}
+  _baseDailyTarget: 10
+  _baseWeeklyTarget: 50
+  _dailyRewardRange: {x: 50, y: 100}
+  _weeklyRewardRange: {x: 250, y: 500}
+  references:
+    version: 2
+    RefIds: []

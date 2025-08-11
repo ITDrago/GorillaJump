@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Quests Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Quests
+  m_TableCollectionNameGuidString: a7da53b27fc00634d832999b0726e694
+  m_Entries:
+  - m_Id: 5384646656
+    m_Key: quests.status_completed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 98938597376
+    m_Key: quests.progress_format
+    m_Metadata:
+      m_Items: []
+  - m_Id: 563487125504
+    m_Key: quests.bird
+    m_Metadata:
+      m_Items: []
+  - m_Id: 828512612352
+    m_Key: quests.apples
+    m_Metadata:
+      m_Items: []
+  - m_Id: 950734630912
+    m_Key: 'quests.bananas
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045064527872
+    m_Key: quests.jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1203839905792
+    m_Key: 'quests.block_pass
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1386157912064
+    m_Key: quests.ring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1518941188096
+    m_Key: quests.branch
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 8089256815336096048
+  references:
+    version: 2
+    RefIds:
+    - rid: 8089256815336096048
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1754837047505
