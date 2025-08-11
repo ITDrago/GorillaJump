@@ -19,7 +19,7 @@ namespace Advertisement
         {
             MobileAds.SetAgeRestrictedUser(true);
 
-            var adUnitId = "demo-banner-yandex";
+            var adUnitId = "R-M-16382020-3";
 
             _banner?.Destroy();
             // Set sticky banner width

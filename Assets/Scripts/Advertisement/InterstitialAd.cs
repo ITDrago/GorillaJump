@@ -25,7 +25,7 @@ namespace Advertisement
         {
             MobileAds.SetAgeRestrictedUser(true);
 
-            var adUnitId = "demo-interstitial-yandex";
+            var adUnitId = "R-M-16382020-1";
 
             _interstitial?.Destroy();
 

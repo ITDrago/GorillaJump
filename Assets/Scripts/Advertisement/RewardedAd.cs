@@ -35,7 +35,7 @@ namespace Advertisement
 
             _rewardedAd?.Destroy();
 
-            var adUnitId = "demo-rewarded-yandex";
+            var adUnitId = "R-M-16382020-2";
 
             _rewardedAdLoader.LoadAd(CreateAdRequest(adUnitId));
             DisplayMessage("Rewarded Ad is requested");
