@@ -1,6 +1,5 @@
 using System;
 using Environment.Blocks.BlockTypes;
-using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Core.Game;
@@ -25,13 +24,12 @@ namespace Player
         [SerializeField] private float _slideSpeed = 0.5f;
 
         [Header("Charged Jump")]
-        [SerializeField] private Vector2 _chargedJumpForceRange = new(12, 25);
+        [SerializeField] private Vector2 _chargedJumpForceRange = new(11, 14);
 
         [Header("References")]
         [SerializeField] private Stick _stick;
         [SerializeField] private Transform _gorillaBody;
         [SerializeField] private ChargedJumpUI _chargedJumpUI;
-        [SerializeField] private ProgressManager _progressManager;
 
         [Header("Start Properties")]
         [SerializeField] private Block _startBlock;
@@ -81,10 +79,7 @@ namespace Player
             _inputSystem.Disable();
         }
 
-        private void FixedUpdate()
-        {
-            HandleAttachedState();
-        }
+        private void FixedUpdate() => HandleAttachedState();
 
         private void HandleAttachedState()
         {
@@ -138,8 +133,6 @@ namespace Player
 
         private void HandleTapPerformed(InputAction.CallbackContext context)
         {
-            if (!_progressManager || !_progressManager.IsChargedJumpUnlocked) return;
-            
             switch (_currentState)
             {
                 case State.Swinging or State.Sliding:

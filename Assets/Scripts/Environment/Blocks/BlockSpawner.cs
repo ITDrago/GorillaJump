@@ -39,7 +39,7 @@ namespace Environment.Blocks
         [SerializeField] [Range(0, 1)] private float _chanceToAddSpikes = 0.5f;
         [SerializeField] private SpikeSpawnConfig[] _spikeConfigs;
 
-        private List<Block> _spawnedBlocks = new();
+        private readonly List<Block> _spawnedBlocks = new();
         private int _blocksSpawned;
         private float _nextSpawnX;
         private int _blocksSinceLastSpecial;
@@ -47,10 +47,11 @@ namespace Environment.Blocks
         public IReadOnlyList<Block> SpawnedBlocks => _spawnedBlocks;
         
         public event Action<Block> OnBlockSpawned;
+        public event Action<Block> OnBlockRemoved;
 
         private void Start()
         {
-            if (_playerController.StartBlock != null)
+            if (_playerController.StartBlock)
             {
                 _spawnedBlocks.Add(_playerController.StartBlock);
                 _nextSpawnX = _playerController.StartBlock.transform.position.x;
@@ -65,14 +66,20 @@ namespace Environment.Blocks
 
         private void Update()
         {
-            if (ShouldSpawnNewBlock()) SpawnBlock();
+            if (ShouldSpawnNewBlock())
+            {
+                SpawnBlock();
+            }
         }
 
-        private bool ShouldSpawnNewBlock() => _playerController.transform.position.x > _nextSpawnX - 15f;
+        private bool ShouldSpawnNewBlock() => _playerController.transform.position.x > _nextSpawnX - 15;
 
         private void SpawnNextBlocks(int count)
         {
-            for (var i = 0; i < count; i++) SpawnBlock();
+            for (var i = 0; i < count; i++)
+            {
+                SpawnBlock();
+            }
         }
 
         private void SpawnBlock()
@@ -89,15 +96,17 @@ namespace Environment.Blocks
             _nextSpawnX = spawnPosition.x;
             _blocksSpawned++;
 
-            if (_spawnedBlocks.Count > _maxBlocksCount) RemoveOldBlocks();
+            if (_spawnedBlocks.Count > _maxBlocksCount)
+            {
+                RemoveOldBlocks();
+            }
             
             OnBlockSpawned?.Invoke(newBlock);
         }
 
         private Vector2 CalculateSpawnPosition(DifficultyLevel difficulty)
         {
-            if (_spawnedBlocks.Count == 0)
-                return new Vector2(0, 0);
+            if (_spawnedBlocks.Count == 0) return Vector2.zero;
 
             var lastBlock = _spawnedBlocks[^1];
             var lastX = lastBlock.transform.position.x;
@@ -107,12 +116,14 @@ namespace Environment.Blocks
             var y = Random.Range(difficulty.MinHeight, difficulty.MaxHeight);
 
             if (Random.value < difficulty.GapProbability)
+            {
                 x += difficulty.BlockSpacing * 2;
+            }
 
             return new Vector2(x, y);
         }
 
-        private Block SelectBlockPrefab(DifficultyLevel difficulty)
+        private Block SelectBlockPrefab(DifficultyLevel _)
         {
             if (_specialBlockPrefabs != null && 
                 _blocksSinceLastSpecial >= _minBlocksBetweenSpecial && 
@@ -129,41 +140,43 @@ namespace Environment.Blocks
         private DifficultyLevel GetCurrentDifficulty()
         {
             foreach (var level in _difficultyConfig.Levels)
+            {
                 if (_blocksSpawned >= level.StartBlockIndex)
+                {
                     return level;
+                }
+            }
             return _difficultyConfig.Levels[^1];
         }
 
         private void RemoveOldBlocks()
         {
-            if (_spawnedBlocks.Count > _maxBlocksCount)
-            {
-                for (var i = 0; i < _spawnedBlocks.Count; i++)
-                {
-                    var block = _spawnedBlocks[i];
+            if (_spawnedBlocks.Count <= _maxBlocksCount) return;
             
-                    if (block && block != _playerController.StartBlock)
-                    {
-                        Destroy(block.gameObject);
-                        _spawnedBlocks.RemoveAt(i);
-                        break;
-                    }
-                    else if (!block)
-                    {
-                        _spawnedBlocks.RemoveAt(i);
-                        break;
-                    }
+            for (var i = 0; i < _spawnedBlocks.Count; i++)
+            {
+                var block = _spawnedBlocks[i];
+        
+                if (block && block != _playerController.StartBlock)
+                {
+                    OnBlockRemoved?.Invoke(block);
+                    Destroy(block.gameObject);
+                    _spawnedBlocks.RemoveAt(i);
+                    return;
+                }
+
+                if (!block)
+                {
+                    _spawnedBlocks.RemoveAt(i);
+                    return;
                 }
             }
         }
         
         private void TryPlaceSpikes(Block block)
         {
-            if (!block.TryGetComponent<SpikePlacer>(out var spikePlacer))
-                return;
-
-            if (Random.value > _chanceToAddSpikes)
-                return;
+            if (!block.TryGetComponent<SpikePlacer>(out var spikePlacer)) return;
+            if (Random.value > _chanceToAddSpikes) return;
 
             foreach (var config in _spikeConfigs)
             {

@@ -21,6 +21,8 @@ namespace Environment.Rings.RingTypes
         private ParticleSystem _collectParticleSystem;
         private Coin _coin;
         
+        public int GetRewardAmount => _rewardAmount;
+        
         protected UnityEngine.Camera MainCamera { get; private set; }
 
         protected virtual void Awake()
