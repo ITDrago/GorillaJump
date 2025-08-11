@@ -8,7 +8,16 @@ namespace Quests.Data
         public string TemplateID;
         public QuestType Type;
         public int CurrentProgress;
-        public QuestStatus Status;
         public int Reward;
+
+        public QuestProgressData() {}
+        
+        public QuestProgressData(Quest quest)
+        {
+            TemplateID = quest.TemplateID;
+            Type = quest.Type;
+            CurrentProgress = quest.CurrentProgress;
+            Reward = quest.Reward;
+        }
     }
 }

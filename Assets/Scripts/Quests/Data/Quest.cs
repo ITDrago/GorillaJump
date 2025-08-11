@@ -1,94 +1,59 @@
-using System;
 using Quests.Objectives;
 using UnityEngine;
 
 namespace Quests.Data
 {
-    public enum QuestStatus
-    {
-        InProgress,
-        Completed
-    }
-
-    [Serializable]
     public class Quest
     {
-        public string TemplateID { get; private set; }
-        public QuestType Type { get; private set; }
-        public QuestStatus Status { get; set; }
+        public string TemplateID { get; }
+        public QuestType Type { get; }
         public int CurrentProgress { get; set; }
-        public int TargetValue { get; private set; }
-        public int Reward { get; private set; }
+        public int TargetValue { get; }
+        public int Reward { get; }
+        public bool IsCompleted => CurrentProgress >= TargetValue;
 
-        [NonSerialized] public QuestObjective ObjectiveInstance;
-        [NonSerialized] public QuestTemplateSO Template;
-
-        public Quest(QuestTemplateSO template, QuestType type)
+        public QuestTemplateSO Template { get; }
+        public QuestObjective ObjectiveInstance { get; private set; }
+        
+        public Quest(QuestTemplateSO template, QuestType type, Transform objectiveParent)
         {
             Template = template;
             TemplateID = template.ID;
             Type = type;
-            Status = QuestStatus.InProgress;
             CurrentProgress = 0;
-    
-            if (type == QuestType.Daily)
-            {
-                TargetValue = template.BaseDailyTarget;
-                Reward = UnityEngine.Random.Range(template.DailyRewardRange.x, template.DailyRewardRange.y + 1);
-            }
-            else
-            {
-                TargetValue = template.BaseWeeklyTarget;
-                Reward = UnityEngine.Random.Range(template.WeeklyRewardRange.x, template.WeeklyRewardRange.y + 1);
-            }
             
-            var logMessage = $"[Quest Generation] Создан квест '{Template.ID}'" +
-                             $"\nТип: {Type}" +
-                             $"\nЦели в шаблоне (Daily: {template.BaseDailyTarget}, Weekly: {template.BaseWeeklyTarget})" +
-                             $"\nИтоговая цель: {TargetValue}";
+            TargetValue = type == QuestType.Daily ? template.BaseDailyTarget : template.BaseWeeklyTarget;
+            var rewardRange = type == QuestType.Daily ? template.DailyRewardRange : template.WeeklyRewardRange;
+            Reward = Random.Range(rewardRange.x, rewardRange.y + 1);
 
-            if ((Type == QuestType.Daily && TargetValue != template.BaseDailyTarget) ||
-                (Type == QuestType.Weekly && TargetValue != template.BaseWeeklyTarget))
-            {
-                Debug.LogError(logMessage + "\nНесоответствие");
-            }
-            else
-            {
-                Debug.Log(logMessage);
-            }
-    
-            // --- КОНЕЦ ДИАГНОСТИЧЕСКОГО КОДА ---
-
-            InstantiateObjective();
+            InstantiateObjective(objectiveParent);
         }
 
-        public Quest(QuestTemplateSO template, QuestProgressData progressData)
+        public Quest(QuestTemplateSO template, QuestProgressData progressData, Transform objectiveParent)
         {
             Template = template;
             TemplateID = template.ID;
             Type = progressData.Type;
-            Status = progressData.Status;
             CurrentProgress = progressData.CurrentProgress;
             Reward = progressData.Reward;
 
             TargetValue = Type == QuestType.Daily ? template.BaseDailyTarget : template.BaseWeeklyTarget;
             
-            InstantiateObjective();
+            InstantiateObjective(objectiveParent);
         }
 
-        private void InstantiateObjective()
+        private void InstantiateObjective(Transform parent)
         {
-            if (!QuestManager.Instance || !Template.ObjectivePrefab) return;
+            if (!Template || !Template.ObjectivePrefab || !parent) return;
 
-            var parent = QuestManager.Instance.transform.Find("Objectives");
-            if (!parent) return;
-            
-            ObjectiveInstance = UnityEngine.Object.Instantiate(Template.ObjectivePrefab, parent);
+            ObjectiveInstance = Object.Instantiate(Template.ObjectivePrefab, parent);
 
-            Action onProgress = () => QuestManager.Instance.UpdateQuestProgress(this);
-            Action onComplete = () => QuestManager.Instance.CompleteQuest(this);
-
-            ObjectiveInstance.Initialize(TargetValue, CurrentProgress, onProgress, onComplete);
+            ObjectiveInstance.Initialize(
+                TargetValue, 
+                CurrentProgress, 
+                () => QuestManager.Instance.UpdateQuestProgress(this), 
+                () => QuestManager.Instance.CompleteQuest(this)
+            );
         }
     }
 }
