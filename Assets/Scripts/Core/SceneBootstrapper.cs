@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Core.Game
+namespace Core
 {
     public static class SceneBootstrapper
     {
