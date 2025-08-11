@@ -1,5 +1,6 @@
 using System;
 using Quests.Objectives;
+using UnityEngine;
 
 namespace Quests.Data
 {
@@ -13,6 +14,7 @@ namespace Quests.Data
     public class Quest
     {
         public string TemplateID { get; private set; }
+        public QuestType Type { get; private set; }
         public QuestStatus Status { get; set; }
         public int CurrentProgress { get; set; }
         public int TargetValue { get; private set; }
@@ -25,9 +27,10 @@ namespace Quests.Data
         {
             Template = template;
             TemplateID = template.ID;
+            Type = type;
             Status = QuestStatus.InProgress;
             CurrentProgress = 0;
-            
+    
             if (type == QuestType.Daily)
             {
                 TargetValue = template.BaseDailyTarget;
@@ -39,6 +42,23 @@ namespace Quests.Data
                 Reward = UnityEngine.Random.Range(template.WeeklyRewardRange.x, template.WeeklyRewardRange.y + 1);
             }
             
+            var logMessage = $"[Quest Generation] Создан квест '{Template.ID}'" +
+                             $"\nТип: {Type}" +
+                             $"\nЦели в шаблоне (Daily: {template.BaseDailyTarget}, Weekly: {template.BaseWeeklyTarget})" +
+                             $"\nИтоговая цель: {TargetValue}";
+
+            if ((Type == QuestType.Daily && TargetValue != template.BaseDailyTarget) ||
+                (Type == QuestType.Weekly && TargetValue != template.BaseWeeklyTarget))
+            {
+                Debug.LogError(logMessage + "\nНесоответствие");
+            }
+            else
+            {
+                Debug.Log(logMessage);
+            }
+    
+            // --- КОНЕЦ ДИАГНОСТИЧЕСКОГО КОДА ---
+
             InstantiateObjective();
         }
 
@@ -46,11 +66,13 @@ namespace Quests.Data
         {
             Template = template;
             TemplateID = template.ID;
+            Type = progressData.Type;
             Status = progressData.Status;
             CurrentProgress = progressData.CurrentProgress;
             Reward = progressData.Reward;
+
+            TargetValue = Type == QuestType.Daily ? template.BaseDailyTarget : template.BaseWeeklyTarget;
             
-            TargetValue = template.BaseDailyTarget > 0 ? template.BaseDailyTarget : template.BaseWeeklyTarget;
             InstantiateObjective();
         }
 
@@ -59,6 +81,8 @@ namespace Quests.Data
             if (!QuestManager.Instance || !Template.ObjectivePrefab) return;
 
             var parent = QuestManager.Instance.transform.Find("Objectives");
+            if (!parent) return;
+            
             ObjectiveInstance = UnityEngine.Object.Instantiate(Template.ObjectivePrefab, parent);
 
             Action onProgress = () => QuestManager.Instance.UpdateQuestProgress(this);

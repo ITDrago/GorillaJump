@@ -42,10 +42,7 @@ namespace Quests
             DontDestroyOnLoad(gameObject);
         }
 
-        private void Start()
-        {
-            LoadOrResetQuests();
-        }
+        private void Start() => LoadOrResetQuests();
 
         public void UpdateQuestProgress(Quest quest)
         {
@@ -136,9 +133,9 @@ namespace Quests
             var saveData = new QuestSaveData
             {
                 DailyQuests = _dailyQuests.Select(q => new QuestProgressData
-                    { TemplateID = q.TemplateID, CurrentProgress = q.CurrentProgress, Status = q.Status, Reward = q.Reward }).ToList(),
+                    { TemplateID = q.TemplateID, Type = q.Type, CurrentProgress = q.CurrentProgress, Status = q.Status, Reward = q.Reward }).ToList(),
                 WeeklyQuests = _weeklyQuests.Select(q => new QuestProgressData
-                    { TemplateID = q.TemplateID, CurrentProgress = q.CurrentProgress, Status = q.Status, Reward = q.Reward }).ToList()
+                    { TemplateID = q.TemplateID, Type = q.Type, CurrentProgress = q.CurrentProgress, Status = q.Status, Reward = q.Reward }).ToList()
             };
 
             var json = JsonUtility.ToJson(saveData);
@@ -151,6 +148,8 @@ namespace Quests
             if (!PlayerPrefs.HasKey(QUEST_SAVE_KEY)) return;
 
             var json = PlayerPrefs.GetString(QUEST_SAVE_KEY);
+            if(string.IsNullOrEmpty(json)) return;
+
             var saveData = JsonUtility.FromJson<QuestSaveData>(json);
 
             _dailyQuests = LoadQuestList(saveData.DailyQuests);
@@ -179,17 +178,15 @@ namespace Quests
             var savedTime = PlayerPrefs.GetString(key, null);
             return string.IsNullOrEmpty(savedTime) ? DateTime.MinValue : DateTime.Parse(savedTime);
         }
-
-        [ContextMenu("Force Regenerate Quests Now")]
-        public void ForceRegenerateQuests()
+        
+        [ContextMenu("!!! Clear ALL Quest PlayerPrefs !!!")]
+        public void ClearQuestPlayerPrefs()
         {
-            GenerateQuests(QuestType.Daily);
-            GenerateQuests(QuestType.Weekly);
-            SaveTime(LAST_DAILY_RESET_KEY, DateTime.UtcNow);
-            SaveTime(LAST_WEEKLY_RESET_KEY, DateTime.UtcNow);
-
-            UpdateResetTimers();
-            OnQuestDataUpdated?.Invoke();
+            PlayerPrefs.DeleteKey(QUEST_SAVE_KEY);
+            PlayerPrefs.DeleteKey(LAST_DAILY_RESET_KEY);
+            PlayerPrefs.DeleteKey(LAST_WEEKLY_RESET_KEY);
+            PlayerPrefs.Save();
+            Debug.Log("Quest PlayerPrefs data cleared!");
         }
     }
 }

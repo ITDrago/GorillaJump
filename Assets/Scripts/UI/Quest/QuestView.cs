@@ -33,9 +33,7 @@ namespace UI.Quest
             
             if (quest.Status == QuestStatus.Completed)
             {
-                _localizedStatus = template.CompletedStatusText;
-                if (_rewardPanel) _rewardPanel.SetActive(false);
-                _progressBar.gameObject.SetActive(false);
+                _progressBar.value = quest.CurrentProgress;
             }
             else
             {

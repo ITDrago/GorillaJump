@@ -14,8 +14,7 @@ namespace Player
         {
             Swinging,
             Flying,
-            Sliding,
-            ChargingJump
+            Sliding
         }
 
         [Header("Movement")]
@@ -39,6 +38,7 @@ namespace Player
         private State _previousState;
         private Rigidbody2D _rigidbody;
         private float _currentAngle;
+        private bool _isChargedJump;
         private Vector2 _anchorPoint;
         private Vector3 _localAttachmentPoint;
         private InputSystem _inputSystem;
@@ -90,23 +90,14 @@ namespace Player
                     break;
                 case State.Sliding:
                     ExecuteSlide();
-                    break;
-                case State.ChargingJump:
-                    if (_previousState == State.Sliding)
-                    {
-                        ExecuteSlide();
-                    }
-                    else
-                    {
-                        UpdateSwingPosition();
-                    }
+                    ExecuteSwing();
                     break;
             }
         }
         
         private void ExecuteSwing()
         {
-            _gorillaBody.Rotate(0, 0, _swingSpeed * Time.fixedDeltaTime);
+            if (!_isChargedJump) _gorillaBody.Rotate(0, 0, _swingSpeed * Time.fixedDeltaTime);
             UpdateSwingPosition();
         }
 
@@ -120,12 +111,11 @@ namespace Player
             }
 
             _anchorPoint += iceBlock.SlideDirection * (_slideSpeed * Time.fixedDeltaTime);
-            ExecuteSwing();
         }
         
         private void Update()
         {
-            if (_currentState == State.ChargingJump && _chargedJumpUI)
+            if (_isChargedJump && _chargedJumpUI)
             {
                 _chargedJumpUI.UpdateBar();
             }
@@ -145,9 +135,6 @@ namespace Player
         {
             switch (_currentState)
             {
-                case State.ChargingJump:
-                    ExecuteChargedJump();
-                    break;
                 case State.Swinging or State.Sliding:
                     Jump(_jumpForce);
                     break;
@@ -155,6 +142,8 @@ namespace Player
                     TryLand();
                     break;
             }
+            
+            if (_isChargedJump) ExecuteChargedJump();
         }
 
         private void TryLand()
@@ -188,7 +177,7 @@ namespace Player
             UpdateSwingPosition();
         }
 
-        public void RespawnAt(Block respawnBlock)
+        private void RespawnAt(Block respawnBlock)
         {
             StartSwinging(respawnBlock.StickAnchor.position, _startAngle);
             AttachedBlock = respawnBlock;
@@ -245,10 +234,9 @@ namespace Player
 
         private void StartChargeJump()
         {
-            _previousState = _currentState;
-            _currentState = State.ChargingJump;
             if (_chargedJumpUI)
             {
+                _isChargedJump = true;
                 _chargedJumpUI.Show(transform);
                 _chargedJumpUI.StartCharge();
             }
@@ -256,6 +244,7 @@ namespace Player
 
         private void ExecuteChargedJump()
         {
+            _isChargedJump = false;
             var finalForce = _jumpForce;
             if (_chargedJumpUI)
             {

@@ -4984,7 +4984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultReward: 50
-  _scaleMultiplier: 0.1
+  _scaleMultiplier: 0
   _collectSound: {fileID: 8300000, guid: c5cb2ac29e89dbf43a9b644caaad45e6, type: 3}
   _movementSpeed: 2
   _movementDistance: 2

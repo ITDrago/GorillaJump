@@ -432,7 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerController: {fileID: 75963672}
   _blockSpawner: {fileID: 2139552450}
-  _playerHealth: {fileID: 0}
+  _playerHealth: {fileID: 75963674}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2754,7 +2754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockPrefabs:
-  - {fileID: 8125225784356320052, guid: c14a0b81091c2ad4bada51b6f71f7203, type: 3}
+  - {fileID: 7971075343689612432, guid: 72835cf315dc07a4899f5e837461b41d, type: 3}
   _specialBlockPrefabs:
   - {fileID: 7971075343689612432, guid: 72835cf315dc07a4899f5e837461b41d, type: 3}
   - {fileID: 628735452947885823, guid: 3c22f216a13c74b479473e6016488ac4, type: 3}
