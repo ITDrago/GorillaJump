@@ -225,7 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 568c9251de0a411b8a914d3caec4ea28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _progressManager: {fileID: 0}
 --- !u!114 &2626472931192366943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,7 +251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f990b793efa41eaa9e89f61872ad455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soundManager: {fileID: 0}
   _jumpSound: {fileID: 8300000, guid: 4e349dc959014a845b9aa317d1c2b7f0, type: 3}
   _landSound: {fileID: 8300000, guid: 023ea3ddeaa8dd146b7633a0800e5a0e, type: 3}
   _deathSound: {fileID: 8300000, guid: aaf8f3b26d4889f458bbb720e311460c, type: 3}
@@ -5513,8 +5511,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1660231866194577570}
-  - component: {fileID: 914789353422015228}
   - component: {fileID: 5931737121099868263}
+  - component: {fileID: 4863599189627212079}
   m_Layer: 3
   m_Name: GorillaBody
   m_TagString: Player
@@ -5544,8 +5542,20 @@ Transform:
   - {fileID: 1483480474919664132}
   m_Father: {fileID: 1447705557670000375}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &914789353422015228
-BoxCollider2D:
+--- !u!114 &5931737121099868263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7290636588648620561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d486313b17a8a941adb4290095ebe6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!60 &4863599189627212079
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5578,7 +5588,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.33081436, y: -0.52905184}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5588,20 +5598,26 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.3256028, y: 1.462952}
-  m_EdgeRadius: 0
---- !u!114 &5931737121099868263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7290636588648620561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d486313b17a8a941adb4290095ebe6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Points:
+    m_Paths:
+    - - {x: 0.18685828, y: -0.6302749}
+      - {x: 0.17168139, y: -0.49186283}
+      - {x: 0.13092238, y: -0.015751481}
+      - {x: -0.25131777, y: 0.11529565}
+      - {x: -0.5726763, y: 0.20007122}
+      - {x: -0.67192185, y: 0.2086392}
+      - {x: -1.0209453, y: -0.35850227}
+      - {x: -1.0601377, y: -0.77876496}
+      - {x: -0.9180588, y: -1.2756422}
+      - {x: -0.6666095, y: -1.2623729}
+      - {x: -0.6492956, y: -1.038948}
+      - {x: -0.422398, y: -1.1843348}
+      - {x: -0.22678763, y: -1.2201846}
+      - {x: 0.28781208, y: -1.2150414}
+      - {x: 0.42291316, y: -1.0126059}
+      - {x: 0.32801965, y: -0.92604256}
+      - {x: 0.33595967, y: -0.7121041}
+  m_UseDelaunayMesh: 0
 --- !u!1 &7302821942151844247
 GameObject:
   m_ObjectHideFlags: 0
@@ -5839,7 +5855,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9011836170843911500
 Transform:
   m_ObjectHideFlags: 0
