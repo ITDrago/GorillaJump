@@ -11,7 +11,9 @@ namespace Advertisement
 
         private Banner _banner;
 
-        private void Awake() => RequestBanner();
+        private void OnEnable() => RequestBanner();
+
+        private void OnDestroy() => _banner?.Destroy();
 
         private void RequestBanner()
         {
