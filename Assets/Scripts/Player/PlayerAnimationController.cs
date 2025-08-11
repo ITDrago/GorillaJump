@@ -32,7 +32,7 @@ namespace Player
         
         private void SwitchIsFlying(bool condition) => _playerAnimator.SetBool(_conditionBoolName, condition);
         
-        private void SwitchIsFlyingTrue(Block block) => SwitchIsFlying(true);
+        private void SwitchIsFlyingTrue(Block block, float jumpForce) => SwitchIsFlying(true);
         private void SwitchIsFlyingFalse(Block block, Vector2 position) => SwitchIsFlying(false);
     }
 }

@@ -46,9 +46,10 @@ namespace Player
         public Block AttachedBlock { get; private set; }
         public bool IsFlying => _currentState == State.Flying;
         public Block StartBlock => _startBlock;
+        public Transform GorillaBody => _gorillaBody;
         
+        public event Action<Block, float> OnJumped;
         public event Action<Block, Vector2> OnLanded;
-        public event Action<Block> OnJumped;
 
         private void Awake()
         {
@@ -136,7 +137,7 @@ namespace Player
             switch (_currentState)
             {
                 case State.Swinging or State.Sliding:
-                    Jump(_jumpForce);
+                    if (!_isChargedJump) Jump(_jumpForce);
                     break;
                 case State.Flying:
                     TryLand();
@@ -222,7 +223,7 @@ namespace Player
         private void Jump(float force)
         {
             GameEvents.PlayerJumped();
-            OnJumped?.Invoke(AttachedBlock);
+            OnJumped?.Invoke(AttachedBlock, force);
             
             _currentState = State.Flying;
             _rigidbody.bodyType = RigidbodyType2D.Dynamic;
@@ -244,6 +245,8 @@ namespace Player
 
         private void ExecuteChargedJump()
         {
+            if (!_isChargedJump) return;
+            
             _isChargedJump = false;
             var finalForce = _jumpForce;
             if (_chargedJumpUI)

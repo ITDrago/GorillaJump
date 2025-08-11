@@ -64,9 +64,6 @@ namespace UI.Quest
             _localizedStatus.Arguments = null;
             _localizedStatus.StringChanged += UpdateProgressText;
             _localizedStatus.RefreshString();
-            
-            if (_rewardPanel) _rewardPanel.SetActive(false);
-            _progressBar.gameObject.SetActive(false);
         }
 
         private void CleanUpSubscriptions()

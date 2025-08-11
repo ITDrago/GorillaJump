@@ -850,7 +850,7 @@ MonoBehaviour:
   _playerHealth: {fileID: 75963674}
   _gameOverScreen: {fileID: 2095197882}
   _interstitialAd: {fileID: 1276207730}
-  _lossesToShowAD: 3
+  _lossesToShowAD: 6
 --- !u!1 &742593006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,9 +1172,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   _clearanceBoxSize: {x: 4, y: 20}
-  _spawnChanceInGap: 0.1
+  _spawnChance: 1
   _minGapSizeForSpawn: 5
-  _spawnHeightOffset: 8
+  _interceptionPointRatio: 0.5
+  _spawnOffsetBelowCamera: 2
   _birdPrefab: {fileID: -1606489920341845641, guid: 8de7c4806516dce40b22dfee86953833, type: 3}
 --- !u!114 &932267461
 MonoBehaviour:
@@ -1198,7 +1199,7 @@ MonoBehaviour:
   - _prefab: {fileID: 6180774221791360384, guid: f515dc944cc4f2841a717baa0f4e4829, type: 3}
     _spawnChance: 0.1
   - _prefab: {fileID: -1507091507431194089, guid: 76d781e17cba17342adff15c29303d6e, type: 3}
-    _spawnChance: 1
+    _spawnChance: 0.1
   _stickPrefab:
     _prefab: {fileID: 3011480449618759604, guid: 9e33616f055b79f4381fe08aba6abbee, type: 3}
     _spawnChance: 1

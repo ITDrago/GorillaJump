@@ -8,10 +8,9 @@ namespace Environment.Obstacles.MovingObjects
     public abstract class MovingObject : MonoBehaviour
     {
         [SerializeField] private float _movementSpeed = 15;
-        
-        [Header("Audio")]
-        [SerializeField] private AudioClip _interactionSound;
-        
+
+        [Header("Audio")] [SerializeField] private AudioClip _interactionSound;
+
         private Vector3 _movementDirection = Vector3.down;
         private bool _isMoving;
 
@@ -24,6 +23,8 @@ namespace Environment.Obstacles.MovingObjects
         }
 
         public void StartMovement() => _isMoving = true;
+
+        public void SetMovementSpeed(float newSpeed) => _movementSpeed = newSpeed;
 
         protected void SetMovementDirection(Vector3 direction) => _movementDirection = direction;
 

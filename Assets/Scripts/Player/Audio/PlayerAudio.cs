@@ -36,7 +36,7 @@ namespace Player.Audio
             _playerHealth.OnDied -= HandlePlayerDied;
         }
 
-        private void HandlePlayerJumped(Block jumpedFromBlock)
+        private void HandlePlayerJumped(Block jumpedFromBlock, float jumpForce)
         {
             if (_jumpSound && SoundManager.Instance) SoundManager.Instance.PlaySfx(_jumpSound);
         }
