@@ -751,6 +751,58 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &585263517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 585263518}
+  - component: {fileID: 585263519}
+  m_Layer: 0
+  m_Name: CoinSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &585263518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585263517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1569070745}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &585263519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585263517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f5f20fa7dc4989bf9ff653214f0d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coinPrefab: {fileID: 3281761104073315397, guid: 9991e3b45552ed14b8bdab131eb8e1d7, type: 3}
+  _blockSpawner: {fileID: 2139552450}
+  _minBlocksBetweenCoins: 3
+  _maxBlocksBetweenCoins: 5
+  _spawnBlockingLayers:
+    serializedVersion: 2
+    m_Bits: 384
+  _clearanceBoxSize: {x: 4, y: 20}
 --- !u!1 &589984169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,8 +1170,8 @@ MonoBehaviour:
   BlockSpawner: {fileID: 2139552450}
   SpawnBlockingLayers:
     serializedVersion: 2
-    m_Bits: 256
-  _clearanceBoxSize: {x: 4, y: 30}
+    m_Bits: 768
+  _clearanceBoxSize: {x: 4, y: 20}
   _spawnChanceInGap: 0.1
   _minGapSizeForSpawn: 5
   _spawnHeightOffset: 8
@@ -1140,8 +1192,8 @@ MonoBehaviour:
   BlockSpawner: {fileID: 2139552450}
   SpawnBlockingLayers:
     serializedVersion: 2
-    m_Bits: 256
-  _clearanceBoxSize: {x: 4, y: 30}
+    m_Bits: 768
+  _clearanceBoxSize: {x: 4, y: 20}
   _specialSpawnableObjects:
   - _prefab: {fileID: 6180774221791360384, guid: f515dc944cc4f2841a717baa0f4e4829, type: 3}
     _spawnChance: 0.1
@@ -2260,6 +2312,7 @@ Transform:
   - {fileID: 932267458}
   - {fileID: 2053134560}
   - {fileID: 1149997913}
+  - {fileID: 585263518}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1627288791
@@ -2477,14 +2530,12 @@ MonoBehaviour:
     SpawnChance: 0.5
   - Prefab: {fileID: 8391285242663616137, guid: d98b6d1be6d1dd046828fc5be8677e8c, type: 3}
     SpawnChance: 0.3
-  _blocksBetweenSpawnsRange: {x: 2, y: 3}
-  _minDistanceFromBlock: 3
+  _blocksBetweenSpawnsRange: {x: 3, y: 6}
   _minXOffsetBeyondCameraRight: 5
-  _spawnYViewportRange: {x: 0.2, y: 0.8}
-  _clearCheckRadius: 3
+  _clearanceBoxSize: {x: 4, y: 20}
   _obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 640
 --- !u!1 &2095197879
 GameObject:
   m_ObjectHideFlags: 0
@@ -2754,7 +2805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockPrefabs:
-  - {fileID: 7971075343689612432, guid: 72835cf315dc07a4899f5e837461b41d, type: 3}
+  - {fileID: 8125225784356320052, guid: c14a0b81091c2ad4bada51b6f71f7203, type: 3}
   _specialBlockPrefabs:
   - {fileID: 7971075343689612432, guid: 72835cf315dc07a4899f5e837461b41d, type: 3}
   - {fileID: 628735452947885823, guid: 3c22f216a13c74b479473e6016488ac4, type: 3}

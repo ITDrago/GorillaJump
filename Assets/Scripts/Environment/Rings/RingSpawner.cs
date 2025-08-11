@@ -25,12 +25,10 @@ namespace Environment.Rings
         [SerializeField] private Vector2Int _blocksBetweenSpawnsRange = new(3, 5);
 
         [Header("Positioning Settings")] 
-        [SerializeField] private float _minDistanceFromBlock = 3;
         [SerializeField] private float _minXOffsetBeyondCameraRight = 5;
-        [SerializeField] private Vector2 _spawnYViewportRange = new(0.2f, 0.8f);
 
         [Header("Safety Checks")]
-        [SerializeField] private float _clearCheckRadius = 3;
+        [SerializeField] private Vector2 _clearanceBoxSize = new(4, 20);
         [SerializeField] private LayerMask _obstacleLayerMask;
 
         private UnityEngine.Camera _mainCamera;
@@ -38,6 +36,7 @@ namespace Environment.Rings
         private int _blockCounter;
         private float _totalSpawnChance;
         private RingSpawnPointCalculator _spawnPointCalculator;
+        private Vector2 _lastCheckedPosition;
 
         private void Awake()
         {
@@ -56,15 +55,14 @@ namespace Environment.Rings
             _mainCamera = UnityEngine.Camera.main;
             _spawnPointCalculator = new RingSpawnPointCalculator(
                 _obstacleLayerMask,
-                _clearCheckRadius,
-                _minDistanceFromBlock);
+                _clearanceBoxSize);
 
             SetNextSpawnInterval();
         }
 
         private void OnDestroy()
         {
-            if (_blockSpawner != null) _blockSpawner.OnBlockSpawned -= HandleBlockSpawned;
+            if (_blockSpawner) _blockSpawner.OnBlockSpawned -= HandleBlockSpawned;
         }
 
         private void HandleBlockSpawned(Block newBlock)
@@ -80,27 +78,21 @@ namespace Environment.Rings
         private void TrySpawnRing(Block newBlock)
         {
             if (!TryGetPreviousBlock(newBlock, out var previousBlock)) return;
+            
+            var proposedPosition = (previousBlock.transform.position + newBlock.transform.position) * 0.5f;
+            
+            _lastCheckedPosition = proposedPosition;
 
-            var midpointX = (previousBlock.transform.position.x + newBlock.transform.position.x) * 0.5f;
             var cameraWorldRight = _mainCamera.ViewportToWorldPoint(new Vector3(1, 0, _mainCamera.nearClipPlane)).x;
-
-            if (midpointX < cameraWorldRight + _minXOffsetBeyondCameraRight)
+            if (proposedPosition.x < cameraWorldRight + _minXOffsetBeyondCameraRight)
                 return;
 
-            var spawnY = Random.Range(
-                _mainCamera.ViewportToWorldPoint(new Vector3(0, _spawnYViewportRange.x, _mainCamera.nearClipPlane)).y,
-                _mainCamera.ViewportToWorldPoint(new Vector3(0, _spawnYViewportRange.y, _mainCamera.nearClipPlane)).y
-            );
-
-            var proposedPosition = new Vector2(midpointX, spawnY);
-
-            if (!_spawnPointCalculator.TryCalculateSpawnPosition(previousBlock, newBlock, proposedPosition,
-                    out var spawnPosition)) return;
+            if (!_spawnPointCalculator.IsPositionClear(proposedPosition)) return;
 
             var ringPrefab = GetRandomRingPrefab();
             if (!ringPrefab) return;
-
-            var newRing = Instantiate(ringPrefab, spawnPosition,ringPrefab.transform.localRotation, transform);
+            
+            var newRing = Instantiate(ringPrefab, proposedPosition, ringPrefab.transform.localRotation, transform);
             newRing.Initialize(newRing.GetRewardAmount);
         }
 
@@ -136,5 +128,11 @@ namespace Environment.Rings
         }
 
         private void SetNextSpawnInterval() => _blocksUntilNextSpawn = Random.Range(_blocksBetweenSpawnsRange.x, _blocksBetweenSpawnsRange.y + 1);
+        
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireCube(_lastCheckedPosition, new Vector3(_clearanceBoxSize.x, _clearanceBoxSize.y));
+        }
     }
 }

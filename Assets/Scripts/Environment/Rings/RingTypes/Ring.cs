@@ -9,7 +9,7 @@ namespace Environment.Rings.RingTypes
     public class Ring : MonoBehaviour
     {
         [SerializeField] private int _defaultReward = 1;
-        [SerializeField] private float _scaleMultiplier = 0;
+        [SerializeField] private float _scaleMultiplier;
         
         [Header("Audio")]
         [SerializeField] private AudioClip _collectSound;

@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultReward: 50
-  _scaleMultiplier: 0
+  _scaleMultiplier: -0.001
   _collectSound: {fileID: 8300000, guid: c5cb2ac29e89dbf43a9b644caaad45e6, type: 3}
 --- !u!1 &2884851535797413467
 GameObject:
@@ -5084,7 +5084,7 @@ GameObject:
   - component: {fileID: 1416774283565589153}
   - component: {fileID: 8412821430444765790}
   - component: {fileID: 4416674251181786401}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5101,8 +5101,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.9063079, z: -0, w: 0.42261827}
   m_LocalPosition: {x: 0.16, y: -0.24200001, z: 0.19}
-  m_LocalScale: {x: 0.1848159, y: 0.184816, z: 0.1848159}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.184816, y: 0.184816, z: 0.184816}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2009662737771975839}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

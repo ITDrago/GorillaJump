@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edb11123a6e499f8b569fab02860c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stickAnchor: {fileID: 0}
+  _stickAnchor: {fileID: 7548097896584250518}
   _movementType: 0
   _movementSpeed: 2
   _movementDistance: 3
