@@ -1,3 +1,4 @@
+using Player.Effects;
 using Player.Health;
 using UnityEngine;
 
@@ -7,11 +8,13 @@ namespace Player
     {
         public PlayerController PlayerController { get; private set; }
         public PlayerHealth PlayerHealth { get; private set; }
+        public PlayerShieldController PlayerShieldController { get; private set; }
 
         private void Awake()
         {
             PlayerController = GetComponentInParent<PlayerController>();
             PlayerHealth = GetComponentInParent<PlayerHealth>();
+            PlayerShieldController = GetComponentInParent<PlayerShieldController>();
         }
     }
 }

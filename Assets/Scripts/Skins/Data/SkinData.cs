@@ -16,7 +16,6 @@ namespace Skins.Data
         [Header("Abilities")]
         [SerializeField] private float _rewardMultiplier = 1;
         [SerializeField] private float _effectDurationMultiplier = 1;
-        [SerializeField] private float _chargedJumpRequirementMultiplier = 1;
         [SerializeField] private bool _isImmuneToIceSlide;
         [SerializeField] private bool _preventsBlockBreaking;
         [SerializeField] private float _stickSpawnChanceMultiplier = 1;
@@ -35,7 +34,6 @@ namespace Skins.Data
         public LocalizedString BuffDescription => _buffDescription;
         public float RewardMultiplier => _rewardMultiplier;
         public float EffectDurationMultiplier => _effectDurationMultiplier;
-        public float ChargedJumpRequirementMultiplier => _chargedJumpRequirementMultiplier;
         public bool IsImmuneToIceSlide => _isImmuneToIceSlide;
         public bool PreventsBlockBreaking => _preventsBlockBreaking;
         public float StickSpawnChanceMultiplier => _stickSpawnChanceMultiplier;

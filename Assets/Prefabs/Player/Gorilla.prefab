@@ -125,7 +125,9 @@ GameObject:
   - component: {fileID: 8539481704970231611}
   - component: {fileID: 2626472931192366943}
   - component: {fileID: 5512799940431490986}
+  - component: {fileID: 6543560791197670164}
   - component: {fileID: 3617080324831540613}
+  - component: {fileID: 314412988476052072}
   m_Layer: 0
   m_Name: Gorilla
   m_TagString: Player
@@ -190,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0468cc13e44d209635c355fe1d4910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swingSpeed: 240
+  _swingSpeed: 210
   _jumpForce: 10
   _slideSpeed: 0.5
   _chargedJumpForceRange: {x: 11, y: 14}
@@ -252,6 +254,21 @@ MonoBehaviour:
   _jumpSound: {fileID: 8300000, guid: 4e349dc959014a845b9aa317d1c2b7f0, type: 3}
   _landSound: {fileID: 8300000, guid: 023ea3ddeaa8dd146b7633a0800e5a0e, type: 3}
   _deathSound: {fileID: 8300000, guid: aaf8f3b26d4889f458bbb720e311460c, type: 3}
+--- !u!114 &6543560791197670164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249738001365863495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f306b4da044fceba0fb279dca866a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shield: {fileID: 6007539126910402810}
+  _shieldDuration: 20
+  _shieldDeactivationSound: {fileID: 8300000, guid: 1d74880bed4586644a16a79a2d9dc8af, type: 3}
 --- !u!114 &3617080324831540613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +298,18 @@ MonoBehaviour:
     SkinObject: {fileID: 6376967934124269399}
   - ID: 4
     SkinObject: {fileID: 7572760674380267803}
+--- !u!114 &314412988476052072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249738001365863495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d486313b17a8a941adb4290095ebe6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3044586203713190937
 GameObject:
   m_ObjectHideFlags: 0
@@ -5171,7 +5200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6007539126910402810}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.402, y: -0.582, z: 0}
   m_LocalScale: {x: 2.1051195, y: 2.1051195, z: 2.1051195}
   m_ConstrainProportionsScale: 0
@@ -5248,8 +5277,8 @@ MonoBehaviour:
   settings:
     _blur: 0
     _endAngle: 360
-    _fillColor: {r: 0, g: 0.2685759, b: 1, a: 0.38431373}
-    _fillColor2: {r: 0, g: 0.50755835, b: 1, a: 0.6313726}
+    _fillColor: {r: 1, g: 0.9990684, b: 0, a: 0.38431373}
+    _fillColor2: {r: 1, g: 0.60045624, b: 0, a: 0.6313726}
     _fillOffset: {x: 0, y: 0}
     _fillPathLoops: 0
     _fillRotation: 0
@@ -5264,7 +5293,7 @@ MonoBehaviour:
     _invertArc: 0
     _lineSize: 0.05
     _obsoleteNumSides: -1
-    _outlineColor: {r: 0, g: 0.029698204, b: 0.4056604, a: 1}
+    _outlineColor: {r: 0.5188679, g: 0.34745008, b: 0.012237449, a: 1}
     _outlineSize: 0.09
     _pathSegments:
     - p0: {x: -0.3, y: 0, z: 0}
@@ -5902,7 +5931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9011836170843911500
 Transform:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using Core.Audio;
 using Money;
 using Player;
+using Skins;
 using UnityEngine;
 
 namespace Environment.Collectibles.Coins
@@ -29,7 +30,11 @@ namespace Environment.Collectibles.Coins
             _isCollected = true;
                 
             Debug.Log($"Collected coin! Reward: {_rewardAmount}");
-            MoneySystem.Instance.AddMoney(_rewardAmount);
+            
+            var rewardMultiplier = ActiveSkinManager.Instance.CurrentSkin?.RewardMultiplier ?? 1;
+            var finalAmount = Mathf.RoundToInt(_rewardAmount * rewardMultiplier);
+            
+            MoneySystem.Instance.AddMoney(finalAmount);
             
             SoundManager.Instance.PlaySfx(_collectSound);
             _collectParticleSystem.Play();

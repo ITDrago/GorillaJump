@@ -93,7 +93,7 @@ namespace Environment.Rings
             if (!ringPrefab) return;
             
             var newRing = Instantiate(ringPrefab, proposedPosition, ringPrefab.transform.localRotation, transform);
-            newRing.Initialize(newRing.GetRewardAmount);
+            newRing.Initialize();
         }
 
         private bool TryGetPreviousBlock(Block currentBlock, out Block previousBlock)
