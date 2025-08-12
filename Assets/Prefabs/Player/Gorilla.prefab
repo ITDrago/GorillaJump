@@ -194,7 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _swingSpeed: 210
   _jumpForce: 10
-  _slideSpeed: 0.5
+  _slideSpeed: 0.3
   _chargedJumpForceRange: {x: 11, y: 14}
   _stick: {fileID: 130032222833927375}
   _gorillaBody: {fileID: 1660231866194577570}
