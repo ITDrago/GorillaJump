@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Levels:
   - StartBlockIndex: 0
+    BlockSpacing: 2.5
+    MinHeight: 0
+    MaxHeight: 4
+    GapProbability: 0
+  - StartBlockIndex: 50
     BlockSpacing: 3
     MinHeight: 0
     MaxHeight: 4
     GapProbability: 0
-  - StartBlockIndex: 20
-    BlockSpacing: 3
-    MinHeight: 0
-    MaxHeight: 4
-    GapProbability: 0
-  - StartBlockIndex: 40
-    BlockSpacing: 3
+  - StartBlockIndex: 100
+    BlockSpacing: 4
     MinHeight: 0
     MaxHeight: 4
     GapProbability: 0

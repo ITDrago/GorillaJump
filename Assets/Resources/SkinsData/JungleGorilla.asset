@@ -22,7 +22,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _price: 10000
+  _price: 100000
   _isFree: 0
   _buffDescription:
     m_TableReference:
@@ -35,7 +35,6 @@ MonoBehaviour:
     m_LocalVariables: []
   _rewardMultiplier: 1
   _effectDurationMultiplier: 1
-  _chargedJumpRequirementMultiplier: 1
   _isImmuneToIceSlide: 0
   _preventsBlockBreaking: 1
   _stickSpawnChanceMultiplier: 0.2
