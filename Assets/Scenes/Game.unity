@@ -2913,9 +2913,9 @@ MonoBehaviour:
   _blockSpawner: {fileID: 2139552450}
   _ringTypes:
   - Prefab: {fileID: 8921240630289439819, guid: e0be77862d275544eba658b3b63abe46, type: 3}
-    SpawnChance: 0.7
+    SpawnChance: 0.8
   - Prefab: {fileID: 8391285242663616137, guid: d98b6d1be6d1dd046828fc5be8677e8c, type: 3}
-    SpawnChance: 0.35
+    SpawnChance: 0.6
   _blocksBetweenSpawnsRange: {x: 3, y: 4}
   _clearanceBoxSize: {x: 4, y: 20}
   _obstacleLayerMask:

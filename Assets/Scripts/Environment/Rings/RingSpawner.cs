@@ -71,7 +71,7 @@ namespace Environment.Rings
         {
             if (!TryGetPreviousBlock(newBlock, out var previousBlock)) return;
 
-            var proposedPosition = (previousBlock.transform.position + newBlock.transform.position) * 0.5f + Vector3.up * 2;
+            var proposedPosition = (previousBlock.transform.position + newBlock.transform.position) * 0.5f;
             _lastCheckedPosition = proposedPosition;
 
             if (!_spawnPointCalculator.IsPositionClear(proposedPosition)) return;
