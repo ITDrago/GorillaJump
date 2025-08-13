@@ -4,7 +4,7 @@ using Core.Audio;
 using Skins;
 using UnityEngine;
 
-namespace Player.Effects
+namespace Player
 {
     [RequireComponent(typeof(PlayerCore))]
     public class PlayerShieldController : MonoBehaviour

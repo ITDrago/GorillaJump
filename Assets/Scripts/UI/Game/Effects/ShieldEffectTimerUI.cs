@@ -1,5 +1,5 @@
 using System.Collections;
-using Player.Effects;
+using Player;
 using UnityEngine;
 using UnityEngine.UI;
 
