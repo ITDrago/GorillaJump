@@ -973,8 +973,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _coinPrefab: {fileID: 3281761104073315397, guid: 9991e3b45552ed14b8bdab131eb8e1d7, type: 3}
   _blockSpawner: {fileID: 2139552450}
-  _minBlocksBetweenCoins: 3
-  _maxBlocksBetweenCoins: 5
+  _minBlocksBetweenCoins: 2
+  _maxBlocksBetweenCoins: 2
   _spawnBlockingLayers:
     serializedVersion: 2
     m_Bits: 384
@@ -3227,16 +3227,15 @@ MonoBehaviour:
   - {fileID: 6673495865446542649, guid: 0e53ecca7696955489476511a7a478a7, type: 3}
   _difficultyConfig: {fileID: 11400000, guid: a314d49ef0609a049bd4b00df6248c6c, type: 2}
   _playerController: {fileID: 75963672}
-  _specialBlockProbability: 0.2
-  _minBlocksBetweenSpecial: 4
+  _specialBlockProbability: 0.4
+  _minBlocksBetweenSpecial: 3
   _maxBlocksCount: 7
+  _shouldSpawnSpike: 0
   _spikePrefab: {fileID: 7905980789203470748, guid: eb9caeeddcaf00343a2f43e4e402b9dc, type: 3}
-  _chanceToAddSpikes: 0.3
+  _chanceToAddSpikes: 0.1
   _spikeConfigs:
   - _spikeCount: 1
-    _spawnChance: 0.6
-  - _spikeCount: 2
-    _spawnChance: 0.15
+    _spawnChance: 0.3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

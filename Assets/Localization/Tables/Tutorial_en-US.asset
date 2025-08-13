@@ -29,11 +29,12 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 253158961152
-    m_Localized: You play as a gorilla that rotates on a stick, the first time you
-      tap on the screen, the gorilla detaches and flies in the selected direction,
-      and the second time you tap it, it clings to the block. It is also possible
-      to use a charged jump. To do this, hold your finger on the screen and release
-      it at the moment when the scale is at the mark you need
+    m_Localized: You play as a funny gorilla who jumps from block to block spinning
+      on a stick. The first time you tap on the screen, the gorilla pushes off from
+      the block and flies in a given direction, and the second time you tap it, it
+      clings to the next block. There is also a long jump. To do this, hold your
+      finger on the screen and release it at the moment when the scale is at the
+      desired mark
     m_Metadata:
       m_Items: []
   - m_Id: 665496793088
@@ -55,7 +56,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1048600326144
-    m_Localized: Breaks if you stand on it for a long time
+    m_Localized: It breaks if you spin on it for a long time
     m_Metadata:
       m_Items: []
   - m_Id: 1134201876480
@@ -67,7 +68,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1479166603264
-    m_Localized: If the player touches it, you will lose
+    m_Localized: If the gorilla touches the thorn, you will lose
     m_Metadata:
       m_Items: []
   - m_Id: 1654052302848
@@ -75,8 +76,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1694690914304
-    m_Localized: Sometimes it falls from the sky, when it collides with a player,
-      you lose
+    m_Localized: Sometimes it falls from the trees from above and when it lands on
+      you, you lose
     m_Metadata:
       m_Items: []
   - m_Id: 2111336296448
@@ -84,7 +85,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2173965643776
-    m_Localized: Bonus items drop with little chance instead of sticks
+    m_Localized: Bonus items in the form of fruits fall from the trees from above
     m_Metadata:
       m_Items: []
   - m_Id: 2256819924992
@@ -92,8 +93,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2347223953408
-    m_Localized: Banana gives you a shield for 20 seconds, which can help you avoid
-      being killed by a thorn or branch once
+    m_Localized: Gives you a shield for 20 seconds, which saves you from a branch
+      once
     m_Metadata:
       m_Items: []
   - m_Id: 2607841226752
@@ -101,7 +102,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2660446187520
-    m_Localized: Apple slows down time twice by 5 seconds
+    m_Localized: Slows down time by a factor of 2 by 5 seconds
     m_Metadata:
       m_Items: []
   - m_Id: 2817774530560
@@ -125,7 +126,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3717951860736
-    m_Localized: The player slides on it and may fall
+    m_Localized: The gorilla slides on it and may fall
     m_Metadata:
       m_Items: []
   - m_Id: 3931546791936

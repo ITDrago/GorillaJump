@@ -38,7 +38,7 @@ namespace UI.Quest
 
         private void SetupDescription(Quests.Data.Quest quest, QuestTemplateSO template)
         {
-            _localizedDescription = template.DescriptionFormat;
+            _localizedDescription = new LocalizedString(template.DescriptionFormat.TableReference, template.DescriptionFormat.TableEntryReference);
             _localizedDescription.Arguments = new object[] { quest.TargetValue };
             _localizedDescription.StringChanged += UpdateDescriptionText;
             _localizedDescription.RefreshString();
@@ -46,7 +46,7 @@ namespace UI.Quest
 
         private void SetupForInProgress(Quests.Data.Quest quest, QuestTemplateSO template)
         {
-            _localizedStatus = template.ProgressFormat;
+            _localizedStatus = new LocalizedString(template.ProgressFormat.TableReference, template.ProgressFormat.TableEntryReference);
             _localizedStatus.Arguments = new object[] { quest.CurrentProgress, quest.TargetValue };
             _localizedStatus.StringChanged += UpdateProgressText;
             _localizedStatus.RefreshString();
@@ -60,7 +60,7 @@ namespace UI.Quest
 
         private void SetupForCompleted(Quests.Data.Quest quest, QuestTemplateSO template)
         {
-            _localizedStatus = template.CompletedStatusText;
+            _localizedStatus = new LocalizedString(template.CompletedStatusText.TableReference, template.CompletedStatusText.TableEntryReference);
             _localizedStatus.Arguments = null;
             _localizedStatus.StringChanged += UpdateProgressText;
             _localizedStatus.RefreshString();
@@ -72,7 +72,14 @@ namespace UI.Quest
             if (_localizedStatus != null) _localizedStatus.StringChanged -= UpdateProgressText;
         }
         
-        private void UpdateDescriptionText(string value) => _descriptionText.text = value;
-        private void UpdateProgressText(string value) => _progressText.text = value;
+        private void UpdateDescriptionText(string value)
+        {
+            if (_descriptionText) _descriptionText.text = value;
+        }
+
+        private void UpdateProgressText(string value)
+        {
+            if (_progressText) _progressText.text = value;
+        }
     }
 }

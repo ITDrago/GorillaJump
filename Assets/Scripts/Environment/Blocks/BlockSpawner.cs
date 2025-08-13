@@ -35,6 +35,7 @@ namespace Environment.Blocks
         [SerializeField] private int _maxBlocksCount = 7;
         
         [Header("Spike Settings")]
+        [SerializeField] private bool _shouldSpawnSpike;
         [SerializeField] private GameObject _spikePrefab;
         [SerializeField] [Range(0, 1)] private float _chanceToAddSpikes = 0.5f;
         [SerializeField] private SpikeSpawnConfig[] _spikeConfigs;
@@ -142,9 +143,7 @@ namespace Environment.Blocks
             foreach (var level in _difficultyConfig.Levels)
             {
                 if (_blocksSpawned >= level.StartBlockIndex)
-                {
                     return level;
-                }
             }
             return _difficultyConfig.Levels[^1];
         }
@@ -175,7 +174,8 @@ namespace Environment.Blocks
         
         private void TryPlaceSpikes(Block block)
         {
-            if (!block.TryGetComponent<SpikePlacer>(out var spikePlacer)) return;
+            if (!block.TryGetComponent<SpikePlacer>(out var spikePlacer) || !_shouldSpawnSpike) return;
+            
             if (Random.value > _chanceToAddSpikes) return;
 
             foreach (var config in _spikeConfigs)
