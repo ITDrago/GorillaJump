@@ -973,8 +973,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _coinPrefab: {fileID: 3281761104073315397, guid: 9991e3b45552ed14b8bdab131eb8e1d7, type: 3}
   _blockSpawner: {fileID: 2139552450}
-  _minBlocksBetweenCoins: 2
-  _maxBlocksBetweenCoins: 2
+  _minBlocksBetweenCoins: 3
+  _maxBlocksBetweenCoins: 4
   _spawnBlockingLayers:
     serializedVersion: 2
     m_Bits: 384
@@ -1346,8 +1346,8 @@ MonoBehaviour:
   BlockSpawner: {fileID: 2139552450}
   SpawnBlockingLayers:
     serializedVersion: 2
-    m_Bits: 768
-  _clearanceBoxSize: {x: 4, y: 20}
+    m_Bits: 256
+  _clearanceBoxSize: {x: 4, y: 30}
   _spawnChance: 0.1
   _minGapSizeForSpawn: 5
   _interceptionPointRatio: 0.5
@@ -1369,16 +1369,16 @@ MonoBehaviour:
   BlockSpawner: {fileID: 2139552450}
   SpawnBlockingLayers:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 0
   _clearanceBoxSize: {x: 4, y: 20}
   _specialSpawnableObjects:
   - _prefab: {fileID: 6180774221791360384, guid: f515dc944cc4f2841a717baa0f4e4829, type: 3}
-    _spawnChance: 0.1
+    _spawnChance: 0.55
   - _prefab: {fileID: -1507091507431194089, guid: 76d781e17cba17342adff15c29303d6e, type: 3}
-    _spawnChance: 0.1
+    _spawnChance: 0.55
   _stickPrefab:
     _prefab: {fileID: 3011480449618759604, guid: 9e33616f055b79f4381fe08aba6abbee, type: 3}
-    _spawnChance: 1
+    _spawnChance: 0.7
   _blocksBetweenSpawnsRange: {x: 3, y: 5}
   _spawnDelay: {x: 0, y: 1}
   _spawnInterval: {x: 0.8, y: 1.5}
@@ -2913,15 +2913,15 @@ MonoBehaviour:
   _blockSpawner: {fileID: 2139552450}
   _ringTypes:
   - Prefab: {fileID: 8921240630289439819, guid: e0be77862d275544eba658b3b63abe46, type: 3}
-    SpawnChance: 0.5
+    SpawnChance: 1
   - Prefab: {fileID: 8391285242663616137, guid: d98b6d1be6d1dd046828fc5be8677e8c, type: 3}
-    SpawnChance: 0.3
-  _blocksBetweenSpawnsRange: {x: 3, y: 6}
+    SpawnChance: 1
+  _blocksBetweenSpawnsRange: {x: 1, y: 1}
   _minXOffsetBeyondCameraRight: 5
   _clearanceBoxSize: {x: 4, y: 20}
   _obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 512
 --- !u!1 &2095197879
 GameObject:
   m_ObjectHideFlags: 0

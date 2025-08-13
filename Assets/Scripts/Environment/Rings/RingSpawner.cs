@@ -131,7 +131,7 @@ namespace Environment.Rings
         
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.blue;
+            Gizmos.color = Color.green;
             Gizmos.DrawWireCube(_lastCheckedPosition, new Vector3(_clearanceBoxSize.x, _clearanceBoxSize.y));
         }
     }
