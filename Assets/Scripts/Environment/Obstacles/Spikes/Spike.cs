@@ -14,6 +14,12 @@ namespace Environment.Obstacles.Spikes
             {
                 if (playerCore.PlayerController.IsFlying) return;
                 
+                if (playerCore.PlayerShieldController && playerCore.PlayerShieldController.IsShieldActive)
+                {
+                    playerCore.PlayerShieldController.Deactivate();
+                    return;
+                }
+                
                 playerCore.PlayerHealth.Die();
             }
         }

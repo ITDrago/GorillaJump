@@ -8,6 +8,7 @@ namespace Core.Data
 
         public static void SaveScore(int newScore)
         {
+            Debug.Log(1);
             var currentHighScore = LoadScore();
 
             if (newScore > currentHighScore)
@@ -17,9 +18,6 @@ namespace Core.Data
             }
         }
 
-        public static int LoadScore()
-        {
-            return PlayerPrefs.GetInt(HIGH_SCORE_KEY, 0);
-        }
+        public static int LoadScore() => PlayerPrefs.GetInt(HIGH_SCORE_KEY, 0);
     }
 }

@@ -17,9 +17,17 @@ namespace Core.Game
         
         private static int _sLossCounter;
         
-        private void OnEnable() => _playerHealth.OnDied += HandlePlayerDeath;
+        private void OnEnable()
+        {
+            _playerHealth.OnDied += HandlePlayerDeath;
+            _interstitialAd.OnAdFlowFinished += HandleAdFlowFinished;
+        }
 
-        private void OnDisable() => _playerHealth.OnDied -= HandlePlayerDeath;
+        private void OnDisable()
+        {
+            _playerHealth.OnDied -= HandlePlayerDeath;
+            _interstitialAd.OnAdFlowFinished -= HandleAdFlowFinished;
+        }
 
         private void HandlePlayerDeath()
         {
@@ -30,10 +38,15 @@ namespace Core.Game
 
             if (_sLossCounter >= _lossesToShowAD)
             {
-                _interstitialAd.ShowInterstitial();
                 _sLossCounter = 0;
+                
+                _gameOverScreen.SetRestartButtonInteractable(false); 
+                
+                _interstitialAd.ShowInterstitial();
             }
         }
+
+        private void HandleAdFlowFinished() => _gameOverScreen.SetRestartButtonInteractable(true);
 
         public void RestartGame()
         {

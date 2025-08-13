@@ -1,70 +1,63 @@
 using System;
-using System.Linq;
+using System.Collections.Generic;
+using Core.Data;
 using Environment.Blocks;
 using Environment.Blocks.BlockTypes;
 using Player;
-using Skins;
+using Player.Health;
 using UnityEngine;
 
 namespace Core.Game
 {
     public class ProgressManager : MonoBehaviour
     {
-        [Header("Charged Jump Settings")]
-        [SerializeField] private int _blocksToUnlockChargedJump = 40;
-
         [Header("Player References")]
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private BlockSpawner _blockSpawner;
-
-        private bool _chargedJumpUnlocked;
-        private int _finalBlocksToUnlock;
+        [SerializeField] private PlayerHealth _playerHealth;
+        
+        private readonly HashSet<Block> _countedBlocks = new();
 
         public int BlocksPassedCount { get; private set; }
-        public bool IsChargedJumpUnlocked => _chargedJumpUnlocked;
-
-        public event Action OnChargedJumpUnlocked;
         public event Action OnBlockPassed;
-        
-        private void Start() => CalculateFinalUnlockRequirement();
+        private void OnEnable()
+        {
+            if (_blockSpawner) _blockSpawner.OnBlockRemoved += HandleBlockRemoved;
+            if (_playerHealth) _playerHealth.OnDied += HandleGameEnd;
+        }
+
+        private void OnDisable()
+        {
+            if (_blockSpawner) _blockSpawner.OnBlockRemoved -= HandleBlockRemoved;
+            if (_playerHealth) _playerHealth.OnDied -= HandleGameEnd;
+        }
 
         private void Update() => ProcessPassedBlocks();
-        
-        private void CalculateFinalUnlockRequirement()
-        {
-            var multiplier = 1f;
-            if (ActiveSkinManager.Instance?.CurrentSkin)
-            {
-                multiplier = ActiveSkinManager.Instance.CurrentSkin.ChargedJumpRequirementMultiplier;
-            }
-            
-            _finalBlocksToUnlock = Mathf.CeilToInt(_blocksToUnlockChargedJump * multiplier);
-        }
 
         private void ProcessPassedBlocks()
         {
-            if (!_blockSpawner || !_blockSpawner.SpawnedBlocks.Any() || !_playerController) return;
+            if (!_blockSpawner || !_playerController) return;
 
-            var passedBlocksCountNow = _blockSpawner.SpawnedBlocks
-                .Count(b => b && b.transform.position.x < _playerController.transform.position.x);
-
-            if (passedBlocksCountNow > BlocksPassedCount)
+            foreach (var block in _blockSpawner.SpawnedBlocks)
             {
-                BlocksPassedCount = passedBlocksCountNow;
-                GameEvents.BlockPassed();
-                OnBlockPassed?.Invoke();
-                CheckUnlockables();
+                if (block && !_countedBlocks.Contains(block))
+                {
+                    if (block.transform.position.x - 1 < _playerController.transform.position.x)
+                    {
+                        BlocksPassedCount++;
+                        _countedBlocks.Add(block);
+                        GameEvents.BlockPassed();
+                        OnBlockPassed?.Invoke();
+                    }
+                }
             }
         }
-
-        private void CheckUnlockables()
+        
+        private void HandleBlockRemoved(Block block)
         {
-            if (!_chargedJumpUnlocked && BlocksPassedCount >= _finalBlocksToUnlock)
-            {
-                _chargedJumpUnlocked = true;
-                OnChargedJumpUnlocked?.Invoke();
-                Debug.Log("Charged Jump Unlocked!");
-            }
+            if (block) _countedBlocks.Remove(block);
         }
+        
+        private void HandleGameEnd() => ScoreSaver.SaveScore(BlocksPassedCount);
     }
 }

@@ -1,70 +1,57 @@
-using System;
 using Quests.Objectives;
+using UnityEngine;
 
 namespace Quests.Data
 {
-    public enum QuestStatus
-    {
-        InProgress,
-        Completed
-    }
-
-    [Serializable]
     public class Quest
     {
-        public string TemplateID { get; private set; }
-        public QuestStatus Status { get; set; }
+        public string TemplateID { get; }
+        public QuestType Type { get; }
         public int CurrentProgress { get; set; }
-        public int TargetValue { get; private set; }
-        public int Reward { get; private set; }
+        public int Reward { get; }
+        public bool IsCompleted => CurrentProgress >= TargetValue;
+        
+        public int TargetValue => Type == QuestType.Daily ? Template.BaseDailyTarget : Template.BaseWeeklyTarget;
 
-        [NonSerialized] public QuestObjective ObjectiveInstance;
-        [NonSerialized] public QuestTemplateSO Template;
-
-        public Quest(QuestTemplateSO template, QuestType type)
+        public QuestTemplateSO Template { get; }
+        public QuestObjective ObjectiveInstance { get; private set; }
+        
+        public Quest(QuestTemplateSO template, QuestType type, Transform objectiveParent)
         {
             Template = template;
             TemplateID = template.ID;
-            Status = QuestStatus.InProgress;
+            Type = type;
             CurrentProgress = 0;
             
-            if (type == QuestType.Daily)
-            {
-                TargetValue = template.BaseDailyTarget;
-                Reward = UnityEngine.Random.Range(template.DailyRewardRange.x, template.DailyRewardRange.y + 1);
-            }
-            else
-            {
-                TargetValue = template.BaseWeeklyTarget;
-                Reward = UnityEngine.Random.Range(template.WeeklyRewardRange.x, template.WeeklyRewardRange.y + 1);
-            }
-            
-            InstantiateObjective();
+            var rewardRange = type == QuestType.Daily ? template.DailyRewardRange : template.WeeklyRewardRange;
+            Reward = Random.Range(rewardRange.x, rewardRange.y + 1);
+
+            InstantiateObjective(objectiveParent);
         }
 
-        public Quest(QuestTemplateSO template, QuestProgressData progressData)
+        public Quest(QuestTemplateSO template, QuestProgressData progressData, Transform objectiveParent)
         {
             Template = template;
             TemplateID = template.ID;
-            Status = progressData.Status;
+            Type = progressData.Type;
             CurrentProgress = progressData.CurrentProgress;
             Reward = progressData.Reward;
             
-            TargetValue = template.BaseDailyTarget > 0 ? template.BaseDailyTarget : template.BaseWeeklyTarget;
-            InstantiateObjective();
+            InstantiateObjective(objectiveParent);
         }
 
-        private void InstantiateObjective()
+        private void InstantiateObjective(Transform parent)
         {
-            if (!QuestManager.Instance || !Template.ObjectivePrefab) return;
+            if (!Template || !Template.ObjectivePrefab || !parent) return;
 
-            var parent = QuestManager.Instance.transform.Find("Objectives");
-            ObjectiveInstance = UnityEngine.Object.Instantiate(Template.ObjectivePrefab, parent);
+            ObjectiveInstance = Object.Instantiate(Template.ObjectivePrefab, parent);
 
-            Action onProgress = () => QuestManager.Instance.UpdateQuestProgress(this);
-            Action onComplete = () => QuestManager.Instance.CompleteQuest(this);
-
-            ObjectiveInstance.Initialize(TargetValue, CurrentProgress, onProgress, onComplete);
+            ObjectiveInstance.Initialize(
+                TargetValue, 
+                CurrentProgress, 
+                () => QuestManager.Instance.UpdateQuestProgress(this), 
+                () => QuestManager.Instance.CompleteQuest(this)
+            );
         }
     }
 }

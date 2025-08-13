@@ -2,6 +2,7 @@ using Core.Audio;
 using Core.Game;
 using Money;
 using Player;
+using Skins;
 using UnityEngine;
 
 namespace Environment.Rings.RingTypes
@@ -9,7 +10,7 @@ namespace Environment.Rings.RingTypes
     public class Ring : MonoBehaviour
     {
         [SerializeField] private int _defaultReward = 1;
-        [SerializeField] private float _scaleMultiplier = 0.1f;
+        [SerializeField] private float _scaleMultiplier;
         
         [Header("Audio")]
         [SerializeField] private AudioClip _collectSound;
@@ -20,6 +21,8 @@ namespace Environment.Rings.RingTypes
         
         private ParticleSystem _collectParticleSystem;
         private Coin _coin;
+        
+        public int GetRewardAmount => _rewardAmount;
         
         protected UnityEngine.Camera MainCamera { get; private set; }
 
@@ -32,9 +35,12 @@ namespace Environment.Rings.RingTypes
             _rewardAmount = _defaultReward;
         }
 
-        public virtual void Initialize(int reward)
+        public virtual void Initialize()
         {
-            _rewardAmount = reward;
+            var rewardMultiplier = ActiveSkinManager.Instance.CurrentSkin?.RewardMultiplier ?? 1;
+            var finalAmount = Mathf.RoundToInt(_rewardAmount * rewardMultiplier);
+            _rewardAmount = finalAmount;
+            
             UpdateScale();
         }
 

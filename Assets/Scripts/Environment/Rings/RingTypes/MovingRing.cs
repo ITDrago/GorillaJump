@@ -33,12 +33,6 @@ namespace Environment.Rings.RingTypes
             Move();
         }
 
-        public override void Initialize(int reward)
-        {
-            base.Initialize(reward);
-            _movementSpeed *= 1 + reward * 0.1f;
-        }
-
         private void Move()
         {
             var currentTarget = _isMovingToTarget ? _targetPosition : _startPosition;

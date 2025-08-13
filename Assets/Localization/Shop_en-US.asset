@@ -39,7 +39,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 870816362496
-    m_Localized: x2 increased reward for bananas and apples
+    m_Localized: The duration of the apple and banana effects has been doubled
     m_Metadata:
       m_Items: []
   - m_Id: 1083744399360
@@ -55,7 +55,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1587476115456
-    m_Localized: Charged jump unlocks twice as fast
+    m_Localized: Gets twice as many coins
     m_Metadata:
       m_Items: []
   - m_Id: 1824601092096

@@ -16,8 +16,7 @@ MonoBehaviour:
     m_Code: en-US
   m_SharedData: {fileID: 11400000, guid: 68a244792e3ff8a4da9776fd6c960b71, type: 2}
   m_Metadata:
-    m_Items:
-    - rid: 8089256815336096044
+    m_Items: []
   m_TableData:
   - m_Id: 16080121856
     m_Localized: Start
@@ -64,16 +63,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 62527890468864
-    m_Localized: Your record is {0}!
+    m_Localized: Your record is
     m_Metadata:
-      m_Items:
-      - rid: 8089256815336096044
+      m_Items: []
   references:
     version: 2
-    RefIds:
-    - rid: 8089256815336096044
-      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_Entries: 
-        m_SharedEntries:
-        - id: 62527890468864
+    RefIds: []

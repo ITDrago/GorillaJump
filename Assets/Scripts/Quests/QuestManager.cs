@@ -17,22 +17,21 @@ namespace Quests
 
         private List<Quest> _dailyQuests = new();
         private List<Quest> _weeklyQuests = new();
+        
+        private QuestSaveSystem _saveSystem;
+        private QuestResetService _resetService;
+        private QuestFactory _questFactory;
 
         public IReadOnlyList<Quest> DailyQuests => _dailyQuests;
         public IReadOnlyList<Quest> WeeklyQuests => _weeklyQuests;
-
-        public DateTime NextDailyResetTime { get; private set; }
-        public DateTime NextWeeklyResetTime { get; private set; }
+        public DateTime NextDailyResetTime => _resetService.NextDailyResetTime;
+        public DateTime NextWeeklyResetTime => _resetService.NextWeeklyResetTime;
 
         public event Action OnQuestDataUpdated;
 
-        private const string QUEST_SAVE_KEY = "QuestSaveData";
-        private const string LAST_DAILY_RESET_KEY = "LastDailyResetTime";
-        private const string LAST_WEEKLY_RESET_KEY = "LastWeeklyResetTime";
-
         private void Awake()
         {
-            if (Instance && Instance != this)
+            if (Instance)
             {
                 Destroy(gameObject);
                 return;
@@ -40,15 +39,78 @@ namespace Quests
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            
+            _questFactory = gameObject.AddComponent<QuestFactory>();
+            _questFactory.Initialize(_allQuestTemplates, _objectivesParent);
+
+            _saveSystem = gameObject.AddComponent<QuestSaveSystem>();
+            _saveSystem.Initialize(_questFactory);
+
+            _resetService = gameObject.AddComponent<QuestResetService>();
         }
 
         private void Start()
         {
+            Debug.Log("[QuestManager] Start: Beginning quest load/reset process.");
             LoadOrResetQuests();
         }
 
+        private void LoadOrResetQuests()
+        {
+            Debug.Log("[QuestManager] LoadOrResetQuests: Checking for resets...");
+            var questsWereReset = _resetService.CheckAndPerformResets(GenerateQuests);
+            Debug.Log($"[QuestManager] LoadOrResetQuests: Were quests reset by time? -> {questsWereReset}");
+
+            if (!questsWereReset)
+            {
+                Debug.Log("[QuestManager] LoadOrResetQuests: No reset was needed. Checking for saved data...");
+                if (_saveSystem.HasSavedQuests())
+                {
+                    Debug.Log("[QuestManager] LoadOrResetQuests: Save data found. Loading quests.");
+                    (_dailyQuests, _weeklyQuests) = _saveSystem.Load();
+                }
+                else
+                {
+                    Debug.Log("[QuestManager] LoadOrResetQuests: No save data found.");
+                }
+            }
+
+            if (_dailyQuests.Count == 0) GenerateQuests(QuestType.Daily);
+            if (_weeklyQuests.Count == 0) GenerateQuests(QuestType.Weekly);
+
+            Debug.Log($"[QuestManager] LoadOrResetQuests: Final quest counts: Daily={_dailyQuests.Count}, Weekly={_weeklyQuests.Count}. Invoking UI update.");
+            OnQuestDataUpdated?.Invoke();
+        }
+        
+        private void GenerateQuests(QuestType type)
+        {
+            Debug.Log($"[QuestManager] GenerateQuests: Generating for type: {type}. Template count: {_allQuestTemplates.Count}");
+            var targetList = type == QuestType.Daily ? _dailyQuests : _weeklyQuests;
+            var count = type == QuestType.Daily ? _dailyQuestsCount : _weeklyQuestsCount;
+            
+            targetList.Clear();
+
+            if (_allQuestTemplates.Count == 0) return;
+            
+            var random = new System.Random();
+            var selectedTemplates = _allQuestTemplates.OrderBy(_ => random.Next()).Take(count);
+
+            var questTemplateSos = selectedTemplates.ToList();
+            Debug.Log($"[QuestManager] GenerateQuests: Selected {questTemplateSos.Count()} templates to create quests.");
+
+            foreach (var template in questTemplateSos)
+            {
+                Debug.Log($"[QuestManager] GenerateQuests: Creating quest from template '{template.ID}'.");
+                targetList.Add(_questFactory.CreateFromTemplate(template, type));
+            }
+
+            Debug.Log($"[QuestManager] GenerateQuests: Generation for type {type} complete. Saving quests...");
+            SaveQuests();
+        }
+        
         public void UpdateQuestProgress(Quest quest)
         {
+            if (quest.IsCompleted) return;
             quest.CurrentProgress++;
             SaveQuests();
             OnQuestDataUpdated?.Invoke();
@@ -56,140 +118,20 @@ namespace Quests
 
         public void CompleteQuest(Quest quest)
         {
-            quest.Status = QuestStatus.Completed;
+            quest.CurrentProgress = quest.TargetValue;
             SaveQuests();
             OnQuestDataUpdated?.Invoke();
         }
 
-        private void LoadOrResetQuests()
+        private void SaveQuests() => _saveSystem.Save(_dailyQuests, _weeklyQuests);
+        
+        [ContextMenu("Clear All Quest PlayerPrefs")]
+        public void ClearQuestPlayerPrefs()
         {
-            var questsWereReset = CheckForResets();
-
-            if (!questsWereReset)
-            {
-                LoadQuests();
-            }
-
-            UpdateResetTimers();
-            OnQuestDataUpdated?.Invoke();
-        }
-
-        private bool CheckForResets()
-        {
-            var lastDailyReset = GetSavedTime(LAST_DAILY_RESET_KEY);
-            var lastWeeklyReset = GetSavedTime(LAST_WEEKLY_RESET_KEY);
-
-            var didDailyReset = false;
-            if (lastDailyReset.Date < DateTime.UtcNow.Date)
-            {
-                GenerateQuests(QuestType.Daily);
-                SaveTime(LAST_DAILY_RESET_KEY, DateTime.UtcNow);
-                didDailyReset = true;
-            }
-
-            var today = DateTime.UtcNow.Date;
-            var daysSinceMonday = (today.DayOfWeek - DayOfWeek.Monday + 7) % 7;
-            var startOfThisWeek = today.AddDays(-daysSinceMonday);
-
-            var didWeeklyReset = false;
-            if (lastWeeklyReset.Date < startOfThisWeek)
-            {
-                GenerateQuests(QuestType.Weekly);
-                SaveTime(LAST_WEEKLY_RESET_KEY, DateTime.UtcNow);
-                didWeeklyReset = true;
-            }
-
-            return didDailyReset || didWeeklyReset;
-        }
-
-        private void UpdateResetTimers()
-        {
-            NextDailyResetTime = DateTime.UtcNow.Date.AddDays(1);
-
-            var today = DateTime.UtcNow.Date;
-            var daysSinceMonday = (today.DayOfWeek - DayOfWeek.Monday + 7) % 7;
-            var startOfThisWeek = today.AddDays(-daysSinceMonday);
-            NextWeeklyResetTime = startOfThisWeek.AddDays(7);
-        }
-
-        private void GenerateQuests(QuestType type)
-        {
-            var questList = type == QuestType.Daily ? _dailyQuests : _weeklyQuests;
-            questList.Clear();
-
-            var count = type == QuestType.Daily ? _dailyQuestsCount : _weeklyQuestsCount;
-            var availableTemplates = new List<QuestTemplateSO>(_allQuestTemplates);
-
-            for (var i = 0; i < count; i++)
-            {
-                if (availableTemplates.Count == 0) break;
-                var template = availableTemplates[UnityEngine.Random.Range(0, availableTemplates.Count)];
-                availableTemplates.Remove(template);
-                questList.Add(new Quest(template, type));
-            }
-
-            SaveQuests();
-        }
-
-        private void SaveQuests()
-        {
-            var saveData = new QuestSaveData
-            {
-                DailyQuests = _dailyQuests.Select(q => new QuestProgressData
-                    { TemplateID = q.TemplateID, CurrentProgress = q.CurrentProgress, Status = q.Status, Reward = q.Reward }).ToList(),
-                WeeklyQuests = _weeklyQuests.Select(q => new QuestProgressData
-                    { TemplateID = q.TemplateID, CurrentProgress = q.CurrentProgress, Status = q.Status, Reward = q.Reward }).ToList()
-            };
-
-            var json = JsonUtility.ToJson(saveData);
-            PlayerPrefs.SetString(QUEST_SAVE_KEY, json);
+            _saveSystem.ClearQuestSaveData();
+            _resetService.ClearResetTimeData();
             PlayerPrefs.Save();
-        }
-
-        private void LoadQuests()
-        {
-            if (!PlayerPrefs.HasKey(QUEST_SAVE_KEY)) return;
-
-            var json = PlayerPrefs.GetString(QUEST_SAVE_KEY);
-            var saveData = JsonUtility.FromJson<QuestSaveData>(json);
-
-            _dailyQuests = LoadQuestList(saveData.DailyQuests);
-            _weeklyQuests = LoadQuestList(saveData.WeeklyQuests);
-        }
-
-        private List<Quest> LoadQuestList(List<QuestProgressData> progressData)
-        {
-            var list = new List<Quest>();
-            foreach (var data in progressData)
-            {
-                var template = _allQuestTemplates.FirstOrDefault(t => t.ID == data.TemplateID);
-                if (template) list.Add(new Quest(template, data));
-            }
-
-            return list;
-        }
-
-        private void SaveTime(string key, DateTime time)
-        {
-            PlayerPrefs.SetString(key, time.ToString("o"));
-        }
-
-        private DateTime GetSavedTime(string key)
-        {
-            var savedTime = PlayerPrefs.GetString(key, null);
-            return string.IsNullOrEmpty(savedTime) ? DateTime.MinValue : DateTime.Parse(savedTime);
-        }
-
-        [ContextMenu("Force Regenerate Quests Now")]
-        public void ForceRegenerateQuests()
-        {
-            GenerateQuests(QuestType.Daily);
-            GenerateQuests(QuestType.Weekly);
-            SaveTime(LAST_DAILY_RESET_KEY, DateTime.UtcNow);
-            SaveTime(LAST_WEEKLY_RESET_KEY, DateTime.UtcNow);
-
-            UpdateResetTimers();
-            OnQuestDataUpdated?.Invoke();
+            Debug.Log("Quest data in PlayerPrefs cleared!");
         }
     }
 }

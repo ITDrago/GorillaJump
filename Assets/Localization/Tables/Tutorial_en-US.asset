@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Tutorial_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 58effee34947a6440b8d7123eb3df1d8, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 28784668672
+    m_Localized: 'Tutorial
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102046576640
+    m_Localized: Gameplay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 253158961152
+    m_Localized: You play as a funny gorilla who jumps from block to block spinning
+      on a stick. The first time you tap on the screen, the gorilla pushes off from
+      the block and flies in a given direction, and the second time you tap it, it
+      clings to the next block. There is also a long jump. To do this, hold your
+      finger on the screen and release it at the moment when the scale is at the
+      desired mark
+    m_Metadata:
+      m_Items: []
+  - m_Id: 665496793088
+    m_Localized: 'Blocks
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 742630043648
+    m_Localized: Moving
+    m_Metadata:
+      m_Items: []
+  - m_Id: 843503054848
+    m_Localized: Moves horizontally or vertically
+    m_Metadata:
+      m_Items: []
+  - m_Id: 951791595520
+    m_Localized: Breakable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1048600326144
+    m_Localized: It breaks if you spin on it for a long time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1134201876480
+    m_Localized: Ice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1179915595776
+    m_Localized: Spike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1479166603264
+    m_Localized: If the gorilla touches the thorn, you will lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1654052302848
+    m_Localized: Branch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1694690914304
+    m_Localized: Sometimes it falls from the trees from above and when it lands on
+      you, you lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2111336296448
+    m_Localized: Bonuses
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2173965643776
+    m_Localized: Bonus items in the form of fruits fall from the trees from above
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2256819924992
+    m_Localized: Banana
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2347223953408
+    m_Localized: Gives you a shield for 20 seconds, which saves you from a branch
+      once
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2607841226752
+    m_Localized: Apple
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2660446187520
+    m_Localized: Slows down time by a factor of 2 by 5 seconds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2817774530560
+    m_Localized: Collectibles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2962314440704
+    m_Localized: Ring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3053376974848
+    m_Localized: When you fly through the ring, you get 50 coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3134515785728
+    m_Localized: Coin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3186927808512
+    m_Localized: If you collect it, you will get 15 coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3717951860736
+    m_Localized: The gorilla slides on it and may fall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3931546791936
+    m_Localized: Obstacles
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

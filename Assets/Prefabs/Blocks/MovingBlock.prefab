@@ -264,7 +264,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4491210862641454411}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afe6976be15740cbb93c1cbd97ca7a73, type: 3}
   m_Name: 
@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edb11123a6e499f8b569fab02860c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stickAnchor: {fileID: 0}
+  _stickAnchor: {fileID: 7548097896584250518}
   _movementType: 0
   _movementSpeed: 2
   _movementDistance: 3

@@ -11,6 +11,8 @@ namespace Advertisement
 
         private InterstitialAdLoader _interstitialAdLoader;
         private Interstitial _interstitial;
+        
+        public event Action OnAdFlowFinished;
 
         public void Awake()
         {
@@ -37,7 +39,8 @@ namespace Advertisement
         {
             if (_interstitial == null)
             {
-                DisplayMessage("Interstitial is not ready yet");
+                DisplayMessage("Interstitial is not ready yet"); 
+                OnAdFlowFinished?.Invoke();
                 return;
             }
 
@@ -79,6 +82,8 @@ namespace Advertisement
             _interstitial.Destroy();
             _interstitial = null;
             
+            OnAdFlowFinished?.Invoke();
+            
             RequestInterstitial();
         }
 
@@ -88,7 +93,11 @@ namespace Advertisement
             DisplayMessage($"HandleImpression event received with data: {data}");
         }
 
-        public void HandleAdFailedToShow(object sender, AdFailureEventArgs args) => DisplayMessage($"HandleAdFailedToShow event received with message: {args.Message}");
+        public void HandleAdFailedToShow(object sender, AdFailureEventArgs args)
+        {
+            DisplayMessage($"HandleAdFailedToShow event received with message: {args.Message}");
+            OnAdFlowFinished?.Invoke();
+        }
 
         #endregion
     }

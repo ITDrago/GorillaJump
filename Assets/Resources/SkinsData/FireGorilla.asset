@@ -33,9 +33,8 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _rewardMultiplier: 1
+  _rewardMultiplier: 2
   _effectDurationMultiplier: 1
-  _chargedJumpRequirementMultiplier: 0.5
   _isImmuneToIceSlide: 0
   _preventsBlockBreaking: 0
   _stickSpawnChanceMultiplier: 1

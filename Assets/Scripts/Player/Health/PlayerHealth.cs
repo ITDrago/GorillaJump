@@ -6,10 +6,10 @@ namespace Player.Health
     [RequireComponent(typeof(PlayerController))]
     public class PlayerHealth : MonoBehaviour
     {
-        public event Action OnDied;
-
         private PlayerController _playerController;
         private bool _isDead;
+        
+        public event Action OnDied;
 
         private void Awake()
         {

@@ -15,6 +15,11 @@ namespace UI.Game
             _panel.SetActive(false);
             _restartButton.onClick.AddListener(_gameStateManager.RestartGame);
         }
+        
+        public void SetRestartButtonInteractable(bool isInteractable)
+        {
+            if (_restartButton) _restartButton.interactable = isInteractable;
+        }
 
         public void Show() => _panel.SetActive(true);
     }

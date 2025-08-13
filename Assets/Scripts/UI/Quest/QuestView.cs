@@ -21,33 +21,47 @@ namespace UI.Quest
         public void Setup(Quests.Data.Quest quest)
         {
             _rewardText.text = quest.Reward.ToString();
-
             CleanUpSubscriptions();
 
             var template = quest.Template;
+            SetupDescription(quest, template);
 
-            _localizedDescription = template.DescriptionFormat;
-            _localizedDescription.Arguments = new object[] { quest.TargetValue };
-            _localizedDescription.StringChanged += UpdateDescriptionText;
-            _localizedDescription.RefreshString();
-            
-            if (quest.Status == QuestStatus.Completed)
+            if (quest.IsCompleted)
             {
-                _localizedStatus = template.CompletedStatusText;
-                if (_rewardPanel) _rewardPanel.SetActive(false);
-                _progressBar.gameObject.SetActive(false);
+                SetupForCompleted(quest, template);
             }
             else
             {
-                _localizedStatus = template.ProgressFormat;
-                _localizedStatus.Arguments = new object[] { quest.CurrentProgress, quest.TargetValue };
-
-                if (_rewardPanel) _rewardPanel.SetActive(true);
-                _progressBar.gameObject.SetActive(true);
-                _progressBar.maxValue = quest.TargetValue;
-                _progressBar.value = quest.CurrentProgress;
+                SetupForInProgress(quest, template);
             }
+        }
+
+        private void SetupDescription(Quests.Data.Quest quest, QuestTemplateSO template)
+        {
+            _localizedDescription = new LocalizedString(template.DescriptionFormat.TableReference, template.DescriptionFormat.TableEntryReference);
+            _localizedDescription.Arguments = new object[] { quest.TargetValue };
+            _localizedDescription.StringChanged += UpdateDescriptionText;
+            _localizedDescription.RefreshString();
+        }
+
+        private void SetupForInProgress(Quests.Data.Quest quest, QuestTemplateSO template)
+        {
+            _localizedStatus = new LocalizedString(template.ProgressFormat.TableReference, template.ProgressFormat.TableEntryReference);
+            _localizedStatus.Arguments = new object[] { quest.CurrentProgress, quest.TargetValue };
+            _localizedStatus.StringChanged += UpdateProgressText;
+            _localizedStatus.RefreshString();
             
+            if (_rewardPanel) _rewardPanel.SetActive(true);
+            
+            _progressBar.gameObject.SetActive(true);
+            _progressBar.maxValue = quest.TargetValue;
+            _progressBar.value = quest.CurrentProgress;
+        }
+
+        private void SetupForCompleted(Quests.Data.Quest quest, QuestTemplateSO template)
+        {
+            _localizedStatus = new LocalizedString(template.CompletedStatusText.TableReference, template.CompletedStatusText.TableEntryReference);
+            _localizedStatus.Arguments = null;
             _localizedStatus.StringChanged += UpdateProgressText;
             _localizedStatus.RefreshString();
         }
