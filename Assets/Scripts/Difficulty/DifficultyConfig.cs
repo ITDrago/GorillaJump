@@ -12,9 +12,9 @@ namespace Difficulty
     public class DifficultyLevel
     {
         public int StartBlockIndex;
-        [Range(3f, 10f)] public float BlockSpacing = 5f;
-        [Range(-5f, 0f)] public float MinHeight = -2f;
-        [Range(0f, 5f)] public float MaxHeight = 2f;
-        [Range(0f, 1f)] public float GapProbability = 0.1f;
+        [Range(1, 10)] public float BlockSpacing = 2;
+        [Range(-5, 0)] public float MinHeight = 0;
+        [Range(0, 5)] public float MaxHeight = 3;
+        [Range(0, 1)] public float GapProbability = 0.1f;
     }
 }

@@ -22,7 +22,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _price: 500
+  _price: 5000
   _isFree: 0
   _buffDescription:
     m_TableReference:

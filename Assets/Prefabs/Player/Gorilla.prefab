@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0468cc13e44d209635c355fe1d4910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swingSpeed: 225
+  _swingSpeed: 205
   _jumpForce: 10
   _slideSpeed: 0.4
   _chargedJumpForceRange: {x: 11, y: 14}

@@ -1349,7 +1349,7 @@ MonoBehaviour:
     m_Bits: 256
   _clearanceBoxSize: {x: 4, y: 30}
   _spawnChance: 0.1
-  _minGapSizeForSpawn: 5
+  _minGapSizeForSpawn: 3
   _interceptionPointRatio: 0.5
   _spawnOffsetBelowCamera: 2
   _birdPrefab: {fileID: -1606489920341845641, guid: 8de7c4806516dce40b22dfee86953833, type: 3}
@@ -1381,7 +1381,7 @@ MonoBehaviour:
     _spawnChance: 0.7
   _blocksBetweenSpawnsRange: {x: 3, y: 5}
   _spawnDelay: {x: 0, y: 1}
-  _spawnInterval: {x: 0.8, y: 1.5}
+  _spawnInterval: {x: 3, y: 4}
   _spawnHeightOffset: 10
 --- !u!1 &965550890
 GameObject:
@@ -3228,7 +3228,7 @@ MonoBehaviour:
   _playerController: {fileID: 75963672}
   _specialBlockProbability: 0.4
   _minBlocksBetweenSpecial: 3
-  _maxBlocksCount: 7
+  _maxBlocksCount: 9
   _shouldSpawnSpike: 0
   _spikePrefab: {fileID: 7905980789203470748, guid: eb9caeeddcaf00343a2f43e4e402b9dc, type: 3}
   _chanceToAddSpikes: 0.1
