@@ -10,11 +10,6 @@ namespace Core.Loading
         [SerializeField] private CanvasGroup _mainCanvasGroup;
         [SerializeField] private Slider _progressBar;
 
-        [Header("World Elements")]
-        [SerializeField] private Transform _heroTransform;
-        [SerializeField] private Transform _heroStartPoint;
-        [SerializeField] private Transform _heroEndPoint;
-
         private CancellationTokenSource _cancellationSource;
 
         private void Awake()
@@ -22,8 +17,6 @@ namespace Core.Loading
             _cancellationSource = new CancellationTokenSource();
 
             if (_progressBar) _progressBar.value = 0;
-
-            if (_heroTransform && _heroStartPoint) _heroTransform.position = _heroStartPoint.position;
         }
 
         private void OnDestroy()
@@ -34,15 +27,7 @@ namespace Core.Loading
 
         public void UpdateProgress(float progress)
         {
-            if (_progressBar)
-            {
-                _progressBar.value = progress;
-            }
-
-            if (_heroTransform && _heroStartPoint && _heroEndPoint)
-            {
-                _heroTransform.position = Vector3.Lerp(_heroStartPoint.position, _heroEndPoint.position, progress);
-            }
+            if (_progressBar) _progressBar.value = progress;
         }
 
         public Awaitable FadeIn(float duration) => Fade(_mainCanvasGroup, 1f, duration, _cancellationSource.Token);
